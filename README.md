@@ -3,7 +3,7 @@
 Contributors: 
     Thomas Abato
     Kyle Adams
-    Marie Addo
+    [Marie Addo](https://www.linkedin.com/in/marie-stella-0779a417b/)
     Jake Clause
     [Ben Coleman](https://www.linkedin.com/in/moraviancoleman/)
     Colin Conway
