@@ -17,5 +17,5 @@ Contributors:
     David Olsakowski
     Carlton Reyes
     Shawn Ryer
-    Jacob Smith
+    [Jacob Smith](https://www.linkedin.com/in/jacob-smith-a12842205/)
     Luke Suppa 
