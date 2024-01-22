@@ -8,7 +8,7 @@ Contributors:
     [Ben Coleman](https://www.linkedin.com/in/moraviancoleman/)
     Colin Conway
     Dylan Fodor
-    Nate Garay
+    [Nate Garay](https://github.com/NateGaray)
     Jeremy Goll
     Maxwell Houck
     Anna Huang
