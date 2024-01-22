@@ -5,7 +5,7 @@ Contributors:
     Kyle Adams
     Marie Addo
     Jake Clause
-    Ben Coleman
+    [Ben Coleman](https://www.linkedin.com/in/moraviancoleman/)
     Colin Conway
     Dylan Fodor
     Nate Garay
