@@ -6,8 +6,21 @@
 </head>
 
 <body>
-    <div class="container">
-        Kickoff Webapp
+    <h1>Kickoff Webapp</h1>
+    <div>
+        <button id="callEndpointButton" onclick="callEndpoint()">Click Me</button>
+
+        <div id="responseContainer"></div>
     </div>
+
+    <script>
+        // connection to the endpoint to be added later
+        function callEndpoint() {
+            var fakeResponse = {
+                message: "This isn't set up to the endpoint yet"
+            };
+            document.getElementById('responseContainer').innerText = 'Response: ' + JSON.stringify(fakeResponse);
+        }
+    </script>
 </body>
 </html>

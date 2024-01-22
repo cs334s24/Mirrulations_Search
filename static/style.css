@@ -1,20 +1,28 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+    width: 99%;
+    font-family: Arial, sans-serif;
+    color: #665544;
 }
 
-.container {
-    text-align: center;
-    font-family: 'Arial', sans-serif;
-    font-size: 75px;
-    color: #333; 
-    margin: 20px; 
-    padding: 20px; 
-    border: 2px solid #555; 
-    border-radius: 10px; 
-    background-color: #fff; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+h1 {
+    background-color: #efefef;
+    padding: 10px;
 }
+
+div {
+    width: 450px;
+}
+
+button {
+    background-color: #efefef;
+    border: 1px solid #665544;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 20px;
+    color: #665544;
+}
+
+
+
