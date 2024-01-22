@@ -11,7 +11,7 @@ Contributors:
     [Nate Garay](https://github.com/NateGaray)
     Jeremy Goll
     Maxwell Houck
-    Anna Huang(https://www.linkedin.com/in/anna-huang-73b9b4252/)
+    Anna Huang (https://www.linkedin.com/in/anna-huang-73b9b4252/)
     Vito Leone
     Devin McCormack
     David Olsakowski
