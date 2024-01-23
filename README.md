@@ -10,7 +10,7 @@ Contributors:
     [Dylan Fodor](https://www.linkedin.com/in/dylan-fodor/)
     [Nate Garay](https://www.linkedin.com/in/nathan-garay-642709252/)
     Jeremy Goll
-    Maxwell Houck
+    [Maxwell Houck](www.linkedin.com/in/maxwell-houck-90750a239/)
     Anna Huang (https://www.linkedin.com/in/anna-huang-73b9b4252/)
     Vito Leone
     [Devin McCormack](https://www.linkedin.com/in/devin-mccormack-6a8214226/)
