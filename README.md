@@ -2,7 +2,7 @@
 
 Contributors: 
     Thomas Abato
-    Kyle Adams
+    [Kyle Adams] (https://www.linkedin.com/in/kyleadams12/)
     [Marie Addo](https://www.linkedin.com/in/marie-stella-0779a417b/)
     [Jake Clause](https://www.linkedin.com/in/jake-clause-56396a252/)
     [Ben Coleman](https://www.linkedin.com/in/moraviancoleman/)
