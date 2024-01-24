@@ -1,7 +1,7 @@
 ## Kickoff Webapp
 
 Contributors: 
-    Thomas Abato
+    [Thomas Abato](https://www.linkedin.com/in/thomasabato/)
     [Kyle Adams](https://www.linkedin.com/in/kyleadams12/)
     [Marie Addo](https://www.linkedin.com/in/marie-stella-0779a417b/)
     [Jake Clause](https://www.linkedin.com/in/jake-clause-56396a252/)
