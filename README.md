@@ -14,7 +14,7 @@ Contributors:
     [Anna Huang](https://www.linkedin.com/in/anna-huang-73b9b4252/)
     Vito Leone (https://www.linkedin.com/in/vito-leone/)
     [Devin McCormack](https://www.linkedin.com/in/devin-mccormack-6a8214226/)
-    David Olsakowski
+    [David Olsakowski](https://www.linkedin.com/in/david-olsakowski-096144257/)
     [Carlton Reyes] (https://www.linkedin.com/in/carlton-reyes-9b22b01aa/)
     [Shawn Ryer](https://www.linkedin.com/in/shawn-ryer-914354227/)
     [Jacob Smith](https://www.linkedin.com/in/jacob-smith-a12842205/)
