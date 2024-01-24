@@ -14,6 +14,9 @@ def create_app():
 def launch():
     return create_app()
 
+def get_data():
+    return "hello world"
+
 if __name__ == '__main__':
     app = create_app()
     app.run(debug=True, port='8000', host='0.0.0.0')
