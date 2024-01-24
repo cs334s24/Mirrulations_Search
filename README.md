@@ -16,6 +16,6 @@ Contributors:
     [Devin McCormack](https://www.linkedin.com/in/devin-mccormack-6a8214226/)
     David Olsakowski
     Carlton Reyes
-    Shawn Ryer
+    [Shawn Ryer](https://www.linkedin.com/in/shawn-ryer-914354227/)
     [Jacob Smith](https://www.linkedin.com/in/jacob-smith-a12842205/)
     Luke Suppa 
