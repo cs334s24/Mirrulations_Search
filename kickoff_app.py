@@ -1,7 +1,7 @@
 # create barebones flask app
 # run with: python kickoff_app.py
 
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 
 def create_app():
     app = Flask(__name__)
@@ -15,7 +15,8 @@ def launch():
     return create_app()
 
 def get_data():
-    return "hello world"
+    data = {"message": "hello world", "status": 200}
+    return jsonify(data)
 
 if __name__ == '__main__':
     app = create_app()
