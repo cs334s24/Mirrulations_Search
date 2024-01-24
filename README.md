@@ -9,7 +9,7 @@ Contributors:
     [Colin Conway] (https://www.linkedin.com/in/colin-conway-ba2b4620a/)
     [Dylan Fodor](https://www.linkedin.com/in/dylan-fodor/)
     [Nate Garay](https://www.linkedin.com/in/nathan-garay-642709252/)
-    Jeremy Goll
+    [Jeremy Goll](https://www.linkedin.com/in/jeremy-goll-85b699253/)
     [Maxwell Houck](www.linkedin.com/in/maxwell-houck-90750a239/)
     Anna Huang (https://www.linkedin.com/in/anna-huang-73b9b4252/)
     Vito Leone (https://www.linkedin.com/in/vito-leone/)
