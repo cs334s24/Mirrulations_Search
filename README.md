@@ -12,7 +12,7 @@ Contributors:
     [Jeremy Goll](https://www.linkedin.com/in/jeremy-goll-85b699253/)
     [Maxwell Houck](www.linkedin.com/in/maxwell-houck-90750a239/)
     [Anna Huang](https://www.linkedin.com/in/anna-huang-73b9b4252/)
-    Vito Leone (https://www.linkedin.com/in/vito-leone/)
+    [Vito Leone](https://www.linkedin.com/in/vito-leone/)
     [Devin McCormack](https://www.linkedin.com/in/devin-mccormack-6a8214226/)
     David Olsakowski
     [Carlton Reyes] (https://www.linkedin.com/in/carlton-reyes-9b22b01aa/)
