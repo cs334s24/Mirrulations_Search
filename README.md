@@ -15,7 +15,7 @@ Contributors:
     Vito Leone (https://www.linkedin.com/in/vito-leone/)
     [Devin McCormack](https://www.linkedin.com/in/devin-mccormack-6a8214226/)
     David Olsakowski
-    Carlton Reyes
+    [Carlton Reyes] (https://www.linkedin.com/in/carlton-reyes-9b22b01aa/)
     [Shawn Ryer](https://www.linkedin.com/in/shawn-ryer-914354227/)
     [Jacob Smith](https://www.linkedin.com/in/jacob-smith-a12842205/)
     Luke Suppa 
