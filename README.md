@@ -18,4 +18,4 @@ Contributors:
     [Carlton Reyes] (https://www.linkedin.com/in/carlton-reyes-9b22b01aa/)
     [Shawn Ryer](https://www.linkedin.com/in/shawn-ryer-914354227/)
     [Jacob Smith](https://www.linkedin.com/in/jacob-smith-a12842205/)
-    Luke Suppa 
+    [Luke Suppa](https://www.linkedin.com/in/luke-suppa-593b0b254/) 
