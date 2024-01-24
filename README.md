@@ -19,3 +19,5 @@ Contributors:
     [Shawn Ryer](https://www.linkedin.com/in/shawn-ryer-914354227/)
     [Jacob Smith](https://www.linkedin.com/in/jacob-smith-a12842205/)
     [Luke Suppa](https://www.linkedin.com/in/luke-suppa-593b0b254/) 
+
+Pylint is added to requierments.txt. Use the command "pylint" to run pylint on requierments.txt.
