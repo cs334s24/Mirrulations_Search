@@ -9,14 +9,16 @@ def create_app():
     @app.route('/')
     def index():
         return render_template('index.html')
+
+    @app.route('/data')
+    def get_data():
+        data = {"message": "hello world", "status": 200}
+        return jsonify(data)
+    
     return app
 
 def launch():
     return create_app()
-
-def get_data():
-    data = {"message": "hello world", "status": 200}
-    return jsonify(data)
 
 if __name__ == '__main__':
     app = create_app()
