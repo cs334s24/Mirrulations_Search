@@ -58,3 +58,4 @@ and give back results
 
 Pylint is added to requierments.txt__
 Use the command "pylint" to run pylint on requierments.txt
+
