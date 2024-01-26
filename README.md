@@ -56,5 +56,5 @@ and give back results
 
 ## Pylint:
 
-Pylint is added to requierments.txt
+Pylint is added to requierments.txt__
 Use the command "pylint" to run pylint on requierments.txt
