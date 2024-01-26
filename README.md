@@ -21,5 +21,40 @@
 * [Jacob Smith](https://www.linkedin.com/in/jacob-smith-a12842205/)
 * [Luke Suppa](https://www.linkedin.com/in/luke-suppa-593b0b254/) 
 
+
+## Project Description:
+
+Characteristics of the Repo:
+
+* Hosted in our Github organization
+   * All students have a fork
+* Setup process is documented in `README.md`
+* CI runs on PR creation/update
+  * `pytest`
+  * linting
+* CD runs on PR merge
+  * deploy script runs on AWS instance
+* `requirements.txt` contains the python libraries needed
+* database access is encapsulated (pushed to the periphery)
+* `src` and `tests` folders, module for app
+
+Application:
+
+We are going to make a basic system to query a document database
+and give back results
+
+![system](https://i.ibb.co/ccmj6YK/52c0e1d0a08f.png)  
+
+* Web interface: search bar that queries server and displays results
+* Document DB as the backend
+* Flask server
+* Gunicorn
+* NGINX
+* Dockerized
+
+![detailed system](https://i.ibb.co/X5svbqF/28e27cd1280e.png)
+
+## Pylint:
+
 Pylint is added to requierments.txt
 Use the command "pylint" to run pylint on requierments.txt
