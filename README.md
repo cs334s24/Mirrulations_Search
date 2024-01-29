@@ -64,3 +64,4 @@ To run the docker file:
     docker build . --tag "kickoff_app" --file ./Dockerfile 
 After the docker finished running the script copy this command
     docker run -d -p "8000:8000" kickoff_ap
+
