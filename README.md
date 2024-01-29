@@ -56,5 +56,4 @@ and give back results
 
 ## Pylint:
 
-Pylint is added to requierments.txt
-Use the command "pylint" to run pylint on requierments.txt
+Use the command `pylint <filename>` to run pylint on a file. 
