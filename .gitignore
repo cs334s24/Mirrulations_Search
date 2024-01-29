@@ -1,0 +1,12 @@
+#Python
+#
+.venv
+__pycache__
+
+#VSCode
+#
+.vscode
+
+#Misc
+#
+.env
