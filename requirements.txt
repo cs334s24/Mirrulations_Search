@@ -1,4 +1,5 @@
 flask
 gunicorn
 pytest
+pylint
 pytest-flask
