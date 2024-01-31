@@ -6,6 +6,7 @@ DB_FILE="my_database.db"
 # Define the SQL command to create a table
 SQL_CMD="CREATE TABLE IF NOT EXISTS my_table (id INTEGER PRIMARY KEY, name TEXT NOT NULL);"
 
+
 # Define the list of names
 NAMES=("Name1" "Name2" "Name3" "Name4")
 
@@ -23,4 +24,5 @@ else
     done
 
     echo "Names inserted into the table."
+
 fi
