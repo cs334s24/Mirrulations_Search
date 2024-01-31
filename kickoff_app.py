@@ -1,10 +1,11 @@
 """
-create barebones flask app
-run with: python kickoff_app.py
+Create barebones Flask app
+Run with: python kickoff_app.py
 """
 
 from flask import Flask, render_template, jsonify
 
+# Create the application instance and define the routes
 def create_app():
     app = Flask(__name__)
 
@@ -19,6 +20,7 @@ def create_app():
     return app
 
 def launch():
+# Launch the Flask app
     return create_app()
 
 if __name__ == '__main__':
