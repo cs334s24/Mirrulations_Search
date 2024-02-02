@@ -1,0 +1,31 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8000:8000"
+    depends_on:
+      - node
+      - flask
+
+  node:
+    build: ./node_app
+    volumes:
+      - ./node_app:/app
+    depends_on:
+      - db
+
+  flask:
+    build: ./flask_app
+    volumes:
+      - ./flask_app:/app
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: example
+  
