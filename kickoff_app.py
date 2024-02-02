@@ -5,8 +5,10 @@ Run with: python kickoff_app.py
 
 from flask import Flask, render_template, jsonify
 
-# Create the application instance and define the routes
 def create_app():
+    """
+    Create the application instance and define the routes
+    """
     app = Flask(__name__)
 
     @app.route('/')
@@ -20,7 +22,9 @@ def create_app():
     return app
 
 def launch():
-# Launch the Flask app
+    """
+    Launch the Flask app
+    """
     return create_app()
 
 if __name__ == '__main__':
