@@ -1,5 +1,12 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import callTestEndpoint from './static/script';
+
+const handleOnClick = async () => {
+  const data = await callTestEndpoint()
+  console.log(data)
+  document.getElementById('responseContainer').innerHTML = data.message;
+}
 
 function App() {
   return (
@@ -7,12 +14,9 @@ function App() {
       <body>
         <h1>Kickoff Webapp</h1>
         <div>
-          <button id="callEndpointButton" onclick="callEndpoint()">Click Me</button>
-
+          <button id="callEndpointButton" onClick={handleOnClick}>Click Me</button>
           <div id="responseContainer"></div>
         </div>
-
-        <script src="/static/script.js"></script>
       </body>
     </div>
   );
