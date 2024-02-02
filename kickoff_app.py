@@ -2,9 +2,15 @@
 # run with: python kickoff_app.py
 
 from flask import Flask, render_template, jsonify
+from flask_cors import CORS
+
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
+    # In order to restrict access to our specific origin, use origin parameter below.
+    # CORS(app, origins='http://your-react-app-domain:your-react-app-port')
+
 
     @app.route('/')
     def index():
