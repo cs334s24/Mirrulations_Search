@@ -18,11 +18,16 @@ All API calls will return a JSON response type that contains each docket that ha
 ```
 {
   "data": {
+    "search_terms": [
+      "string"
+    ],
     "dockets": [
       {
         "title": "string",
         "id": "integer",
         "link": "string",
+        "number_of_comments": "int",
+        "number_of_documents": "int",
         "comments": [
           {
             "author": "string",
