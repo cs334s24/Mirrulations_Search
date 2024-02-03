@@ -12,3 +12,18 @@ function callEndpoint() {
         });
 }
 
+
+// api.js
+const callTestEndpoint = async () => {
+    try {
+      console.log("Script: ")
+      const response = await fetch('http://localhost:8000/data'); // replace with your actual API endpoint
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error calling the endpoint:', error);
+    }
+  };
+  
+  export default callTestEndpoint;
+  
