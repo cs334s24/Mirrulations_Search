@@ -9,6 +9,6 @@
   "scripts": {
     "start": "concurrently \"npm run start-react\" \"npm run start-server\"",
     "start-react": "cd react-app && npm start",
-    "start-server": "node server.js"
+    "start-server": "cd react-app/server && node server.js"
   }
 }
