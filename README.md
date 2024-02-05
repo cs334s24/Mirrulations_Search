@@ -60,7 +60,6 @@ Use the command `pylint <filename>` to run pylint on a file.
 
 ## Docker Commands:
 To run the docker file:
-  docker build . --tag "kickoff_app" --file ./Dockerfile 
+* docker build . --tag "kickoff_app" --file ./Dockerfile 
 After the docker finished running the script copy this command
-  docker run -d -p "8000:8000" kickoff_ap
-
+* docker run -d -p "8000:8000" kickoff_app
