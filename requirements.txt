@@ -4,3 +4,4 @@ pytest
 pylint
 pytest-flask
 flask-cors
+pymongo
