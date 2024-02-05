@@ -18,9 +18,7 @@ All API calls will return a JSON response type that contains each docket that ha
 ```
 {
   "data": {
-    "search_terms": [
-      "string"
-    ],
+    "search_term": "string",
     "dockets": [
       {
         "title": "string",
