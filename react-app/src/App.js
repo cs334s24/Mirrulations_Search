@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import callTestEndpoint from './static/script';
+import SearchBar from './components/SearchBar';
 
 const handleOnClick = async () => {
   const data = await callTestEndpoint()
@@ -12,10 +13,9 @@ function App() {
   return (
     <div className="App">
       <body>
-        <h1>Kickoff Webapp</h1>
+        <h1>Mirrulations Search</h1>
         <div>
-          <button id="callEndpointButton" onClick={handleOnClick}>Click Me</button>
-          <div id="responseContainer"></div>
+          <SearchBar/>
         </div>
       </body>
     </div>
