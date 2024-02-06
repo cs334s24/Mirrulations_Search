@@ -6,6 +6,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
+  react-app:
+    build: 
+      context: .
+      dockerfile: ./react-app/Dockerfile
+    ports:
+      - "3000:3000"
   nginx:
     image: nginx
     # in docker-compose, paths are relative to the docker-compose file
@@ -16,6 +22,7 @@ services:
     # specify that the flask_api container must be running before the nginx container
     depends_on:
       - kickoff_app
+      - react-app
     # specify that logging should be managed in a rotating basis
     logging:
       driver: "local"
