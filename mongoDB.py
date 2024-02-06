@@ -6,7 +6,7 @@ from pymongo import MongoClient
 uri = 'mongodb://localhost:27017'
 
 # Database Name
-dbName = 'mongoSample'  # Replace 'your_database_name' with your actual database name
+dbName = 'mongoSample'
 
 # Function to connect to MongoDB and ensure collections exist
 def connect_to_mongodb():
@@ -51,5 +51,5 @@ def add_data_to_db(rootFolder, db):
 # Run the script
 if __name__ == "__main__":
     db, client = connect_to_mongodb()
-    add_data_to_db('sample-data', db)  # Replace the path with the actual path to your root folder
+    add_data_to_db('sample-data', db)
     client.close()
