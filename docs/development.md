@@ -1,5 +1,11 @@
 ## Developer Setup
 
+As a developer, you need to configure a local python environment and a local
+node environment.  The following sections discuss the steps.
+
+This document also describes how to launch a local instance of the complete system using `docker-compose`.
+
+
 ## Python (API)
 
 ### Setup
@@ -51,3 +57,35 @@ FIXME this needs to be automated.
 '''
 pylint [ filename ]
 '''
+
+
+## Deploy the System in Development
+
+To launch the entire system:
+
+* Build the system:
+
+  ```
+  docker-compose build
+  ```
+
+  This will build each of the containers and report any errors.  If it is successful, you will be able to launch the system.
+
+* Launch the system
+
+  ```
+  docker-compose up -d
+  ```
+
+  At this point you will have access to:
+
+  * `http://localhost` - Interact through the NGINX server.  Requests will be routed to the Node (React) server or the Flask (API) server, as appropriate.
+  * `http://localhost:8000` - direct access to the Flask (API) server.
+  * `http://localhost:3000` - diredt access to the React server.
+
+* Bring the system down
+
+  ```
+  docker-compose down
+  ```
+
