@@ -61,6 +61,5 @@ Use the command `pylint <filename>` to run pylint on a file.
 ## Docker Commands:
 To run the dockerized version of the system utilizing Node.js:
 
-* Install [Node.js](https://nodejs.org/en/download)
 * Run `docker-compose build`
 * Run `docker-compose up`
