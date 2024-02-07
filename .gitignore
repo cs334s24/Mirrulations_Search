@@ -12,5 +12,14 @@ __pycache__
 .env
 
 #Node
+#
 node_modules/
-package-lock.json
+*.json
+
+#Pytest
+#
+unit-python.xml
+htmlcov/
+.coverage
+.pytest_cache/
+```

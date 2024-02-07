@@ -1,6 +1,7 @@
 flask
 gunicorn
 pytest
+pytest-cov
 pylint
 pytest-flask
 flask-cors
