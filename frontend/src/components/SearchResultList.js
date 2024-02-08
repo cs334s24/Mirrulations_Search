@@ -36,4 +36,5 @@ const SearchResultsList = ({dockets}) => {
   );
 };
 
+
 export default SearchResultsList;

@@ -33,4 +33,5 @@ const SearchBar = ({ onSearch, handleOnClick }) => {
   );
 };
 
+
 export default SearchBar;

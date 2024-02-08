@@ -13,4 +13,5 @@ const SearchResult = ({ title, id, link, number_of_comments, number_of_documents
   );
 };
 
+
 export default SearchResult;
