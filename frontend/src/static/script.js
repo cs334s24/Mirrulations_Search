@@ -14,16 +14,17 @@ function callEndpoint() {
 
 
 // api.js
-const callTestEndpoint = async () => {
+const getDummyData = async (searchTerm) => {
     try {
-      console.log("Script: ")
-      const response = await fetch('http://localhost:8000/data'); // replace with your actual API endpoint
+      const response = await fetch(`http://localhost:8000/search_dockets?term=${searchTerm}`)
+      
       const data = await response.json();
+      console.log(data)
       return data;
     } catch (error) {
       console.error('Error calling the endpoint:', error);
     }
   };
   
-  export default callTestEndpoint;
+  export default getDummyData;
   

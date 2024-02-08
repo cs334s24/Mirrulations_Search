@@ -1,9 +1,7 @@
-// SearchBar.js
-
 import React, { useState } from 'react';
-import '../styles/SearchBar.css'; // Import the CSS file
+import '../styles/SearchBar.css';
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ handleOnClick }) => {
   const [query, setQuery] = useState('');
 
   const handleInputChange = (event) => {
@@ -11,7 +9,7 @@ const SearchBar = ({ onSearch }) => {
   };
 
   const handleSearch = () => {
-    onSearch(query);
+    handleOnClick(query);
   };
 
   const handleKeyDown = (event) => {
