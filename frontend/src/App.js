@@ -1,23 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import callTestEndpoint from './static/script';
 import SearchBar from './components/SearchBar';
-
-const handleOnClick = async () => {
-  const data = await callTestEndpoint()
-  console.log(data)
-  document.getElementById('responseContainer').innerHTML = data.message;
-}
+import SearchResultsList from './components/SearchResultList';
 
 function App() {
+  const [dockets, setDockets] = useState(false); // Initialize docket state to false
+
+  const handleOnClick = async () => {
+    const data = await callTestEndpoint();
+    console.log(data);
+    setDockets(true); // Set docket state to true when search button is clicked
+  };
+
   return (
     <div className="App">
-      <body>
-        <h1>Mirrulations Search</h1>
-        <div>
-          <SearchBar/>
-        </div>
-      </body>
+      <h1>Mirrulations Search</h1>
+      <div>
+        <SearchBar handleOnClick={handleOnClick}/>
+        {dockets && <SearchResultsList dockets={dockets} />} {/* Render SearchResultsList only if dockets is true */}
+      </div>
     </div>
   );
 }
