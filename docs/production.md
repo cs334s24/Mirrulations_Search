@@ -2,16 +2,16 @@
 
 * Build docker container
 '''
-./build.sh
+sudo docker-compose build
 '''
 
 * Run docker container
 '''
-./up.sh
+sudo docker-compose up -d
 '''
 
 * Bring the conatiner down
 '''
-./down.sh
+sudo docker-compose down
 '''
 

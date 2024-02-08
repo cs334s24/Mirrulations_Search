@@ -58,6 +58,52 @@ FIXME this needs to be automated.
 pylint [ filename ]
 '''
 
+## Setup HTTPS for Development
+
+* Starting from the root directory make your way to the nginx folder
+
+```
+cd nginx
+```
+
+* create a folder named certs in the nginx folder
+
+```
+mkdir certs
+```
+
+* enter the certs folder
+
+```
+cd certs
+```
+
+* Run this on the command line to creat the necessary cert and priv key
+* It is IMPERITAVE you are in the certs folder at this time
+
+```
+openssl req -x509 -newkey rsa:4096 -nodes -out fullchain.pem -keyout privkey.pem -days 365
+```
+
+* Return to the root directory
+
+```
+cd ../..
+```
+
+* Create a .env file
+* inside the .env file paste
+
+```
+CERT=./nginx/certs/fullchain.pem:/etc/nginx/certs/fullchain.pem
+KEY=./nginx/certs/privkey.pem:/etc/nginx/certs/privkey.pem
+```
+
+Because we are using self signed certs for development when you go to 
+`https://localhost` you will have to hit the advanced settings to continue
+because your browser will pick up that it is not 3rd party authenticated.
+Chrome is a little more strict about this so you may be better off using
+safari or another browser. 
 
 ## Deploy the System in Development
 
@@ -79,7 +125,7 @@ To launch the entire system:
 
   At this point you will have access to:
 
-  * `http://localhost` - Interact through the NGINX server.  Requests will be routed to the Node (React) server or the Flask (API) server, as appropriate.
+  * `https://localhost` - Interact through the NGINX server.  Requests will be routed to the Node (React) server or the Flask (API) server, as appropriate.
   * `http://localhost:8000` - direct access to the Flask (API) server.
   * `http://localhost:3000` - diredt access to the React server.
 
