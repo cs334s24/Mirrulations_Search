@@ -53,3 +53,24 @@ def test_data_endpoint_returns_status(client):
     response = client.get('/data')
     data = json.loads(response.data)
     assert 'status' in data
+
+# Test whether the search_dockets endpoint returns a 200 status code.
+def test_search_dockets_endpoint_returns_status(client):
+    search_term = 'meaningful+use'
+    response = client.get(f'/search_dockets?term={search_term}')
+    assert response.status_code == 200
+
+
+def test_search_dockets_endpoint_returns_valid_json(client):
+    search_term = 'meaningful+use'
+    response = client.get(f'/search_dockets?term={search_term}')
+    assert response.is_json
+
+def test_search_dockets_endpoint_returns_data_key(client):
+    search_term = 'meaningful+use'
+    response = client.get(f'/search_dockets?term={search_term}')
+    assert 'data' in response.data
+
+def test_search_dockets_endpoint_returns_status_code_400(client):
+    response = client.get('/search_dockets')
+    assert response.status_code == 400
