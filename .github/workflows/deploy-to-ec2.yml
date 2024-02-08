@@ -1,0 +1,21 @@
+name: Deploy to EC2 Instance
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy_to_ec2:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH into EC2 Instance
+        uses: appleboy/ssh-action@main
+        with:
+          host: ${{ secrets.EC2_PUBLIC_IP }}
+          username: ${{ secrets.USER_NAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Add your commands to deploy on to the EC2 instance when ready
+            echo "Connected to EC2 instance"
