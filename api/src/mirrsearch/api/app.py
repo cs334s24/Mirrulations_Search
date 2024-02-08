@@ -24,15 +24,18 @@ def create_app():
     @app.route('/search_dockets')
     def search_dockets():
        response = {}
+
+       # Obtains the search term
        search_term = request.args.get('term')
 
+        # If a search term is not provided, the server will return this message
        if search_term is None or len(search_term) == 0:
            response['error'] = {'code': 400, 'message': 'Error: You must provide a term to be searched'}
            return jsonify(response)
       
+      # If the search term is valid, data will be ingested into the JSON response
        response['data'] = {'search_term': search_term}
        response['data']['dockets'] = []
-       # TODO: insert the data with presentation term
        response['data']['dockets'].append({
            'title': 'Designation as a Preexisting Subscription Service',
            'id': "COLC-2006-0014",
