@@ -11,11 +11,13 @@ jobs:
 
     steps:
       - name: SSH into EC2 Instance
-        uses: appleboy/ssh-action@main
-        with:
-          host: ${{ secrets.EC2_PUBLIC_IP }}
-          username: ${{ secrets.USER_NAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            # Add your commands to deploy on to the EC2 instance when ready
+        uses: actions/checkout@v2 
+        env:
+          HOSTNAME: ${{ secrets.EC2_PUBLIC_IP }}
+          USER_NAME: ${{ secrets.USER_NAME }}
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          run: |
+            echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+            ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+            # In the future, add deployment commands here
             echo "Connected to EC2 instance"
