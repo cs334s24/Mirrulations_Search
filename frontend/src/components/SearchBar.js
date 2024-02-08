@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/SearchBar.css';
 
-const SearchBar = ({ onSearch, handleOnClick }) => {
+const SearchBar = ({ handleOnClick }) => {
   const [query, setQuery] = useState('');
 
   const handleInputChange = (event) => {
@@ -9,7 +9,7 @@ const SearchBar = ({ onSearch, handleOnClick }) => {
   };
 
   const handleSearch = () => {
-    // onSearch(query);
+    handleOnClick(query);
   };
 
   const handleKeyDown = (event) => {
@@ -28,7 +28,7 @@ const SearchBar = ({ onSearch, handleOnClick }) => {
         placeholder="Search..."
         className="search-input" // Add the search-input class
       />
-      <button onClick={handleOnClick} className="search-button">Search</button>
+      <button onClick={handleSearch} className="search-button">Search</button>
     </div>
   );
 };
