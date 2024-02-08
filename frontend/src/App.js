@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import './App.css';
-import callTestEndpoint from './static/script';
+import getDummyData from './static/script';
 import SearchBar from './components/SearchBar';
 import SearchResultsList from './components/SearchResultList';
 
 function App() {
-  const [dockets, setDockets] = useState(false); // Initialize docket state to false
+  const [dockets, setDockets] = useState(); // Initialize docket state to false
 
   const handleOnClick = async () => {
-    const data = await callTestEndpoint();
-    console.log(data);
-    setDockets(true); // Set docket state to true when search button is clicked
+    console.log("Hello");
+    const data = await getDummyData();
+    console.log(data.data.dockets);
+    setDockets(data.data.dockets); // Set docket state to true when search button is clicked
   };
 
   return (

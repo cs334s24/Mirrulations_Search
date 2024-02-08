@@ -22,7 +22,7 @@ const SearchResultsList = ({dockets}) => {
 
   return (
     <div className="search-results-list">
-      {staticDockets.map((docket, index) => (
+      {dockets.map((docket, index) => (
         <SearchResult
           key={index}
           title={docket.title}
