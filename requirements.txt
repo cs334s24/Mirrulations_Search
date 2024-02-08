@@ -1,7 +1,0 @@
-flask
-gunicorn
-pytest
-pylint
-pytest-flask
-flask-cors
-pymongo
