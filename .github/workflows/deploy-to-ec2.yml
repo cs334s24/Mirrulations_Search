@@ -1,0 +1,23 @@
+name: Deploy to EC2 Instance
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy_to_ec2:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH into EC2 Instance
+        uses: actions/checkout@v2 
+        env:
+          HOSTNAME: ${{ secrets.EC2_PUBLIC_IP }}
+          USER_NAME: ${{ secrets.USER_NAME }}
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          run: |
+            echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+            ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+            # In the future, add deployment commands here
+            echo "Connected to EC2 instance"

@@ -22,7 +22,7 @@ All API calls will return a JSON response type that contains each docket that ha
     "dockets": [
       {
         "title": "string",
-        "id": "integer",
+        "id": "string",
         "link": "string",
         "number_of_comments": "int",
         "number_of_documents": "int"
@@ -71,7 +71,7 @@ All API calls will return a JSON response type that contains each docket that ha
             "date_posted": "date",
             "document_type": "string",
             "link": "string",
-	    "docket_id": "integer"
+	    "docket_id": "string"
       }
     ]
   }
@@ -118,7 +118,7 @@ All API calls will return a JSON response type that contains each docket that ha
         "author": "string",
         "date_posted": "date",
         "link": "string",
-  "docket_id": "integer"
+        "docket_id": "string"
       }
     ]
   }
