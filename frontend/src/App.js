@@ -10,8 +10,8 @@ function App() {
   const handleOnClick = async () => {
     console.log("Hello");
     const data = await getDummyData();
-    console.log(data.data.dockets);
-    setDockets(data.data.dockets); // Set docket state to true when search button is clicked
+    console.log(data.dockets);
+    setDockets(data.dockets); // Set docket state to true when search button is clicked
   };
 
   return (
