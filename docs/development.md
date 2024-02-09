@@ -45,11 +45,18 @@ The `down.sh` script will
 * Stop the `api` container
 * Remove the `api` container
 
-### Makefile
+### Pytest
 
-Run `make` to run pytest and pylint. This must be done in the same directory
-as `Makefile`. It will first run pytest to run all tests, and then will
-run pylint to lint all python files.
+Run `pytest` to run all tests.  This will work in `api` or in `api/tests`.  It
+will **NOT** work in `src` or any of its sub-folders.
+
+### Pylint
+
+FIXME this needs to be automated.
+
+'''
+pylint [ filename ]
+'''
 
 ## Setup HTTPS for Development
 
