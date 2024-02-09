@@ -19,11 +19,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Lint with pylint
+        pip install setuptools 
+        pip install -e api/
+    - name: Call Makefile to test and lint
       run: |
-        pylint *.py
-      continue-on-error: true
-    - name: Test with pytest
-      run: |
-        pytest
+        make
