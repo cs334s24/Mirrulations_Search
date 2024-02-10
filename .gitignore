@@ -25,6 +25,10 @@ package-lock.json
 
 # testing
 /coverage
+htmlcov
+.pytest_cache
+unit-python.xml
+.coverage
 
 # production
 /build

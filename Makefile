@@ -9,7 +9,7 @@ test:
 	pytest;
 
 static:
-	pylint --rcfile=.pylintrc *.py;
+	pylint --rcfile=api/.pylintrc api/;
 
 clean:
 	# Find and remove all files and  folders that match
