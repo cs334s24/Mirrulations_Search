@@ -81,6 +81,12 @@ cd certs
 * Run this on the command line to creat the necessary cert and priv key
 * It is IMPERITAVE you are in the certs folder at this time
 
+  After running this command you will be prompted with questions regarding
+  the certificates. The first question will be like:
+  Country Name 2 Letter Code AU: 
+  You can answer this with 'US' and then you will be prompted with
+  more questions which you can just skip by hitting return through them
+
 ```
 openssl req -x509 -newkey rsa:4096 -nodes -out fullchain.pem -keyout privkey.pem -days 365
 ```
@@ -109,6 +115,10 @@ safari or another browser.
 
 To launch the entire system:
 
+* Open docker
+  
+  First you will need to have the docker app open on your system
+  
 * Build the system:
 
   ```
