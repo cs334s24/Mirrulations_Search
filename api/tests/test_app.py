@@ -82,3 +82,8 @@ def test_search_dockets_endpoint_returns_data_key(client):
     data = json.loads(response.data)
     assert 'data' in data
 
+def test_search_dockets_endpoint_returns_status_code_400(client):
+    """Test whether the search_dockets endpoint returns a 400
+    Bad Request status code when no search term is provided."""
+    response = client.get('/search_dockets')
+    assert response.status_code == 400
