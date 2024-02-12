@@ -54,12 +54,12 @@ and give back results
 
 ![detailed system](https://i.ibb.co/X5svbqF/28e27cd1280e.png)
 
-## Pylint:
-Pylint is added to requierments.txt
-Use the command `pylint <filename>` to run pylint on a file. 
+## Makefile:
+Use the command `make` to run the Makefile. The Makefile will call pytest and pylint
+to test and lint the system.  
 
 ## Docker Commands:
-To run the docker file:
-* docker build . --tag "kickoff_app" --file ./Dockerfile 
-After the docker finished running the script copy this command
-* docker run -d -p "8000:8000" kickoff_app
+To run the dockerized version of the system utilizing Node.js:
+
+* Run `docker-compose build`
+* Run `docker-compose up`
