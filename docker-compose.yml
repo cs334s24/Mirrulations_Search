@@ -24,10 +24,24 @@ services:
       - "443:443"
     # specify that the flask_api container must be running before the nginx container
     depends_on:
+<<<<<<< HEAD
+      - kickoff_app
+      - react-app
+      - mongo
+=======
       - api
       - frontend
+>>>>>>> 0d3054911165025f20a38aaa44f6d10db645f4f5
     # specify that logging should be managed in a rotating basis
     logging:
       driver: "local"
       options:
         max-size: "10m"
+<<<<<<< HEAD
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+  
+=======
+>>>>>>> 0d3054911165025f20a38aaa44f6d10db645f4f5
