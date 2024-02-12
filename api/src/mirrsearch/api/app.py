@@ -32,7 +32,7 @@ def create_app():
         if search_term is None or len(search_term) == 0:
             response['error'] = {'code': 400,
                                  'message': 'Error: You must provide a term to be searched'}
-            return jsonify(response)
+            return (jsonify(response), 400)
 
       # If the search term is valid, data will be ingested into the JSON response
         response['data'] = {'search_term': search_term}
