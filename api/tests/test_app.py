@@ -75,14 +75,15 @@ def test_search_dockets_endpoint_returns_valid_json(client):
     response = client.get(f'/search_dockets?term={search_term}')
     assert response.is_json
 
-# def test_search_dockets_endpoint_returns_data_key(client):
-#     """Test whether the search_dockets endpoint returns JSON data containing the key 'data'."""
-#     search_term = 'meaningful+use'
-#     response = client.get(f'/search_dockets?term={search_term}')
-#     assert 'data' in response.data
+def test_search_dockets_endpoint_returns_data_key(client):
+    """Test whether the search_dockets endpoint returns JSON data containing the key 'data'."""
+    search_term = 'meaningful+use'
+    response = client.get(f'/search_dockets?term={search_term}')
+    data = json.loads(response.data)
+    assert 'data' in data
 
-# def test_search_dockets_endpoint_returns_status_code_400(client):
-#     """Test whether the search_dockets endpoint returns a 400
-#     Bad Request status code when no search term is provided."""
-#     response = client.get('/search_dockets')
-#     assert response.status_code == 400
+def test_search_dockets_endpoint_returns_status_code_400(client):
+    """Test whether the search_dockets endpoint returns a 400
+    Bad Request status code when no search term is provided."""
+    response = client.get('/search_dockets')
+    assert response.status_code == 400
