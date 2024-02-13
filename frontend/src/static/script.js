@@ -16,7 +16,7 @@ function callEndpoint() {
 // api.js
 const getDummyData = async (searchTerm) => {
     try {
-      const response = await fetch(`http://localhost:8000/search_dockets?term=${searchTerm}`)
+      const response = await fetch(`https://localhost/api/search_dockets?term=${searchTerm}`)
       
       const data = await response.json();
       console.log(data)
