@@ -52,8 +52,9 @@ def create_app():
     def search_comments():
         response = {}
 
-        # Obtains the search term
+        # Obtains the search term and docket id
         search_term = request.args.get('term')
+        docket_id = request.args.get('docket_id')
 
         # If a search term is not provided, the server will return this JSON and a 400 status code
         if search_term is None or len(search_term) == 0:
@@ -70,7 +71,7 @@ def create_app():
             "author": "string",
             "date_posted": "date",
             "link": "string",
-            "docket_id": "string"
+            "docket_id": docket_id
            })
         return jsonify(response)
 
