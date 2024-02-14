@@ -26,17 +26,9 @@ services:
     depends_on:
       - api
       - frontend
-      - mongo
     # specify that logging should be managed in a rotating basis
     logging:
       driver: "local"
       options:
         max-size: "10m"
-  mongo:
-    image: mongodb/mongodb-community-server:6.0-ubi8
-    volumes:
-      - type: bind
-        source: ./data
-        target: /data/db
-    ports:
-      - "27017:27017"
+
