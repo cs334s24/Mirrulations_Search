@@ -19,5 +19,9 @@ jobs:
           run: |
             echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
             ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
-            # In the future, add deployment commands here
-            echo "Connected to EC2 instance"
+            # Build commands
+            cd Mirrulations_Search/
+            sudo docker-compose down
+            git pull
+            sudo docker-compose build
+            sudo docker-compose up -d
