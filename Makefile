@@ -3,12 +3,12 @@
 #       probably have spaces for indentation.
 export PATH:=${PWD}/.venv/bin:${PATH};
 
-all: test static
+all: test lint
 
 test:
 	pytest;
 
-static:
+lint:
 	pylint --rcfile=api/.pylintrc api/;
 
 clean:

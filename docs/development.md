@@ -45,18 +45,16 @@ The `down.sh` script will
 * Stop the `api` container
 * Remove the `api` container
 
-### Pytest
+### Run Testing and Linting
 
-Run `pytest` to run all tests.  This will work in `api` or in `api/tests`.  It
-will **NOT** work in `src` or any of its sub-folders.
+In order to use any of these commands, you must be in the root of the project.
 
-### Pylint
-
-FIXME this needs to be automated.
-
-'''
-pylint [ filename ]
-'''
+* Type `make` to run both
+* Type `make lint` to only lint. Only `pylint` is used for this project
+* Type `make test` to only test. `pytest` is used for this project. 
+  * You can also run `pytest` to test the project
+  * `pytest` uses a 95% coverage metric
+  * Run `open htmlcov/index.html` in order to see the coverage report
 
 ## Setup HTTPS for Development
 
