@@ -68,9 +68,9 @@ def create_app():
             'comments': []
         }
         response['data']['comments'].append({
-            "author": "string",
-            "date_posted": "date",
-            "link": "string",
+            "author": "Department of Health and Human Services",
+            "date_posted": "Apr 14, 2011",
+            "link": "https://www.regulations.gov/comment/HHS-OS-2010-0014-0032",
             "docket_id": docket_id
            })
         return jsonify(response)
