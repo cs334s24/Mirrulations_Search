@@ -48,6 +48,33 @@ def create_app():
            })
         return jsonify(response)
 
+    @app.route('/search_comments')
+    def search_comments():
+        response = {}
+
+        # Obtains the search term and docket id
+        search_term = request.args.get('term')
+        docket_id = request.args.get('docket_id')
+
+        # If a search term is not provided, the server will return this JSON and a 400 status code
+        if search_term is None or len(search_term) == 0:
+            response['error'] = {'code': 400,
+                                 'message': 'Error: You must provide a term to be searched'}
+            return (jsonify(response), 400)
+
+        # If the search term is valid, data will be ingested into the JSON response
+        response['data'] = {
+            'search_term': search_term,
+            'comments': []
+        }
+        response['data']['comments'].append({
+            "author": "Department of Health and Human Services",
+            "date_posted": "Apr 14, 2011",
+            "link": "https://www.regulations.gov/comment/HHS-OS-2010-0014-0032",
+            "docket_id": docket_id
+           })
+        return jsonify(response)
+
     return app
 
 def launch():
