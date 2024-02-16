@@ -89,11 +89,11 @@ def test_search_dockets_endpoint_returns_status_code_400(client):
     assert response.status_code == 400
 
 def test_search_comments_endpoint_returns_status(client):
-     """Test whether the search_comments endpoint returns a 200 OK status code."""
-     search_term = 'preexisting'
-     docket_id = 'HHS-OS-2010-0014'
-     response = client.get(f'/search_comments?term={search_term}&docket_id={docket_id}')
-     assert response.status_code == 200
+    """Test whether the search_comments endpoint returns a 200 OK status code."""
+    search_term = 'preexisting'
+    docket_id = 'HHS-OS-2010-0014'
+    response = client.get(f'/search_comments?term={search_term}&docket_id={docket_id}')
+    assert response.status_code == 200
 
 def test_search_comments_endpoint_returns_valid_json(client):
     """Test whether the search_comments endpoint returns a valid JSON response."""
