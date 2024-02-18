@@ -1,3 +1,5 @@
+const URL = window.location.href;
+
 function callEndpoint() {
     // Make a GET request to the /data endpoint
     fetch('/data')
@@ -16,7 +18,8 @@ function callEndpoint() {
 // api.js
 const getDummyData = async (searchTerm) => {
     try {
-      const response = await fetch(`https://localhost/api/search_dockets?term=${searchTerm}`)
+      const search = URL + '/api/search_dockets?term=' + searchTerm;
+      const response = await fetch(search)
       
       const data = await response.json();
       console.log(data)
