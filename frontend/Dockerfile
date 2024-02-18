@@ -2,13 +2,15 @@
 
 # Path: react-app/Dockerfile
 # Compare this snippet from Dockerfile:
-FROM node:16.14.0-alpine3.14
+FROM node:16.13.0-alpine3.14
 
 WORKDIR /app
 
-COPY . .
+EXPOSE 3000
 
-RUN npm install -g pnpm
-RUN pnpm install
+COPY package.json /app
+RUN npm install
+
+COPY . /app
 
 CMD ["npm", "start"]
