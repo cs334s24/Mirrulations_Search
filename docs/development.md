@@ -142,4 +142,22 @@ To launch the entire system:
   ```
   docker-compose down
   ```
+* Ingesting Data into mongoDB
+
+  cd api
+  source .venv/bin/activate
+
+  cd src/mirrsearch/db
+  -- make sure you copy sample-data.zip to here and unzip it. It must be named sample-data. Inside make sure the two folders are CRB and IHS.
+  python3 mongo_db.py
+  the data should be in the database now. 
+  To chek in the terminal use these steps:
+  mongosh
+  show dbs
+  use mongoSample
+  show collections
+  (you should see comments, docket, documents)
+  type the collection name and type the following to see all contents of that collection:
+  db.collectionName.find()
+  ex: db.comments.find()
 
