@@ -1,4 +1,4 @@
-name: Deploy to EC2 Instance
+name: Deploy
 
 on:
   push:
@@ -6,7 +6,8 @@ on:
       - main
 
 jobs:
-  deploy_to_ec2:
+  Deploy:
+    name: Deploy to EC2
     runs-on: ubuntu-latest
 
     steps:
@@ -19,8 +20,7 @@ jobs:
           
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
-          # Build commands
+          ssh -T -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
           cd Mirrulations_Search/
           sudo docker-compose down
           git pull
