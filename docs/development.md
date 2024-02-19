@@ -16,7 +16,7 @@ This document also describes how to launch a local instance of the complete syst
   cd api
   python3 -m venv .venv
   ```
-sour
+
 * Install the `mirrsearch` module (in `api/src`)  
 
   ```
