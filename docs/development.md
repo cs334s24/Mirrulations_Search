@@ -144,7 +144,7 @@ To launch the entire system:
   ```
 
 
-///Ingesting Data into mongoDB///
+### Ingesting Data into mongoDB
 
 1. Navigate to the api folder
 ```
