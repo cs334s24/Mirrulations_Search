@@ -187,4 +187,3 @@ bash
   For example:
   bash
     db.comments.find()
-
