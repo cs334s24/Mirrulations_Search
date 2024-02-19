@@ -21,6 +21,7 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -T -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} << EOF
+            cd /home/ec2-user/Mirrulations_Search
             sudo docker-compose down
             git pull
             sudo docker-compose build
