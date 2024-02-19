@@ -160,6 +160,9 @@ bash
 
 4.  Ensure that you have copied sample-data.zip to this directory and unzip it. 
   Make sure the unzipped folder is named sample-data and contains two folders named CRB and IHS.
+  
+  - To check if you have mongosh run 'brew list | grep mongosh'
+  - If you do not have mongo installed run 'brew install mongosh'
 
 5. Run the Mongo_DB.py script to ingest the data:
 bash
@@ -167,7 +170,7 @@ bash
 
 6. The data should be in the database now. 
 
-7. To chek in the terminal use these steps:
+7. To check in the terminal use these steps:
   - Launch the MongoDB shell:
   bash 
     mongosh
