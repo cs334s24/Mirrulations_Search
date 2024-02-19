@@ -16,7 +16,7 @@ This document also describes how to launch a local instance of the complete syst
   cd api
   python3 -m venv .venv
   ```
-
+sour
 * Install the `mirrsearch` module (in `api/src`)  
 
   ```
@@ -168,6 +168,8 @@ bash
 6. The data should be in the database now. 
 
 7. To chek in the terminal use these steps:
+  - To check if you have mongosh run 'brew list | grep mongosh'
+  - If you do not have mongo installed run 'brew install mongosh'
   - Launch the MongoDB shell:
   bash 
     mongosh
