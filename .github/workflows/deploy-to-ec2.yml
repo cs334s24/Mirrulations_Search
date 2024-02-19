@@ -8,7 +8,7 @@ on:
 jobs:
   Deploy:
     name: Deploy to EC2
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2 
@@ -20,7 +20,7 @@ jobs:
           
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -T -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
+          ssh -T -o StrictHostKeyChecking=no -i private_key ec2-user@test334.moraviancs.click
           cd Mirrulations_Search/
           sudo docker-compose down
           git pull
