@@ -161,14 +161,20 @@ source .venv/bin/activate
 cd src/mirrsearch/db
 ```
 
-4.  Ensure that you have unzipped sample-data.zip to this directory and make sure the unzipped folder is named sample-data and contains two sub-folders named CRB and IHS.
+4.  Ensure that you have copied sample-data.zip to this directory and unzip it. 
+  Make sure the unzipped folder is named sample-data and contains two folders named CRB and IHS.
+  
+  - To check if you have mongosh run 'brew list | grep mongosh'
+  - If you do not have mongo installed run 'brew install mongosh'
 
 5. Run the Mongo_DB.py script to ingest the data:
 ```
 python3 mongo_db.py
 ```
+6. The data should be in the database now. 
 
-7. The data should be in the database now. To check open a terminal and follow these steps:
+7. To check in the terminal use these steps:
+
   - Launch the MongoDB shell:
 ```
 mongosh
