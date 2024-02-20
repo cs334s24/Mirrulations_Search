@@ -56,6 +56,22 @@ In order to use any of these commands, you must be in the root of the project.
   * `pytest` uses a 95% coverage metric
   * Run `open htmlcov/index.html` in order to see the coverage report
 
+## House-cleaning for Front-end
+
+* Navigate to the frontend directory
+
+```
+cd frontend
+```
+
+* Make a `.env` file
+
+```
+nano .env
+```
+
+* Add the line `WDS_SOCKET_PORT=0` and save
+
 ## Setup HTTPS for Development
 
 * Starting from the root directory make your way to the nginx folder
