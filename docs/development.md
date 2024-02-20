@@ -146,6 +146,8 @@ To launch the entire system:
 
 ### Ingesting Data into mongoDB
 
+Prerequisite: Have the system running in by following [Deploy the System in Development]
+
 1. Navigate to the api folder
 ```
 cd api
@@ -161,19 +163,16 @@ source .venv/bin/activate
 cd src/mirrsearch/db
 ```
 
-4.  Ensure that you have copied sample-data.zip to this directory and unzip it. 
-  Make sure the unzipped folder is named sample-data and contains two folders named CRB and IHS.
+4.  Ensure that you have unzipped sample-data.zip to this directory and make sure the unzipped folder is named sample-data and contains two folders named CRB and IHS.
   
   - To check if you have mongosh run 'brew list | grep mongosh'
-  - If you do not have mongo installed run 'brew install mongosh'
+  - If you do not have mongosh installed run 'brew install mongosh'
 
 5. Run the Mongo_DB.py script to ingest the data:
 ```
 python3 mongo_db.py
 ```
-6. The data should be in the database now. 
-
-7. To check in the terminal use these steps:
+6. The data should be in the database now. To check use a new terminal and follow these steps:
 
   - Launch the MongoDB shell:
 ```
