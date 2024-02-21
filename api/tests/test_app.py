@@ -117,10 +117,11 @@ def test_search_documents_invalid_document_id(client):
     by returning the appropriate error response."""
     response = client.get('/search_documents?term=test&document_id=invalid_id')
     data = response.get_json()
-    assert response.status_code == 200  # Assuming you handle invalid document IDs gracefully
+    assert response.status_code == 200 # Assuming you handle invalid document IDs gracefully
     assert 'data' in data
-    assert len(data['data']['comments']) == 1  # Check if any comments are returned
-    assert data['data']['comments'][0]['document_id'] == 'invalid_id'  # Check if the provided document ID is returned
+    assert len(data['data']['comments']) == 1 # Check if any comments are returned
+    assert data['data']['comments'][0]['document_id'] == 'invalid_id'
+    # Check if the given document ID is returned
 
 def test_search_comments_endpoint_returns_status(client):
     """Test whether the search_comments endpoint returns a 200 OK status code."""
