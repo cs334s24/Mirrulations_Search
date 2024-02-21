@@ -47,8 +47,6 @@ def create_app():
     @app.route('/search_dockets')
     def search_dockets():
         response = {}
-        client = get_database_client()
-        db = 
 
         # Obtains the search term
         search_term = request.args.get('term')
