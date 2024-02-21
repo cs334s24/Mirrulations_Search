@@ -6,6 +6,9 @@ import json
 import pytest
 from mirrsearch.api.app import create_app
 from flask import Flask, jsonify, request
+import mongomock
+import os
+from mirrsearch.db.mongo_db import add_data_to_db
 
 
 @pytest.fixture
@@ -135,3 +138,32 @@ def test_search_comments_endpoint_returns_status_code_400(client):
     Bad Request status code when no search term is provided."""
     response = client.get('/search_comments')
     assert response.status_code == 400
+
+# Mongo Tests
+@pytest.fixture
+def db():
+    # Initialize mock MongoDB client and database
+    client = mongomock.MongoClient()
+    db = client['mongoSample']
+    return db
+
+@pytest.fixture
+def sample_folder():
+    # Construct the absolute path to sample-data folder
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src', 'mirrsearch', 'db', 'sample-data'))
+
+def test_collections_created(db, sample_folder):
+    # Call the function to add data to the database
+    add_data_to_db(sample_folder, db)
+    # Check if collections are created
+    assert 'docket' in db.list_collection_names()
+    assert 'documents' in db.list_collection_names()
+    assert 'comments' in db.list_collection_names()
+
+def test_data_inserted_correctly(db, sample_folder):
+    # Call the function to add data to the database
+    add_data_to_db(sample_folder, db)
+    # Check if data is inserted correctly
+    assert db.docket.count_documents({}) == 97  # Assuming there are 97 documents in 'docket' collection
+    assert db.documents.count_documents({}) == 905  # Assuming there are 905 documents in 'documents' collection
+    assert db.comments.count_documents({}) == 113 # Assuming there are 113 documents in 'comments' collection
