@@ -8,3 +8,11 @@ test('SearchBar renders correctly', () => {
 
   expect(inputElement).toBeInTheDocument();
 });
+
+test('SearchBar input changes correctly', () => {
+    const { getByPlaceholderText } = render(<SearchBar />);
+    const inputElement = getByPlaceholderText('Search...');
+  
+    fireEvent.change(inputElement, { target: { value: 'test' } });
+    expect(inputElement.value).toBe('test');
+  });
