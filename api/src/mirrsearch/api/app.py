@@ -5,7 +5,30 @@ Run with: python kickoff_app.py
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from pymongo import MongoClient
+  
+class MongoManager:
+    __instance = None
 
+    @staticmethod 
+    def get_instance():
+         if MongoManager.__instance == None:
+             MongoManager()
+         return MongoManager.__instance
+    
+    @staticmethod
+    def close_instance():
+        if MongoManager.__instance != None:
+            MongoManager.__instance.close()
+            MongoManager.__instance = None
+        else:
+            raise Exception('Error: there is no database connection currently active')
+    
+    def __init__(self):
+        if MongoManager.__instance != None:
+            raise Exception('Error: a database client has already been established, another connection cannot be created without closing the other first')
+        else:
+            MongoManager.__instance = MongoClient('localhost', 27017)
 
 def create_app():
     """
@@ -24,6 +47,8 @@ def create_app():
     @app.route('/search_dockets')
     def search_dockets():
         response = {}
+        client = get_database_client()
+        db = 
 
         # Obtains the search term
         search_term = request.args.get('term')
