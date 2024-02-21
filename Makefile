@@ -7,6 +7,7 @@ all: test lint
 
 test:
 	pytest;
+	cd frontend && npm test -- --watchAll=false;
 
 lint:
 	pylint --rcfile=api/.pylintrc api/;
