@@ -13,6 +13,7 @@ class MongoManager:
     a mock Mongo database
     """
     __instance = None
+    __mock = False
 
     @staticmethod
     def get_instance():
@@ -21,8 +22,6 @@ class MongoManager:
         if it hasn't been created before, otherwise it returns the current
         connection.
         """
-        if MongoManager.__instance is None:
-            MongoManager()
         return MongoManager.__instance
 
     @staticmethod
@@ -31,11 +30,13 @@ class MongoManager:
         Static method that closes the database connection if there is currently one open.
         If there is no connection open, the method does nothing.
         """
-        if MongoManager.__instance is not None:
+        if MongoManager.__instance is not None and MongoManager.__mock is False:
             MongoManager.__instance.close()
             MongoManager.__instance = None
+        elif MongoManager.__mock is True:
+            MongoManager.__instance = None
 
-    def __init__(self, test=False):
+    def __init__(self, mock=False):
         """
         Initializer method that ensures there is only ever one database connection open.
         """
@@ -43,8 +44,9 @@ class MongoManager:
             raise ConnectionException(message='''Error: a database client has already been
                 established, another connection cannot be created without
                 closing the other first''')
-        if test is True:
+        if mock is True:
             MongoManager.__instance = mongomock.MongoClient()
+            MongoManager.__mock = True
         else:
             MongoManager.__instance = MongoClient('localhost', 27017)
 
