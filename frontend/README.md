@@ -68,3 +68,25 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Testing
+
+Tests are located in the folder named \__tests__
+To run tests you must be in the frontend folder
+
+To run all Tests run
+
+```
+npm test
+```
+
+To run one specific test file run
+
+```
+npm test <path to file>
+```
+
+To run tests that use puppeteer
+In a septerate terminal in the frontend folder run npm start
+Now you are free to run button.test.js
+
