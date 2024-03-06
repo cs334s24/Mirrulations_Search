@@ -10,7 +10,7 @@ test:
 	pytest;
 	cd frontend && npm test -- --watchAll=false;
 
-# Runs pylint to check for code quality
+# Runs pylint to check for code quality and formatting
 lint:
 	pylint --rcfile=api/.pylintrc api/;
 
