@@ -160,49 +160,59 @@ To launch the entire system:
   ```
 
 
-///Ingesting Data into mongoDB///
+### Ingesting Data into mongoDB
+
+Prerequisite: Have the system running in by following [Deploy the System in Development]
 
 1. Navigate to the api folder
-bash
-  cd api
+```
+cd api
+```
 
 2. Activate virtual environment
-bash
-  source .venv/bin/activate
+```
+source .venv/bin/activate
+```
 
 3. Navigate to MongoDB script directory
-bash
-  cd src/mirrsearch/db
+```
+cd src/mirrsearch/db
+```
 
-4.  Ensure that you have copied sample-data.zip to this directory and unzip it. 
-  Make sure the unzipped folder is named sample-data and contains two folders named CRB and IHS.
+4.  Ensure that you have unzipped sample-data.zip to this directory and make sure the unzipped folder is named sample-data and contains two folders named CRB and IHS.
   
   - To check if you have mongosh run 'brew list | grep mongosh'
-  - If you do not have mongo installed run 'brew install mongosh'
+  - If you do not have mongosh installed run 'brew install mongosh'
 
 5. Run the Mongo_DB.py script to ingest the data:
-bash
-  python3 mongo_db.py
+```
+python3 mongo_db.py
+```
+6. The data should be in the database now. To check use a new terminal and follow these steps:
 
-6. The data should be in the database now. 
-
-7. To check in the terminal use these steps:
   - Launch the MongoDB shell:
-  bash 
-    mongosh
+```
+mongosh
+```
   - List available databases:
-  bash
-    show dbs
+```
+show dbs
+```
   - Switch to the mongoSample database:
-  bash
-    use mongoSample
-  show collections
+```
+use mongoSample
+```
 
-  - You should see comments, docket, documents.
+  - List the collection in the mongoSample database:
+```
+show collections
+```
 
-  - To view the contents of a collection type:
-  bash
-    db.collectionName.find()
+  - You should see comments, docket, documents. To view the contents of a collection type:
+```
+db.collectionName.find()
+```
   For example:
-  bash
-    db.comments.find()
+```
+db.comments.find()
+```
