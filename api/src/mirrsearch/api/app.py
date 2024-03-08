@@ -40,8 +40,6 @@ def create_app():
 
         # Query to get term within docket title, NOTE: it is case sensitive currently
         search = dockets.find({'attributes.title': {'$regex': f'{search_term}'}})
-
-        manager.close_instance()
         
         # If the search term is valid, data will be ingested into the JSON response
         response['data'] = {
@@ -63,13 +61,9 @@ def create_app():
                 'number_of_comments': number_of_comments,
                 'number_of_documents': number_of_documents
                 })
-        # response['data']['dockets'].append({
-        #    'title': 'Designation as a Preexisting Subscription Service',
-        #    'id': "COLC-2006-0014",
-        #    'link': 'https://www.regulations.gov/docket/COLC-2006-0014',
-        #    'number_of_comments': 0,
-        #    'number_of_documents': 1
-        #    })
+            
+        manager.close_instance()
+    
         return jsonify(response)
 
     @app.route('/search_documents')
