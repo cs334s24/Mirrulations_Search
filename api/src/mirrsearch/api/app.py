@@ -5,6 +5,7 @@ Run with: python kickoff_app.py
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from mirrsearch.api.mongo_manager import MongoManager
 
 def create_app():
     """
@@ -30,19 +31,45 @@ def create_app():
             response['error'] = {'code': 400,
                                  'message': 'Error: You must provide a term to be searched'}
             return jsonify(response), 400
+        
+        # Establishes connection to the dockets collection
+        manager = MongoManager()
+        client = manager.get_instance()
+        db = client['mongoSample']
+        dockets = db.get_collection('docket')
 
+        # Query to get term within docket title, NOTE: it is case sensitive currently
+        search = dockets.find({'attributes.title': {'$regex': f'{search_term}'}})
+
+        manager.close_instance()
+        
         # If the search term is valid, data will be ingested into the JSON response
         response['data'] = {
             'search_term': search_term,
             'dockets': []
         }
-        response['data']['dockets'].append({
-           'title': 'Designation as a Preexisting Subscription Service',
-           'id': "COLC-2006-0014",
-           'link': 'https://www.regulations.gov/docket/COLC-2006-0014',
-           'number_of_comments': 0,
-           'number_of_documents': 1
-           })
+
+        for doc in search:
+            title = doc['attributes']['title']
+            id = doc['id']
+            link = doc['links']['self']
+            # TODO: Query comments and documents collections to get count of each using docket ID
+            number_of_comments = 0
+            number_of_documents = 0
+            response['data']['dockets'].append({
+                'title': title,
+                'id': id,
+                'link': link,
+                'number_of_comments': number_of_comments,
+                'number_of_documents': number_of_documents
+                })
+        # response['data']['dockets'].append({
+        #    'title': 'Designation as a Preexisting Subscription Service',
+        #    'id': "COLC-2006-0014",
+        #    'link': 'https://www.regulations.gov/docket/COLC-2006-0014',
+        #    'number_of_comments': 0,
+        #    'number_of_documents': 1
+        #    })
         return jsonify(response)
 
     @app.route('/search_documents')
