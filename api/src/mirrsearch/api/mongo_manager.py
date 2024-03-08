@@ -48,7 +48,7 @@ class MongoManager:
             MongoManager.__instance = mongomock.MongoClient()
             MongoManager.__mock = True
         else:
-            MongoManager.__instance = MongoClient('localhost', 27017)
+            MongoManager.__instance = MongoClient('mongo', 27017)
 
 class ConnectionException(Exception):
     """
