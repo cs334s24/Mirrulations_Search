@@ -1,28 +1,26 @@
 .search-result {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 10px;
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
+ background-color: #f9f9f9;
+ border: 1px solid #ddd;
+ padding: 10px;
+ margin-bottom: 10px;
+ width: 50%;
+ margin-left: auto;
+ margin-right: auto;
 }
 
-  
-  .search-result h2 {
-    margin-top: 0;
-  }
-  
-  .search-result p {
-    margin-bottom: 5px;
-  }
-  
-  .search-result a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .search-result a:hover {
-    text-decoration: underline;
-  }
-  
+.search-result h2 {
+ margin-top: 0;
+}
+
+.search-result p {
+ margin-bottom: 5px;
+}
+
+.search-result a {
+ color: #007bff;
+ text-decoration: none;
+}
+
+.search-result a:hover {
+ text-decoration: underline;
+}
