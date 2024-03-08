@@ -106,6 +106,12 @@ def create_app():
 
     return app
 
+def launch():
+    """
+    Launch the Flask app
+    """
+    return create_app()
+
 if __name__ == '__main__':
     flask_app = create_app()
     flask_app.run(debug=True, port=8000, host='0.0.0.0')
