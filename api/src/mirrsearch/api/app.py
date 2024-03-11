@@ -6,15 +6,12 @@ Run with: python kickoff_app.py
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
-
 def create_app():
     """
     Create the application instance and define the routes
     """
     app = Flask(__name__)
     CORS(app)
-    # In order to restrict access to our specific origin, use origin parameter below.
-    # CORS(app, origins='http://your-react-app-domain:your-react-app-port')
 
     @app.route('/data')
     def get_data():
@@ -29,10 +26,10 @@ def create_app():
         search_term = request.args.get('term')
 
         # If a search term is not provided, the server will return this JSON and a 400 status code
-        if search_term is None or len(search_term) == 0:
+        if not search_term:
             response['error'] = {'code': 400,
                                  'message': 'Error: You must provide a term to be searched'}
-            return (jsonify(response), 400)
+            return jsonify(response), 400
 
         # If the search term is valid, data will be ingested into the JSON response
         response['data'] = {
@@ -48,25 +45,57 @@ def create_app():
            })
         return jsonify(response)
 
-    @app.route('/search_comments')
-    def search_comments():
+    @app.route('/search_documents')
+    def search_documents():
         response = {}
 
-        # Obtains the search term and docket id
+        # Obtains the search term and document id from a prior request
         search_term = request.args.get('term')
-        docket_id = request.args.get('docket_id')
+        document_id = request.args.get('document_id')
 
         # If a search term is not provided, the server will return this JSON and a 400 status code
-        if search_term is None or len(search_term) == 0:
+        if not search_term:
             response['error'] = {'code': 400,
                                  'message': 'Error: You must provide a term to be searched'}
-            return (jsonify(response), 400)
+            return jsonify(response), 400
 
         # If the search term is valid, data will be ingested into the JSON response
         response['data'] = {
             'search_term': search_term,
             'comments': []
         }
+        response['data']['comments'].append({
+            "author": "Environmental Protection Agency",
+            "date_posted": "Dec 22, 2003",
+            "link": "https://www.regulations.gov/document/EPA-HQ-OAR-2003-0083-0794",
+            "document_id": document_id
+           })
+        return jsonify(response)
+
+    @app.route('/search_comments')
+    def search_comments():
+        response = {}
+
+        # Obtains the search term and docket id from a prior request
+        search_term = request.args.get('term')
+        docket_id = request.args.get('docket_id')
+
+        # If a search term is not provided, the server will return this JSON and a 400 status code
+        if not search_term:
+            response['error'] = {'code': 400,
+                                 'message': 'Error: You must provide a term to be searched'}
+            return jsonify(response), 400
+        if not docket_id:
+            response['error'] = {'code': 400,
+                                 'message': 'Error: You must provide a docket_id to be searched'}
+            return jsonify(response), 400
+
+        # If the search term is valid, data will be ingested into the JSON response
+        response['data'] = {
+            'search_term': search_term,
+            'comments': []
+        }
+
         response['data']['comments'].append({
             "author": "Department of Health and Human Services",
             "date_posted": "Apr 14, 2011",
@@ -84,5 +113,5 @@ def launch():
     return create_app()
 
 if __name__ == '__main__':
-    app = create_app()
-    app.run(debug=True, port='8000', host='0.0.0.0')
+    flask_app = create_app()
+    flask_app.run(debug=True, port=8000, host='0.0.0.0')

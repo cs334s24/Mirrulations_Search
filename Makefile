@@ -13,6 +13,7 @@ test:
 # Runs pylint to check for code quality and formatting
 lint:
 	pylint --rcfile=api/.pylintrc api/;
+	cd frontend && npx eslint .;
 
 clean:
 	# Find and remove all files and  folders that match
