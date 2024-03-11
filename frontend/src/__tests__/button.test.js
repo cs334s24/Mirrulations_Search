@@ -13,3 +13,9 @@ test('SearchBar renders with a search button', () => {
   expect(searchButton).toBeInTheDocument();
 });
 
+test("button is rendered", async () => {
+ await page.goto("http://localhost:3000");
+ await page.waitForSelector("button");
+ const button = await page.$("button");
+ expect(button).not.toBeNull();
+});
