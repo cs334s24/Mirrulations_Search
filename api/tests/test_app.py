@@ -53,7 +53,7 @@ def test_data_endpoint_returns_status(client):
     data = json.loads(response.data)
     assert 'status' in data
 
-def test_search_dockets_endpoint_returns_status(client):
+def test_search_dockets_endpoint_valid_request_returns_200(client):
     """Test whether the search_dockets endpoint returns a 200 OK status code."""
     search_term = 'meaningful+use'
     response = client.get(f'/search_dockets?term={search_term}')
