@@ -26,6 +26,7 @@ htmlcov
 .pytest_cache
 unit-python.xml
 .coverage
+/frontend/coverage
 
 # production
 /build
@@ -44,5 +45,8 @@ yarn-error.log*
 # ssl credentials
 *.pem
 
-# database
-api/src/mirrsearch/db/sample-data/
+#db
+sample-data/
+sample.zip
+api/data/
+data/
