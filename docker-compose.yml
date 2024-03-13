@@ -33,7 +33,7 @@ services:
       options:
         max-size: "10m"
   mongo:
-    image: mongodb/mongodb-community-server:6.0-ubi8
+    image: mongo
     volumes:
       - type: bind
         source: ./data
