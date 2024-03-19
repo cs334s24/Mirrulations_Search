@@ -15,45 +15,56 @@ DB_NAME = 'mongoSample'
 def connect_to_mongodb():
     """ Function to connect to MongoDB and ensure collections exist """
     client = MongoClient(URI)
-    db = client[DB_NAME]
-    # Ensure collections exist
-    db.create_collection('docket')
-    db.create_collection('documents')
-    db.create_collection('comments')
-    return db, client
+    database = client[DB_NAME]
+
+    clear_db(database)
+    database.create_collection('docket')
+    database.create_collection('documents')
+    database.create_collection('comments')
+    return database, client
 
 def insert_data(collection, data):
     """ Function to insert data into collections """
     collection.insert_one(data['data'])
 
-def add_data_to_db(root_folder, db):
-    """ Function to traverse directories and insert data into MongoDB """
-    # Traverse the main folders
-    for main_folder in os.listdir(root_folder):
-        main_folder_path = os.path.join(root_folder, main_folder)
-        if os.path.isdir(main_folder_path):
-            # Traverse files in the folder
-            for dirpath, _, filenames in os.walk(main_folder_path):
-                for filename in filenames:
-                    # Get the file path
-                    file_path = os.path.join(dirpath, filename)
-                    # Check file extension
-                    if filename.endswith('.json'):
-                        # Determine the collection name based on the parent folder
-                        parent_folder = os.path.basename(os.path.dirname(file_path))
-                        collection_name = parent_folder.lower()
-                        # Create collection if it doesn't exist
-                        if collection_name not in db.list_collection_names():
-                            db.create_collection(collection_name)
-                        # Get collection object
-                        collection = db[collection_name]
-                        # Read JSON file and insert data into MongoDB
-                        with open(file_path, "r") as f:
-                            data = json.load(f)
-                            insert_data(collection, data)
 
-# Run the script
+def add_data_to_database(root_folder, database):
+    """ Function to add data to the database """
+    docket_ids = get_list_of_dockets()
+    for docket_id in docket_ids:
+        for root, _, files in os.walk(root_folder):
+            for file in files:
+                if file == f'{docket_id}.json':
+                    with open(os.path.join(root, file), 'r', encoding='utf-8') as f:
+                        data = json.load(f)
+                        insert_data(database['docket'], data)
+                        if 'documents' in data['data']:
+                            for document in data['data']['documents']:
+                                insert_data(database['documents'], document)
+                                if 'comments' in document:
+                                    for comment in document['comments']:
+                                        insert_data(database['comments'], comment)
+
+
+
+def clear_db(database):
+    """ Function to clear all collections in the database """
+    for collection in database.list_collection_names():
+        database[collection].drop()
+
+
+def get_list_of_dockets():
+    """ Function to get a list of all dockets """
+    docket_list = []
+    for root, _, files in os.walk('sample-data'):
+        for file in files:
+            if file.endswith('.json'):
+                file = file[:-5]
+                docket_list.append(file)
+    return docket_list
+
+
 if __name__ == "__main__":
-    db, client = connect_to_mongodb()
-    add_data_to_db('sample-data', db)
+    database, client = connect_to_mongodb()
+    add_data_to_database('sample-data', database)
     client.close()
