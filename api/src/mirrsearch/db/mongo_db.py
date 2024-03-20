@@ -24,28 +24,43 @@ def connect_to_mongodb():
     database.create_collection('comments')
     return database, client
 
-def insert_data(collection, data):
+def insert_json_data(collection, data):
     """ Function to insert data into collections """
     collection.insert_one(data['data'])
 
 
-def add_data_to_database(root_folder, database):
-    """ Function to add data to the database """
-    docket_ids = get_list_of_dockets()
-    for docket_id in docket_ids:
-        for root, _, files in os.walk(root_folder):
-            for file in files:
-                if file == f'{docket_id}.json':
-                    with open(os.path.join(root, file), 'r', encoding='utf-8') as f:
-                        data = json.load(f)
-                        insert_data(database['docket'], data)
-                        if 'documents' in data['data']:
-                            for document in data['data']['documents']:
-                                insert_data(database['documents'], document)
-                                if 'comments' in document:
-                                    for comment in document['comments']:
-                                        insert_data(database['comments'], comment)
+def insert_txt_data(collection, data):
+    """ Function to insert data into collections """
+    collection.insert_one({'data': data})
 
+
+def add_data_to_database(root_folder):
+    """ Function to add data to the database """
+    for root, _, files in os.walk(root_folder):
+        if root.split('/')[-1] == 'docket':
+            for file in files:
+                if file.endswith('.json') or file.endswith('.htm'):
+                    insert_docket_file(os.path.join(root, file), database['docket'])
+        if root.split('/')[-1] == 'comments':
+            for file in files:
+                if file.endswith('.json') or file.endswith('.htm'):
+                    insert_docket_file(os.path.join(root, file), database['comments'])
+        if root.split('/')[-1] == 'documents':
+            for file in files:
+                if file.endswith('.json') or file.endswith('.htm'):
+                    insert_docket_file(os.path.join(root, file), database['documents'])
+
+
+def insert_docket_file(file, collection):
+    """ Function to insert a JSON or HTM file into a collection """
+    if file.endswith('.json'):
+        with open(file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            insert_json_data(collection, data)
+    if file.endswith('.txt'):
+        with open(file, 'r', encoding='utf-8') as f:
+            data = f.read()
+            insert_txt_data(collection, data)
 
 
 def clear_db(database):
@@ -54,18 +69,7 @@ def clear_db(database):
         database[collection].drop()
 
 
-def get_list_of_dockets():
-    """ Function to get a list of all dockets """
-    docket_list = []
-    for root, _, files in os.walk('sample-data'):
-        for file in files:
-            if file.endswith('.json'):
-                file = file[:-5]
-                docket_list.append(file)
-    return docket_list
-
-
 if __name__ == "__main__":
     database, client = connect_to_mongodb()
-    add_data_to_database('sample-data', database)
+    add_data_to_database('sample-data')
     client.close()
