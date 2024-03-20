@@ -4,13 +4,13 @@
 
 import json
 import pytest
-from mirrsearch.api.app import create_app
+from mirrsearch.api.app import launch
 from flask import Flask, jsonify, request
 
 @pytest.fixture
 def app():
     """Creates a Flask app instance for testing."""
-    app = create_app()
+    app = launch('mockMongo')
     yield app
 
 @pytest.fixture
