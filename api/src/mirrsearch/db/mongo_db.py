@@ -36,6 +36,8 @@ def insert_txt_data(collection, data):
     collection.insert_one({'data': data})
 
 
+# This function is currently bypassing utf-8 encoding errors by ignoring them for .htm files
+# This is not a good solution, but it is a temporary fix for the time being
 def insert_docket_file(file, collection):
     """ Function to insert a JSON or HTM file into a collection """
     if file.endswith('.json'):
@@ -47,6 +49,7 @@ def insert_docket_file(file, collection):
             data = f.read()
             insert_txt_data(collection, data)
     if file.endswith('.htm'):
+        # The below line is a temporary fix for the time being to get .htm files loaded
         with open(file, 'r', encoding='utf-8', errors="ignore") as f:
             data = f.read()
             insert_txt_data(collection, data)
