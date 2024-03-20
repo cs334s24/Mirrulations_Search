@@ -15,15 +15,8 @@ class MongoQueryManager(QueryManager):
     def search_dockets(self, search_term):
         response = {}
 
-        # TODO: Push everything up to and including the dockets query into the DatabaseManager
-
-        # Establishes connection to the dockets collection
-        client = self.__manager.get_instance()
-        db = client['mongoSample']
-        dockets = db.get_collection('docket')
-
-        # Query to get term within docket title, NOTE: it is case sensitive currently
-        search = dockets.find({'attributes.title': {'$regex': f'{search_term}'}})
+        # Uses the database manager to query the dockets
+        search = self.__manager.search_dockets(search_term)
             
         # If the search term is valid, data will be ingested into the JSON response
         response['data'] = {
@@ -46,7 +39,7 @@ class MongoQueryManager(QueryManager):
                 'number_of_documents': number_of_documents
             })
                 
-        self.__manager.close_instance()
+        # self.__manager.close_instance()
 
         return response
     

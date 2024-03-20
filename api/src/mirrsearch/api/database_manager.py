@@ -19,6 +19,21 @@ class MongoManager(DatabaseManager):
     """
     __instance = None
 
+    def search_dockets(self, search_term):
+        client = self.get_instance()
+        db = client['mongoSample']
+        dockets = db.get_collection('docket')
+
+        query = dockets.find({'attributes.title': {'$regex': f'{search_term}'}})
+
+        results = []
+        for doc in query:
+            results.append(doc)
+
+        self.close_instance()
+
+        return results
+
     @staticmethod
     def get_instance():
         """
