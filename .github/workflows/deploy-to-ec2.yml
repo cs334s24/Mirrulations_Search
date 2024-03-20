@@ -23,7 +23,7 @@ jobs:
           ssh -T -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} << EOF
             cd /home/ec2-user/Mirrulations_Search
             docker-compose down
-            docker system prune -a -y
+            docker system prune -a -f
             git pull
             docker-compose build
             docker-compose up -d
