@@ -46,3 +46,9 @@ yarn-error.log*
 
 # ssl credentials
 *.pem
+
+#db
+sample-data/
+sample.zip
+api/data/
+data/
