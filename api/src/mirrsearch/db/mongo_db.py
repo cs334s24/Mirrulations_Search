@@ -6,7 +6,6 @@
 import os
 import json
 from pymongo import MongoClient
-import html
 
 
 # Connection URI
@@ -49,11 +48,11 @@ def insert_docket_file(file, collection):
             insert_txt_data(collection, data)
     if file.endswith('.htm'):
         with open(file, 'r', encoding='utf-8', errors="ignore") as f:
-            data = html.unescape(f.read())
+            data = f.read()
             insert_txt_data(collection, data)
 
 
-def add_data_to_database(root_folder):
+def add_data_to_database(root_folder, database):
     """ Function to add data to the database """
     for root, _, files in os.walk(root_folder):
         if root.split('/')[-1] == 'docket':
@@ -78,5 +77,5 @@ def clear_db(database):
 
 if __name__ == "__main__":
     database, client = connect_to_mongodb()
-    add_data_to_database('sample-data')
+    add_data_to_database('sample-data', database)
     client.close()
