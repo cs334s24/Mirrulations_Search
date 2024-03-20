@@ -5,10 +5,12 @@ Run with: python kickoff_app.py
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from mirrsearch.api.mongo_queries import MongoQueries
-from pymongo.errors import ServerSelectionTimeoutError
+from mirrsearch.api.query_manager import MongoQueryManager
+from mirrsearch.api.database_manager import MongoManager
+from mirrsearch.api.mock_database_manager import MockMongoDatabase
+from mirrsearch.api.mock_query_manager import MockMongoQueries
 
-def create_app():
+def create_app(query_manager):
     """
     Create the application instance and define the routes
     """
@@ -32,7 +34,7 @@ def create_app():
                                  'message': 'Error: You must provide a term to be searched'}
             return jsonify(response), 400
         
-        response = MongoQueries.search_dockets(search_term)
+        response = query_manager.search_dockets(search_term)
 
         return jsonify(response)
 
@@ -97,11 +99,20 @@ def create_app():
 
     return app
 
-def launch():
+def launch(database):
     """
     Launch the Flask app
     """
-    return create_app()
+    if database == 'mongo':
+        database_manager = MongoManager()
+        query_manager = MongoQueryManager(database_manager)
+        return create_app(query_manager)
+    elif database == 'mockMongo':
+        database_manager = MockMongoDatabase()
+        query_manager = MockMongoQueries(database_manager)
+        return create_app(query_manager)
+    
+    # TODO: Handle case where they do not provide which database they want to use
 
 if __name__ == '__main__':
     flask_app = create_app()

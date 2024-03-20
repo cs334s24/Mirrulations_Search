@@ -1,8 +1,7 @@
 """Tests for the mongo_manager module"""
 
 import pytest
-import mongomock
-from mirrsearch.api.mongo_manager import MongoManager, ConnectionException
+from mirrsearch.api.database_manager import MongoManager, ConnectionException
 
 def test_manager_returns_mongo_client_instance():
     """
@@ -43,16 +42,6 @@ def test_multiple_connections_is_prohibited():
         pytest.fail()
     except ConnectionException:
         client.close_instance()
-
-def test_mock_mongo_connection_is_returned():
-    """
-    Tests that if the caller sets the mock paramater
-    to true in the MongoManager initializer, a mock
-    database is returned instead of a real connection
-    """
-    client = MongoManager(mock=True)
-    assert isinstance(client.get_instance(), mongomock.connection.MongoClient)
-    client.close_instance()
 
 def test_default_connection_exception_message():
     """

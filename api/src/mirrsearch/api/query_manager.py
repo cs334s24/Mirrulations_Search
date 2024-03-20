@@ -1,15 +1,24 @@
-from mirrsearch.api.mongo_manager import MongoManager
+from mirrsearch.api.database_manager import DatabaseManager
 
-class MongoQueries:
+class QueryManager:
 
-    # __manager = None
+    __manager = None
 
-    def search_dockets(search_term):
+    def __init__(self, database_manager):
+        self.__manager = database_manager
+
+
+class MongoQueryManager(QueryManager):
+
+    __manager = None
+
+    def search_dockets(self, search_term):
         response = {}
 
+        # TODO: Push everything up to and including the dockets query into the DatabaseManager
+
         # Establishes connection to the dockets collection
-        manager = MongoManager()
-        client = manager.get_instance()
+        client = self.__manager.get_instance()
         db = client['mongoSample']
         dockets = db.get_collection('docket')
 
@@ -37,9 +46,9 @@ class MongoQueries:
                 'number_of_documents': number_of_documents
             })
                 
-        manager.close_instance()
+        self.__manager.close_instance()
 
         return response
     
-    # def __init__(self):
-    #     MongoQueries.__manager = MongoManager()
+    def __init__(self, database_manager: DatabaseManager):
+        self.__manager = database_manager
