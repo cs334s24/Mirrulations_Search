@@ -39,15 +39,15 @@ def add_data_to_database(root_folder):
     for root, _, files in os.walk(root_folder):
         if root.split('/')[-1] == 'docket':
             for file in files:
-                if file.endswith('.json') or file.endswith('.htm'):
+                if file.endswith('.json') or file.endswith('.txt'):
                     insert_docket_file(os.path.join(root, file), database['docket'])
         if root.split('/')[-1] == 'comments':
             for file in files:
-                if file.endswith('.json') or file.endswith('.htm'):
+                if file.endswith('.json') or file.endswith('.txt'):
                     insert_docket_file(os.path.join(root, file), database['comments'])
         if root.split('/')[-1] == 'documents':
             for file in files:
-                if file.endswith('.json') or file.endswith('.htm'):
+                if file.endswith('.json') or file.endswith('.txt'):
                     insert_docket_file(os.path.join(root, file), database['documents'])
 
 
