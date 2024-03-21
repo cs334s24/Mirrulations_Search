@@ -8,23 +8,22 @@ import json
 from pymongo import MongoClient
 
 
-# Connection URI
-URI = 'mongodb://localhost:27017'
-
-# Database Name
-DB_NAME = 'mongoSample'
-
-
 def connect_to_mongodb():
     """ Function to connect to MongoDB and ensure collections exist """
     client = MongoClient(URI)
-    database = client[DB_NAME]
-
-    clear_db(database)
+    database = clear_db(client)
     database.create_collection('docket')
     database.create_collection('documents')
     database.create_collection('comments')
     return database, client
+
+
+def clear_db(client):
+    """ Function to clear all collections in the database """
+    database = client['mirrsearch']
+    for collection in database.list_collection_names():
+        database[collection].drop()
+    return database
 
 
 def insert_json_data(collection, data):
@@ -76,13 +75,8 @@ def add_data_to_database(root_folder, database):
                     insert_docket_file(os.path.join(root, file), database['documents'], docket_id)
 
 
-def clear_db(database):
-    """ Function to clear all collections in the database """
-    for collection in database.list_collection_names():
-        database[collection].drop()
-
-
 if __name__ == "__main__":
+    URI = 'mongodb://localhost:27017'
     database, client = connect_to_mongodb()
     add_data_to_database('sample-data', database)
     client.close()
