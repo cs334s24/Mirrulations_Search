@@ -26,19 +26,20 @@ def connect_to_mongodb():
     database.create_collection('comments')
     return database, client
 
+
 def insert_json_data(collection, data):
     """ Function to insert data into collections """
     collection.insert_one(data['data'])
 
 
-def insert_txt_data(collection, data):
+def insert_txt_data(collection, data, docket_id):
     """ Function to insert data into collections """
-    collection.insert_one({'data': data})
+    collection.insert_one({'id':docket_id, 'data': data})
 
 
 # This function is currently bypassing utf-8 encoding errors by ignoring them for .htm files
 # This is not a good solution, but it is a temporary fix for the time being
-def insert_docket_file(file, collection):
+def insert_docket_file(file, collection, docket_id):
     """ Function to insert a JSON or HTM file into a collection """
     if file.endswith('.json'):
         with open(file, 'r', encoding='utf-8') as f:
@@ -47,12 +48,12 @@ def insert_docket_file(file, collection):
     if file.endswith('.txt'):
         with open(file, 'r', encoding='utf-8') as f:
             data = f.read()
-            insert_txt_data(collection, data)
+            insert_txt_data(collection, data, docket_id)
     if file.endswith('.htm'):
         # The below line is a temporary fix for the time being to get .htm files loaded
         with open(file, 'r', encoding='utf-8', errors="ignore") as f:
             data = f.read()
-            insert_txt_data(collection, data)
+            insert_txt_data(collection, data, docket_id)
 
 
 def add_data_to_database(root_folder, database):
@@ -61,15 +62,18 @@ def add_data_to_database(root_folder, database):
         if root.split('/')[-1] == 'docket':
             for file in files:
                 if file.endswith('.json') or file.endswith('.txt') or file.endswith('.htm'):
-                    insert_docket_file(os.path.join(root, file), database['docket'])
+                    docket_id = root.split('/')[-3]
+                    insert_docket_file(os.path.join(root, file), database['docket'], docket_id)
         if root.split('/')[-1] == 'comments':
             for file in files:
                 if file.endswith('.json') or file.endswith('.txt') or file.endswith('.htm'):
-                    insert_docket_file(os.path.join(root, file), database['comments'])
+                    docket_id = root.split('/')[-3]
+                    insert_docket_file(os.path.join(root, file), database['comments'], docket_id)
         if root.split('/')[-1] == 'documents':
             for file in files:
                 if file.endswith('.json') or file.endswith('.txt') or file.endswith('.htm'):
-                    insert_docket_file(os.path.join(root, file), database['documents'])
+                    docket_id = root.split('/')[-3]
+                    insert_docket_file(os.path.join(root, file), database['documents'], docket_id)
 
 
 def clear_db(database):
