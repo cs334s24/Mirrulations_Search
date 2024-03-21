@@ -164,55 +164,41 @@ To launch the entire system:
 
 Prerequisite: Have the system running in by following [Deploy the System in Development]
 
-1. Navigate to the api folder
+1. Navigate to the api folder and activate your virtual environment
 ```
 cd api
-```
-
-2. Activate virtual environment
-```
 source .venv/bin/activate
 ```
 
-3. Navigate to MongoDB script directory
+2. Navigate to MongoDB script directory
 ```
 cd src/mirrsearch/db
 ```
 
-4.  Ensure that you have unzipped sample-data.zip to this directory and make sure the unzipped folder is named sample-data and contains two folders named CRB and IHS.
+3.  Ensure that you have unzipped our [sample-data](https://drive.google.com/drive/folders/1CsC3CKY0a52ZBI0_2558-No6Ke-UZw_s?usp=drive_link) to this directory, into a folder called `sample-data` that contains the names of various organizations such as "IHS" and "CRB" as parent folders.
   
   - To check if you have mongosh run 'brew list | grep mongosh'
   - If you do not have mongosh installed run 'brew install mongosh'
 
-5. Run the Mongo_DB.py script to ingest the data:
+4. Run the `mongo_db.py` script to ingest the data:
 ```
 python3 mongo_db.py
 ```
-6. The data should be in the database now. To check use a new terminal and follow these steps:
+5. The data is now ingested within the `mirrsearch` database inside of `Mongo`. To access the data, follow these steps:
 
   - Launch the MongoDB shell:
 ```
 mongosh
 ```
-  - List available databases:
+
+  - List available dbs and switch to the `mirrsearch` database:
 ```
 show dbs
-```
-  - Switch to the mongoSample database:
-```
-use mongoSample
+use mirrsearch
 ```
 
-  - List the collection in the mongoSample database:
+  - You can list all collections within the `mirrsearch`. You can then view the contents of a collection type:
 ```
 show collections
-```
-
-  - You should see comments, docket, documents. To view the contents of a collection type:
-```
 db.collectionName.find()
-```
-  For example:
-```
-db.comments.find()
 ```
