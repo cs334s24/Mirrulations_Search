@@ -1,10 +1,12 @@
 """ This script connects to MongoDB and inserts data into collections """
 
 # pylint: disable=too-many-nested-blocks, unspecified-encoding
+# pylint: disable=unused-variable
 
 import os
 import json
 from pymongo import MongoClient
+
 
 # Connection URI
 URI = 'mongodb://localhost:27017'
@@ -12,48 +14,71 @@ URI = 'mongodb://localhost:27017'
 # Database Name
 DB_NAME = 'mongoSample'
 
+
 def connect_to_mongodb():
     """ Function to connect to MongoDB and ensure collections exist """
     client = MongoClient(URI)
-    db = client[DB_NAME]
-    # Ensure collections exist
-    db.create_collection('docket')
-    db.create_collection('documents')
-    db.create_collection('comments')
-    return db, client
+    database = client[DB_NAME]
 
-def insert_data(collection, data):
+    clear_db(database)
+    database.create_collection('docket')
+    database.create_collection('documents')
+    database.create_collection('comments')
+    return database, client
+
+def insert_json_data(collection, data):
     """ Function to insert data into collections """
     collection.insert_one(data['data'])
 
-def add_data_to_db(root_folder, db):
-    """ Function to traverse directories and insert data into MongoDB """
-    # Traverse the main folders
-    for main_folder in os.listdir(root_folder):
-        main_folder_path = os.path.join(root_folder, main_folder)
-        if os.path.isdir(main_folder_path):
-            # Traverse files in the folder
-            for dirpath, _, filenames in os.walk(main_folder_path):
-                for filename in filenames:
-                    # Get the file path
-                    file_path = os.path.join(dirpath, filename)
-                    # Check file extension
-                    if filename.endswith('.json'):
-                        # Determine the collection name based on the parent folder
-                        parent_folder = os.path.basename(os.path.dirname(file_path))
-                        collection_name = parent_folder.lower()
-                        # Create collection if it doesn't exist
-                        if collection_name not in db.list_collection_names():
-                            db.create_collection(collection_name)
-                        # Get collection object
-                        collection = db[collection_name]
-                        # Read JSON file and insert data into MongoDB
-                        with open(file_path, "r") as f:
-                            data = json.load(f)
-                            insert_data(collection, data)
 
-# Run the script
+def insert_txt_data(collection, data):
+    """ Function to insert data into collections """
+    collection.insert_one({'data': data})
+
+
+# This function is currently bypassing utf-8 encoding errors by ignoring them for .htm files
+# This is not a good solution, but it is a temporary fix for the time being
+def insert_docket_file(file, collection):
+    """ Function to insert a JSON or HTM file into a collection """
+    if file.endswith('.json'):
+        with open(file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            insert_json_data(collection, data)
+    if file.endswith('.txt'):
+        with open(file, 'r', encoding='utf-8') as f:
+            data = f.read()
+            insert_txt_data(collection, data)
+    if file.endswith('.htm'):
+        # The below line is a temporary fix for the time being to get .htm files loaded
+        with open(file, 'r', encoding='utf-8', errors="ignore") as f:
+            data = f.read()
+            insert_txt_data(collection, data)
+
+
+def add_data_to_database(root_folder, database):
+    """ Function to add data to the database """
+    for root, _, files in os.walk(root_folder):
+        if root.split('/')[-1] == 'docket':
+            for file in files:
+                if file.endswith('.json') or file.endswith('.txt') or file.endswith('.htm'):
+                    insert_docket_file(os.path.join(root, file), database['docket'])
+        if root.split('/')[-1] == 'comments':
+            for file in files:
+                if file.endswith('.json') or file.endswith('.txt') or file.endswith('.htm'):
+                    insert_docket_file(os.path.join(root, file), database['comments'])
+        if root.split('/')[-1] == 'documents':
+            for file in files:
+                if file.endswith('.json') or file.endswith('.txt') or file.endswith('.htm'):
+                    insert_docket_file(os.path.join(root, file), database['documents'])
+
+
+def clear_db(database):
+    """ Function to clear all collections in the database """
+    for collection in database.list_collection_names():
+        database[collection].drop()
+
+
 if __name__ == "__main__":
-    db, client = connect_to_mongodb()
-    add_data_to_db('sample-data', db)
+    database, client = connect_to_mongodb()
+    add_data_to_database('sample-data', database)
     client.close()
