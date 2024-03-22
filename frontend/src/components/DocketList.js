@@ -1,13 +1,13 @@
 import React from "react";
-import SearchResult from "./SearchResult"; // Assuming SearchResult.js is in the same directory
+import Docket from "./Docket"; // Assuming SearchResult.js is in the same directory
 
-const SearchResultsList = ({dockets}) => {
+const DocketList = ({dockets}) => {
  // Sample data for demonstration
 
  return (
   <div className="search-results-list">
    {dockets.map((docket, index) => (
-    <SearchResult
+    <Docket
      key={index}
      title={docket.title}
      id={docket.id}
@@ -24,4 +24,4 @@ const SearchResultsList = ({dockets}) => {
  );
 };
 
-export default SearchResultsList;
+export default DocketList;
