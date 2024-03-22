@@ -67,8 +67,6 @@ def create_app(query_manager):
 
     @app.route('/search_comments')
     def search_comments():
-        response = {}
-
         # Obtains the search term and docket id from a prior request
         search_term = request.args.get('term')
         docket_id = request.args.get('docket_id')
@@ -83,18 +81,8 @@ def create_app(query_manager):
                                  'message': 'Error: You must provide a docket_id to be searched'}
             return jsonify(response), 400
 
-        # If the search term is valid, data will be ingested into the JSON response
-        response['data'] = {
-            'search_term': search_term,
-            'comments': []
-        }
-
-        response['data']['comments'].append({
-            "author": "Department of Health and Human Services",
-            "date_posted": "Apr 14, 2011",
-            "link": "https://www.regulations.gov/comment/HHS-OS-2010-0014-0032",
-            "docket_id": docket_id
-           })
+        response = query_manager.search_comments(search_term, docket_id)
+        
         return jsonify(response)
 
     return app
