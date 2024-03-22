@@ -34,6 +34,21 @@ class MongoManager(DatabaseManager):
 
         return results
 
+    def search_comments(self, search_term, docket_id):
+        client = self.get_instance()
+        db = client['mongoSample']
+        comments = db.get_collection('comments')
+
+        query = comments.find({'$and': [ {'attributes.docketId': {'$regex': f'{docket_id}'}}, {'attributes.comment': {'$regex': f'{search_term}'}}]})
+
+        results = []
+        for comment in query:
+            results.append(comment)
+
+        self.close_instance()
+
+        return results
+
     @staticmethod
     def get_instance():
         """
