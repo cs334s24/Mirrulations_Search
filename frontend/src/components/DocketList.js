@@ -12,8 +12,12 @@ const SearchResultsList = ({dockets}) => {
      title={docket.title}
      id={docket.id}
      link={docket.link}
-     number_of_comments={docket.number_of_comments}
-     number_of_documents={docket.number_of_documents}
+        docket_type={docket.docket_type}
+        documents_containing={docket.documents_containing}
+        total_documents={docket.total_documents}
+        date_range={docket.date_range}
+        comments_containing={docket.comments_containing}
+        total_comments={docket.total_comments}
     />
    ))}
   </div>
