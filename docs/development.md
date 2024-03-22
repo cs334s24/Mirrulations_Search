@@ -165,7 +165,7 @@ To launch the entire system:
 ##### Prerequisite: 
   - Have the system running in by following [Deploy the System in Development]
   - Make sure you have mongosh installed, but your localhost:27017 Mongo instance is not running
-    - To check if you have mongosh run 'brew list | grep mongosh'
+    - To check if you have mongosh run `brew list | grep mongosh`
     - If you do not have mongosh installed run `brew install mongosh`
     - Brew installing Mongo will automatcially start a local instance, which we do not want. To stop this, type `mongosh`
     - Inside of the prompt that opens up, type in:
@@ -189,7 +189,7 @@ docker-compose up -d
 4. Run the `mongo_db.py` script to ingest the data:
   - The folder can live anywhere, but you need to pass a path to it as an argument (absolute or relative)
 ```
-python3 mongo_db.py (folder)
+python3 ./api/src/mirrsearch/db/mongo_db.py (folder)
 ```
 5. The data is now ingested within the `mirrsearch` database inside of `Mongo`. To access the data, follow these steps:
 
