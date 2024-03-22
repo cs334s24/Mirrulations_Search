@@ -1,7 +1,7 @@
 import React from "react";
-import "../styles/SearchResult.css"; // Import the CSS file
+import "../styles/Docket.css"; // Import the CSS file
 
-const SearchResult = ({title, id, link,docket_type, documents_containing,total_documents,date_range,comments_containing,total_comments}) => {
+const Docket = ({title, id, link,docket_type, documents_containing,total_documents,date_range,comments_containing,total_comments}) => {
  return (
   <div className="search-result">
    <h2>Title: {title}</h2>
@@ -17,4 +17,4 @@ const SearchResult = ({title, id, link,docket_type, documents_containing,total_d
  );
 };
 
-export default SearchResult;
+export default Docket;
