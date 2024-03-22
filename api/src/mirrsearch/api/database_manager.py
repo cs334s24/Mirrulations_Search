@@ -10,7 +10,7 @@ class DatabaseManager:
 
     # TODO: Change the init function
     def __init__(self):
-        self.temp = "hello"
+        pass
 
 class MongoManager(DatabaseManager):
     """
@@ -21,16 +21,14 @@ class MongoManager(DatabaseManager):
 
     def search_dockets(self, search_term):
         client = self.get_instance()
-        db = client['mongoSample']
+        db = client['mirrsearch']
         dockets = db.get_collection('docket')
-
+        
         query = dockets.find({'attributes.title': {'$regex': f'{search_term}'}})
 
         results = []
         for doc in query:
             results.append(doc)
-
-        self.close_instance()
 
         return results
 

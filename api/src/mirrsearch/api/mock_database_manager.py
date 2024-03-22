@@ -1,7 +1,7 @@
 class MockDatabase:
 
     def __init__(self):
-        self.temp = 'hello'
+        self.data = {}
 
 class MockMongoDatabase(MockDatabase):
 

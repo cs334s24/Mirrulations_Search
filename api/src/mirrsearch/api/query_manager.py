@@ -38,8 +38,6 @@ class MongoQueryManager(QueryManager):
                 'number_of_comments': number_of_comments,
                 'number_of_documents': number_of_documents
             })
-                
-        # self.__manager.close_instance()
 
         return response
     
