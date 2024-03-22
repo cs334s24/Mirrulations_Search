@@ -12,6 +12,22 @@ class MockMongoQueries(MockQueryManager):
 
     def search_dockets(self, search_term):
         return {'data': search_term}
+    
+    def search_comments(self, search_term, docket_id):
+        return {
+                'data': 
+                {'search_term': search_term, 
+                 'docket_id': docket_id,
+                 'comments': [
+                        {
+                         'author': 'pass', 
+                         'date_posted': 'pass', 
+                         'link': 'pass',
+                         'docket_id': docket_id
+                        }
+                    ]
+                }
+                }
 
     def __init__(self, manager: MockMongoDatabase):
         self.__manager = manager
