@@ -18,6 +18,7 @@ def test_manager_returns_current_instance():
     database connection
     """
     client = MongoManager()
+    print(client)
     assert client.get_instance() is not None
     client.close_instance()
 

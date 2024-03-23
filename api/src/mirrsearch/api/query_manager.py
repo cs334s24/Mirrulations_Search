@@ -55,6 +55,7 @@ class MongoQueryManager(QueryManager):
         }
 
         for comment in search:
+            print(comment)
             author = comment['attributes']['lastName']
             date_posted = comment['postedDate']
             link = comment['links']['self']
