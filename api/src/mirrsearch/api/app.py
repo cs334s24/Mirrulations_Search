@@ -106,7 +106,7 @@ def launch(database):
     Launch the Flask app
     """
     if database == 'mongo':
-        database_manager = MongoManager()
+        database_manager = MongoManager(host='mongo', port=27017)
         query_manager = MongoQueryManager(database_manager)
         return create_app(query_manager)
     elif database == 'mockMongo':

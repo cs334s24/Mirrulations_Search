@@ -23,7 +23,7 @@ class MongoManager(DatabaseManager):
         client = self.get_instance()
         db = client['mirrsearch']
         dockets = db.get_collection('docket')
-        
+
         query = dockets.find({'attributes.title': {'$regex': f'{search_term}'}})
 
         results = []
@@ -42,8 +42,6 @@ class MongoManager(DatabaseManager):
         results = []
         for comment in query:
             results.append(comment)
-
-        self.close_instance()
 
         return results
 
@@ -89,3 +87,83 @@ class ConnectionException(Exception):
         """
         self.message = message
         super().__init__(self.message)
+
+
+# from pymongo import MongoClient
+
+# class DatabaseManager:
+#     """
+#     Base class for managing database connections.
+#     """
+#     __instance = None
+
+#     @staticmethod
+#     def get_instance():
+#         """
+#         Static method that returns the database client. It creates the client
+#         if it hasn't been created before, otherwise it returns the current
+#         connection.
+#         """
+#         return DatabaseManager.__instance
+
+#     @staticmethod
+#     def close_instance():
+#         """
+#         Static method that closes the database connection if there is currently one open.
+#         If there is no connection open, the method does nothing.
+#         """
+#         if DatabaseManager.__instance is not None:
+#             DatabaseManager.__instance.close()
+#             DatabaseManager.__instance = None
+            
+# class MongoManager(DatabaseManager):
+#     """
+#     Class that manages the connection to a Mongo database running locally or
+#     a mock Mongo database
+#     """
+#     def __init__(self, host='localhost', port=27017):
+#         """
+#         Initializer method that ensures there is only ever one database connection open.
+#         """
+#         super().__init__()
+#         if DatabaseManager.get_instance() is not None:
+#             raise ConnectionException(message='''Error: a database client has already been
+#                 established, another connection cannot be created without
+#                 closing the other first''')
+#         else:
+#             DatabaseManager.__instance = MongoClient(host, port)
+
+#     def search_dockets(self, search_term):
+#         """
+#         Method to search dockets in the database based on a search term.
+#         """
+#         client = self.get_instance()
+#         db = client['mirrsearch']
+#         dockets = db.get_collection('docket')
+
+#         query = dockets.find({'attributes.title': {'$regex': f'{search_term}'}})
+#         return list(query)
+
+#     def search_comments(self, search_term, docket_id):
+#         """
+#         Method to search comments in the database based on a search term and a docket ID.
+#         """
+#         client = self.get_instance()
+#         db = client['mongoSample']
+#         comments = db.get_collection('comments')
+
+#         query = comments.find({'$and': [ {'attributes.docketId': {'$regex': f'{docket_id}'}}, {'attributes.comment': {'$regex': f'{search_term}'}}]})
+#         return list(query)
+
+# class ConnectionException(Exception):
+#     """
+#     Class that represents the exception that is thrown when there is
+#     an issue with establishing a connection to the database.
+#     """
+
+#     def __init__(self, message='Error: the connection to the database could not be established'):
+#         """
+#         Initializer that uses the message argument to raise the exception
+#         """
+#         self.message = message
+#         super().__init__(self.message)
