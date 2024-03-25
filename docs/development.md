@@ -162,27 +162,34 @@ To launch the entire system:
 
 ### Ingesting Data into mongoDB
 
-Prerequisite: Have the system running in by following [Deploy the System in Development]
+##### Prerequisite: 
+  - Have the system running in by following [Deploy the System in Development]
+  - Make sure you have mongosh installed, but your localhost:27017 Mongo instance is not running
+    - To check if you have mongosh run `brew list | grep mongosh`
+    - If you do not have mongosh installed run `brew install mongosh`
+    - Brew installing Mongo will automatcially start a local instance, which we do not want. To stop this, type `mongosh`
+    - Inside of the prompt that opens up, type in:
+    ```
+    db.adminCommand({shutdown:1})
+    ```
+    - This will ensure your laptop's mongo instance is not running. You can now exit out of the mongosh prompt back to the Mirrulations_Search folder prompt
 
-1. Navigate to the api folder and activate your virtual environment
+1. Activate your virtual environment that is currently inside of the `api` folder
 ```
-cd api
-source .venv/bin/activate
+source ./api/.venv/bin/activate
 ```
-
-2. Navigate to MongoDB script directory
-```
-cd src/mirrsearch/db
-```
-
-3.  Ensure that you have unzipped our [sample-data](https://drive.google.com/drive/folders/1CsC3CKY0a52ZBI0_2558-No6Ke-UZw_s?usp=drive_link) to this directory, into a folder called `sample-data` that contains the names of various organizations such as "IHS" and "CRB" as parent folders.
+2.  Ensure that you have unzipped our [sample-data](https://drive.google.com/drive/folders/1CsC3CKY0a52ZBI0_2558-No6Ke-UZw_s?usp=drive_link) to your local machine into a singular folder. 
   
-  - To check if you have mongosh run 'brew list | grep mongosh'
-  - If you do not have mongosh installed run 'brew install mongosh'
+3. Make sure you have our dockerized system up and running within a different terminal window. (assuming you have followed the `Deploy the System in Development` steps)
+  - This will use the mongo container inside of docker as the mongo instance for ingestion (rather than your local instance, which should not be running)
+```
+docker-compose up -d
+```
 
 4. Run the `mongo_db.py` script to ingest the data:
+  - The folder can live anywhere, but you need to pass a path to it as an argument (absolute or relative)
 ```
-python3 mongo_db.py
+python3 ./api/src/mirrsearch/db/mongo_db.py (folder)
 ```
 5. The data is now ingested within the `mirrsearch` database inside of `Mongo`. To access the data, follow these steps:
 
