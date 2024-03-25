@@ -37,11 +37,40 @@ def create_app():
             'dockets': []
         }
         response['data']['dockets'].append({
-           'title': 'Designation as a Preexisting Subscription Service',
-           'id': "COLC-2006-0014",
-           'link': 'https://www.regulations.gov/docket/COLC-2006-0014',
-           'number_of_comments': 0,
-           'number_of_documents': 1
+           'title': 'Recently Posted IHS Rules and Notices',
+           'id': "IHS_FRDOC_0001",
+           'link': 'https://www.regulations.gov/docket/IHS-FRDOC-0001',
+           'docket_type': 'Rulemaking',
+            'documents_containing_search_term': 54,
+           'total_documents': 54,
+           'comments_containing': 20,
+           'total_comments': 100,
+           'date_range': '2008/03/31-2023/12/28',
+           'comment_date_range': '2008/03/31-2023/12/28',
+           })
+        response['data']['dockets'].append({
+           'title': 'Proposed Informaation Collestion: Final Rule to Implememnt Title V of the Tribal...',
+           'id': "IHS-2005-0001",
+           'link': 'https://www.regulations.gov/docket/IHS-2005-0001',
+           'docket_type': 'NonRulemaking',
+            'documents_containing_search_term': 1   ,
+           'total_documents': 1,
+           'comments_containing': 15,
+           'total_comments': 80,
+           'date_range': '2005/10/11-2005/10/11',
+           'comment_date_range': '2005/10/11-2005/10/11',
+           })
+        response['data']['dockets'].append({
+           'title': 'Organization, Fucntions, and Authority Delegations: Headquarters Reorganization',
+           'id': "IHS-2005-0003",
+           'link': 'https://www.regulations.gov/docket/IHS-2005-0003',
+           'docket_type': 'NonRulemaking',
+            'documents_containing_search_term': 1,
+           'total_documents': 1,
+           'comments_containing': 25,
+           'total_comments': 40,
+           'date_range': '2008/10/17-2008/10/17',
+           'comment_date_range': '2008/10/17-2008/10/17',
            })
         return jsonify(response)
 
