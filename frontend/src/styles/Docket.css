@@ -1,26 +1,59 @@
 .search-result {
- background-color: #f9f9f9;
- border: 1px solid #ddd;
- padding: 10px;
- margin-bottom: 10px;
- width: 50%;
- margin-left: auto;
- margin-right: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  display: flex;
+  flex-direction: column; /* Ensure containers stack vertically */
 }
 
-.search-result h2 {
- margin-top: 0;
+.container-1 {
+  background-color: lightskyblue;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  /* border: 1px solid blue; Border around container-1 */
 }
 
-.search-result p {
- margin-bottom: 5px;
+.container-2 {
+  /* position: relative; */
+  /* display: flex; */
+  width: 100%; /* Ensure container-2 occupies entire width */
+  margin-top: 10px; /* Add space between container-1 and container-2 */
+  align-self: flex-start; /* Align container-2 to the start (left) */
+  /* border: 1px solid green; Border around container-2 */
+  display: flex; /* Ensure container-2 behaves as flex container */
 }
 
-.search-result a {
- color: #007bff;
- text-decoration: none;
+.left-half {
+  padding: 10px;
+  margin-left: 0; /* Ensure left alignment */
+  flex-direction: column; /* Stack items vertically */
+  justify-content: flex-start; /* Align items to the start (left) */
+  /* border: 1px solid red; Border around left-half */
+  flex-grow: 1; /* Utilize available space */
 }
 
-.search-result a:hover {
- text-decoration: underline;
+.right-half {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+  margin-right: 25%;
+  /* border: 1px solid orange; Border around right-half */
+  flex-grow: 1; /* Utilize available space */
+}
+
+.circle-outline {
+  width: 80px;
+  height: 80px;
+  border: 2px solid green;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle-text {
+  color: green;
+  font-size: 32px;
 }
