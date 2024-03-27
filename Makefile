@@ -5,9 +5,12 @@ export PATH:=${PWD}/.venv/bin:${PATH};
 
 all: test lint
 
+# Runs pytest and npm test to test both the backend and frontend
 test:
 	pytest;
+	cd frontend && npm test -- --watchAll=false;
 
+# Runs pylint to check for code quality and formatting
 lint:
 	pylint --rcfile=api/.pylintrc api/;
 	cd frontend && npx eslint .;
