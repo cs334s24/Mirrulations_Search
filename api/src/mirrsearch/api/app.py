@@ -33,7 +33,7 @@ def create_app(query_manager):
             response['error'] = {'code': 400,
                                  'message': 'Error: You must provide a term to be searched'}
             return jsonify(response), 400
-        
+
         response = query_manager.search_dockets(search_term)
 
         return jsonify(response)
@@ -97,13 +97,12 @@ def launch(database):
         database_manager = MongoManager()
         query_manager = MongoQueryManager(database_manager)
         return create_app(query_manager)
-    elif database == 'mockMongo':
+    if database == 'mockMongo':
         database_manager = MockMongoDatabase()
         query_manager = MockMongoQueries(database_manager)
         return create_app(query_manager)
-    
-    # TODO: Handle case where they do not provide which database they want to use
+    raise ValueError('Invalid database type')
 
 if __name__ == '__main__':
-    flask_app = create_app()
+    flask_app = launch('mongo')
     flask_app.run(debug=True, port=8000, host='0.0.0.0')
