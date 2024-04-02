@@ -8,42 +8,41 @@ class QueryManager:
     Abstract class for managing queries to the database
     """
 
-    __manager = None
-
-    def __init__(self, database_manager):
-        self.__manager = database_manager
-
-
-class MongoQueryManager(QueryManager):
-    """
-    Class for managing queries to a MongoDB database
-    """
-
-    __manager = None
+    def __init__(self, database_manager: DatabaseManager):
+        self._manager = database_manager
 
     def search_dockets(self, search_term):
         """
         Function that searches the dockets collection in the database
         for a given search term
         """
-        response = {}
+        raise NotImplementedError("Subclasses must implement search_dockets")
 
-        # Uses the database manager to query the dockets
-        search = self.__manager.search_dockets(search_term)
+    def search_comments(self, search_term, docket_id):
+        """
+        Function that searches the comments collection in the database
+        for a given search term and docket ID
+        """
+        raise NotImplementedError("Subclasses must implement search_comments")
 
-        # If the search term is valid, data will be ingested into the JSON response
-        response['data'] = {
-            'search_term': search_term,
-                'dockets': []
-            }
+class MongoQueryManager(QueryManager):
+    """
+    Class for managing queries to a MongoDB database
+    """
 
+    def search_dockets(self, search_term):
+        """
+        Function that searches the dockets collection in the database
+        for a given search term
+        """
+        response = {'data': {'search_term': search_term, 'dockets': []}}
+        search = self._manager.search_dockets(search_term)
         for doc in search:
             title = doc['attributes']['title']
             doc_id = doc['id']
             link = doc['links']['self']
-            # TODO: Query comments and documents collections to get count of each using docket ID
-            number_of_comments = 0
-            number_of_documents = 0
+            number_of_comments = 0  # Placeholder for counting comments
+            number_of_documents = 0  # Placeholder for counting documents
             response['data']['dockets'].append({
                 'title': title,
                 'id': doc_id,
@@ -51,7 +50,6 @@ class MongoQueryManager(QueryManager):
                 'number_of_comments': number_of_comments,
                 'number_of_documents': number_of_documents
             })
-
         return response
 
     def search_comments(self, search_term, docket_id):
@@ -59,18 +57,8 @@ class MongoQueryManager(QueryManager):
         Function that searches the comments collection in the database
         for a given search term and docket ID
         """
-        response = {}
-
-        # Uses the database manager to query the comments
-        search = self.__manager.search_comments(search_term, docket_id)
-
-        # If the search term is valid, data will be ingested into the JSON response
-        response['data'] = {
-            'search_term': search_term,
-            'docket_id': docket_id,
-            'comments': []
-        }
-
+        response = {'data': {'search_term': search_term, 'docket_id': docket_id, 'comments': []}}
+        search = self._manager.search_comments(search_term, docket_id)
         for comment in search:
             author = comment['attributes']['lastName']
             date_posted = comment['postedDate']
@@ -81,10 +69,5 @@ class MongoQueryManager(QueryManager):
                 'date_posted': date_posted,
                 'link': link,
                 'docket_id': docket_id,
-                })
-
+            })
         return response
-
-    def __init__(self, database_manager: DatabaseManager):
-        super().__init__(database_manager)
-        self.__manager = database_manager

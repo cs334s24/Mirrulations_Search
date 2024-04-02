@@ -1,7 +1,7 @@
-"""Tests for the mongo_manager module"""
+"""Tests for the database manager module"""
 
 import pytest
-from mirrsearch.api.database_manager import MongoManager, ConnectionException
+from mirrsearch.api.database_manager import MongoManager, ConnectionException, DatabaseManager
 
 def test_manager_returns_mongo_client_instance():
     """
@@ -79,3 +79,88 @@ def test_search_dockets_returns_results():
     results = client.search_dockets('test')
     assert results is not None
     client.close_instance()
+
+def test_database_manager_search_dockets_raises_error():
+    """
+    Tests that the MongoManager class raises an error
+    when the search_dockets function is called
+    """
+    client = DatabaseManager()
+    try:
+        client.search_dockets('test')
+    except NotImplementedError as error:
+        assert str(error) == "Subclasses must implement search_dockets"
+
+def test_database_manager_search_comments_raises_error():
+    """
+    Tests that the MongoManager class raises an error
+    when the search_comments function is called
+    """
+    client = DatabaseManager()
+    try:
+        client.search_comments('test', 'test')
+    except NotImplementedError as error:
+        assert str(error) == "Subclasses must implement search_comments"
+
+def test_database_manager_get_instance_raises_error():
+    """
+    Tests that the MongoManager class raises an error
+    when the get_instance function is called
+    """
+    try:
+        MongoManager.get_instance()
+    except NotImplementedError as error:
+        assert str(error) == "Subclasses must implement get_instance"
+
+def test_database_manager_close_instance_raises_error():
+    """
+    Tests that the MongoManager class raises an error
+    when the close_instance function is called
+    """
+    try:
+        MongoManager.close_instance()
+    except NotImplementedError as error:
+        assert str(error) == "Subclasses must implement close_instance"
+
+def test_get_instance_before_connection():
+    """
+    Tests that get_instance raises a NotImplementedError
+    when called before establishing a connection
+    """
+    try:
+        DatabaseManager.get_instance()
+    except NotImplementedError as error:
+        assert str(error) == "Subclasses must implement get_instance"
+
+def test_close_instance_before_connection():
+    """
+    Tests that close_instance raises a NotImplementedError
+    when called before establishing a connection
+    """
+    try:
+        DatabaseManager.close_instance()
+    except NotImplementedError as error:
+        assert str(error) == "Subclasses must implement close_instance"
+
+def test_close_instance_multiple_times():
+    """
+    Tests that close_instance can be called multiple times
+    without raising any errors
+    """
+    try:
+        MongoManager.close_instance()
+        MongoManager.close_instance()
+    except NotImplementedError:
+        pytest.fail("close_instance raised NotImplementedError unexpectedly")
+
+def test_get_instance_after_connection_closed():
+    """
+    Tests that get_instance raises a NotImplementedError
+    when called after closing the connection
+    """
+    client = MongoManager(hostname='mock')
+    client.close_instance()
+    try:
+        client.get_instance()
+    except NotImplementedError as error:
+        assert str(error) == "Subclasses must implement get_instance"
