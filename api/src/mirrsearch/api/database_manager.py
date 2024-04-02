@@ -15,6 +15,35 @@ class DatabaseManager:
     def __init__(self):
         pass
 
+    def search_dockets(self, search_term):
+        """
+        Function that searches the dockets collection in the database
+        for a given search term
+        """
+        raise NotImplementedError("Subclasses must implement search_dockets")
+
+    def search_comments(self, search_term, docket_id):
+        """
+        Function that searches the comments collection in the database
+        for a given search term and docket ID
+        """
+        raise NotImplementedError("Subclasses must implement search_comments")
+
+    @staticmethod
+    def get_instance():
+        """
+        Static method that returns the database client instance.
+        """
+        raise NotImplementedError("Subclasses must implement get_instance")
+
+    @staticmethod
+    def close_instance():
+        """
+        Static method that closes the database connection if there is currently one open.
+        If there is no connection open, the method does nothing.
+        """
+        raise NotImplementedError("Subclasses must implement close_instance")
+
 class MongoManager(DatabaseManager):
     """
     Class that manages the connection to a Mongo database running locally or

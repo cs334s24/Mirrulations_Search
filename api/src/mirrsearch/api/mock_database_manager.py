@@ -1,7 +1,6 @@
 """
 Module for mocking the database manager for testing purposes
 """
-
 class MockDatabase:
     """
     Class that mocks the DatabaseManager class. It is used for testing purposes
@@ -19,7 +18,7 @@ class MockMongoDatabase(MockDatabase):
     interacting with the database.
     """
 
-    def search_dockets(self, search_term):
+    def search_dockets(self, _search_term):
         """
         Mocks the search_dockets method of the MongoDatabase class. It returns
         a dictionary with the search term that was passed in.
@@ -34,7 +33,7 @@ class MockMongoDatabase(MockDatabase):
             }
         }]
 
-    def search_comments(self, search_term, docket_id):
+    def search_comments(self, _search_term, _docket_id):
         """
         Mocks the search_comments method of the MongoDatabase class. It returns
         a list of dictionaries with the search term and docket id that were passed in.
@@ -52,21 +51,21 @@ class MockMongoDatabase(MockDatabase):
         """
         pass
 
-    def get_database(self, database_name):
+    def get_database(self, _database_name):
         """
         Mocks the get_database method of the MongoDatabase class. It returns
         itself.
         """
         return self
 
-    def get_collection(self, collection_name):
+    def get_collection(self, _collection_name):
         """
         Mocks the get_collection method of the MongoDatabase class. It returns
         itself.
         """
         return self
 
-    def find(self, query):
+    def find(self, _query):
         """
         Mocks the find method of the MongoDatabase class. It returns an empty list.
         """
