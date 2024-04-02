@@ -8,8 +8,10 @@ from pymongo import MongoClient
 from mirrsearch.api.mock_database_manager import MockMongoDatabase
 
 class DatabaseManager:
+    """
+    Class that manages the connection to a database
+    """
 
-    # TODO: Change the init function
     def __init__(self):
         pass
 
@@ -21,6 +23,10 @@ class MongoManager(DatabaseManager):
     __instance = None
 
     def search_dockets(self, search_term):
+        """
+        Function that searches the dockets collection in the database
+        for a given search term
+        """
         client = self.get_instance()
         db = client.get_database('mirrsearch')
         dockets = db.get_collection('docket')
@@ -34,11 +40,16 @@ class MongoManager(DatabaseManager):
         return results
 
     def search_comments(self, search_term, docket_id):
+        """
+        Function that searches the comments collection in the database
+        for a given search term and docket ID
+        """
         client = self.get_instance()
         db = client.get_database('mirrsearch')
         comments = db.get_collection('comments')
 
-        query = comments.find({'$and': [ {'attributes.docketId': {'$regex': f'{docket_id}'}}, {'attributes.comment': {'$regex': f'{search_term}'}}]})
+        query = comments.find({'$and': [ {'attributes.docketId': {'$regex': f'{docket_id}'}},
+                                        {'attributes.comment': {'$regex': f'{search_term}'}}]})
 
         results = []
         for comment in query:
@@ -73,11 +84,11 @@ class MongoManager(DatabaseManager):
             raise ConnectionException(message='''Error: a database client has already been
                 established, another connection cannot be created without
                 closing the other first''')
+
+        if hostname == 'mock':
+            MongoManager.__instance = MockMongoDatabase()
         else:
-            if hostname == 'mock':
-                MongoManager.__instance = MockMongoDatabase()
-            else:
-                MongoManager.__instance = MongoClient(hostname, port)
+            MongoManager.__instance = MongoClient(hostname, port)
 
 class ConnectionException(Exception):
     """

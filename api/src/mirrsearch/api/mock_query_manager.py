@@ -1,22 +1,48 @@
+"""
+MockQueryManager is a class that mocks the QueryManager class. It is used
+for testing purposes to simulate the behavior of the QueryManager class
+without actually interacting with the database. It is used in conjunction
+with the MockMongoQueries class to simulate
+the behavior of the MongoQueries class.
+"""
 from mirrsearch.api.mock_database_manager import MockMongoDatabase
 
 class MockQueryManager:
+    """
+    Class that mocks the QueryManager class. It is used for testing purposes
+    to simulate the behavior of the QueryManager class without actually
+    interacting with the database. It is used in conjunction with the
+    MockMongoQueries class to simulate
+    the behavior of the MongoQueries class.
+    """
 
-    __manager = None
+    manager = None
 
     def __init__(self) -> None:
         pass
 
 class MockMongoQueries(MockQueryManager):
-    # TODO: Mock out the search_dockets query
+    """
+    Class that mocks the MongoQueries class. It is used for testing purposes
+    to simulate the behavior of the MongoQueries class without actually
+    interacting with the database.
+    """
 
     def search_dockets(self, search_term):
+        """
+        Mocks the search_dockets method of the MongoQueries class. It returns
+        a dictionary with the search term that was passed in.
+        """
         return {'data': search_term}
-    
+
     def search_comments(self, search_term, docket_id):
+        """
+        Mocks the search_comments method of the MongoQueries class. It returns
+        a dictionary with the search term and docket id that were passed in.
+        """
         return {
                 'data': 
-                {'search_term': search_term, 
+                {'search_term': search_term,
                  'docket_id': docket_id,
                  'comments': [
                         {
@@ -30,5 +56,5 @@ class MockMongoQueries(MockQueryManager):
                 }
 
     def __init__(self, manager: MockMongoDatabase):
-        self.__manager = manager
-        
+        super().__init__()
+        self.manager = manager
