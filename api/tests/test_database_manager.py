@@ -8,7 +8,7 @@ def test_manager_returns_mongo_client_instance():
     Tests that the MongoManager class returns an instance that
     is not None when it is first initialized
     """
-    client = MongoManager()
+    client = MongoManager(hostname='mock')
     assert client is not None
     client.close_instance()
 
@@ -59,3 +59,23 @@ def test_custom_connection_exception_message():
     """
     exception = ConnectionException(message='Test exception message')
     assert exception.message == 'Test exception message'
+
+def test_search_comments_returns_results():
+    """
+    Tests that the search_comments function returns the
+    expected results
+    """
+    client = MongoManager(hostname='mock')
+    results = client.search_comments('test', 'test')
+    assert results is not None
+    client.close_instance()
+
+def test_search_dockets_returns_results():
+    """
+    Tests that the search_dockets function returns the
+    expected results
+    """
+    client = MongoManager(hostname='mock')
+    results = client.search_dockets('test')
+    assert results is not None
+    client.close_instance()
