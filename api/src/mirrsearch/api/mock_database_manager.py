@@ -49,7 +49,7 @@ class MockMongoDatabase(MockDatabase):
         """
         Mocks the close method of the MongoDatabase class. It does nothing.
         """
-        pass
+        return self
 
     def get_database(self, _database_name):
         """
