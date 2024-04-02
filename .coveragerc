@@ -6,3 +6,4 @@ exclude_lines =
 [run]
 omit = 
     ./api/src/mirrsearch/db/*
+    ./api/setup.py
