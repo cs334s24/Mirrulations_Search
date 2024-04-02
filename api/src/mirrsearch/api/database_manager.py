@@ -5,6 +5,7 @@ more than one database connection open. A mock database instance
 can also be created using this class.
 """
 from pymongo import MongoClient
+from mirrsearch.api.mock_database_manager import MockMongoDatabase
 
 class DatabaseManager:
 
@@ -21,7 +22,7 @@ class MongoManager(DatabaseManager):
 
     def search_dockets(self, search_term):
         client = self.get_instance()
-        db = client['mirrsearch']
+        db = client.get_database('mirrsearch')
         dockets = db.get_collection('docket')
 
         query = dockets.find({'attributes.title': {'$regex': f'{search_term}'}})
@@ -34,7 +35,7 @@ class MongoManager(DatabaseManager):
 
     def search_comments(self, search_term, docket_id):
         client = self.get_instance()
-        db = client['mongoSample']
+        db = client.get_database('mirrsearch')
         comments = db.get_collection('comments')
 
         query = comments.find({'$and': [ {'attributes.docketId': {'$regex': f'{docket_id}'}}, {'attributes.comment': {'$regex': f'{search_term}'}}]})
@@ -64,7 +65,7 @@ class MongoManager(DatabaseManager):
             MongoManager.__instance.close()
             MongoManager.__instance = None
 
-    def __init__(self):
+    def __init__(self, hostname='mongo', port=27017):
         """
         Initializer method that ensures there is only ever one database connection open.
         """
@@ -73,7 +74,10 @@ class MongoManager(DatabaseManager):
                 established, another connection cannot be created without
                 closing the other first''')
         else:
-            MongoManager.__instance = MongoClient('mongo', 27017)
+            if hostname == 'mock':
+                MongoManager.__instance = MockMongoDatabase()
+            else:
+                MongoManager.__instance = MongoClient(hostname, port)
 
 class ConnectionException(Exception):
     """

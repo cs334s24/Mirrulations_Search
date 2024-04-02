@@ -24,6 +24,18 @@ class MockMongoDatabase(MockDatabase):
                 'links': {'self': 'pass'},
                 'docketId': 'test'
                 }]
+    
+    def close(self):
+        pass
+
+    def get_database(self, database_name):
+        return self
+    
+    def get_collection(self, collection_name):
+        return self
+    
+    def find(self, query):
+        return []
 
     def __init__(self):
         super().__init__()
