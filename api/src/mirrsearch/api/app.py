@@ -48,30 +48,6 @@ def create_app():
            'date_range': '2008/03/31-2023/12/28',
            'comment_date_range': '2008/03/31-2023/12/28',
            })
-        response['data']['dockets'].append({
-           'title': 'Proposed Informaation Collestion: Final Rule to Implememnt Title V of the Tribal...',
-           'id': "IHS-2005-0001",
-           'link': 'https://www.regulations.gov/docket/IHS-2005-0001',
-           'docket_type': 'NonRulemaking',
-            'documents_containing_search_term': 1   ,
-           'total_documents': 1,
-           'comments_containing': 15,
-           'total_comments': 80,
-           'date_range': '2005/10/11-2005/10/11',
-           'comment_date_range': '2005/10/11-2005/10/11',
-           })
-        response['data']['dockets'].append({
-           'title': 'Organization, Fucntions, and Authority Delegations: Headquarters Reorganization',
-           'id': "IHS-2005-0003",
-           'link': 'https://www.regulations.gov/docket/IHS-2005-0003',
-           'docket_type': 'NonRulemaking',
-            'documents_containing_search_term': 1,
-           'total_documents': 1,
-           'comments_containing': 25,
-           'total_comments': 40,
-           'date_range': '2008/10/17-2008/10/17',
-           'comment_date_range': '2008/10/17-2008/10/17',
-           })
         return jsonify(response)
 
     @app.route('/search_documents')

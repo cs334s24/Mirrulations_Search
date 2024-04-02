@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import "./App.css";
-import {getDummyDataDemo} from "./static/script";
-// import {getDummyData, getDummyDataDemo} from "./static/script";
+// import {getDummyDataDemo} from "./static/script";
+import {getDummyData} from "./static/script";
 import SearchBar from "./components/SearchBar";
 import DocketList from "./components/DocketList";
 
@@ -9,11 +9,9 @@ function App() {
  const [dockets, setDockets] = useState(); // Initialize docket state to false
 
  const handleOnClick = async () => {
-  //   const data = await getDummyData();
-  // //   console.log(data.data.dockets);
-  // //   setDockets(data.data.dockets); // Set docket state to true when search button is clicked
-  const data = await getDummyDataDemo();
-  setDockets(data);
+  const data = await getDummyData("Hi");
+  console.log(data.data.dockets);
+  setDockets(data.data.dockets);
  };
 
  return (
