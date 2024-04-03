@@ -37,7 +37,7 @@ def create_app(query_manager):
 
         # If the search term is valid, data will be ingested into the JSON response
         response = query_manager.search_dockets(search_term)
-        
+
         return jsonify(response)
 
     @app.route('/search_documents')
