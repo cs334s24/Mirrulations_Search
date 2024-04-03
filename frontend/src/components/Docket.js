@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/Docket.css"; // Import the CSS file
+import Button from "./Button";
 
 const Docket = ({
  title,
@@ -38,6 +39,7 @@ const Docket = ({
       <span className="circle-text">75%</span>
      </div>
     </div>
+    <Button />
    </div>
   </div>
  );
