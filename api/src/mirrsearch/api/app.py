@@ -35,27 +35,8 @@ def create_app(query_manager):
             return jsonify(response), 400
 
 
-        # API Team work
-        # response = query_manager.search_dockets(search_term)
-
-        # Front-end team work
         # If the search term is valid, data will be ingested into the JSON response
-        response['data'] = {
-            'search_term': search_term,
-            'dockets': []
-        }
-        response['data']['dockets'].append({
-           'title': 'Recently Posted IHS Rules and Notices',
-           'id': "IHS_FRDOC_0001",
-           'link': 'https://www.regulations.gov/docket/IHS_FRDOC_0001',
-           'docket_type': 'Rulemaking',
-            'documents_containing': 54,
-           'total_documents': 54,
-           'comments_containing': 20,
-           'total_comments': 100,
-           'date_range': '2008/03/31-2023/12/28',
-           'comment_date_range': '2008/03/31-2023/12/28',
-           })
+        response = query_manager.search_dockets(search_term)
         
         return jsonify(response)
 

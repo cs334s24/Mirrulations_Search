@@ -47,8 +47,13 @@ class MongoQueryManager(QueryManager):
                 'title': title,
                 'id': doc_id,
                 'link': link,
-                'number_of_comments': number_of_comments,
-                'number_of_documents': number_of_documents
+                'total_comments': number_of_comments,
+                'total_documents': number_of_documents,
+                'documents_containing': 54,
+                'comments_containing': 20,
+                'docket_type': 'Notice',
+                'date_range': '2008/03/31-2023/12/28',
+                'comment_date_range': '2008/03/31-2023/12/28'
             })
         return response
 
