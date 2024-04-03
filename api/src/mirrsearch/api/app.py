@@ -37,11 +37,16 @@ def create_app():
             'dockets': []
         }
         response['data']['dockets'].append({
-           'title': 'Designation as a Preexisting Subscription Service',
-           'id': "COLC-2006-0014",
-           'link': 'https://www.regulations.gov/docket/COLC-2006-0014',
-           'number_of_comments': 0,
-           'number_of_documents': 1
+           'title': 'Recently Posted IHS Rules and Notices',
+           'id': "IHS_FRDOC_0001",
+           'link': 'https://www.regulations.gov/docket/IHS_FRDOC_0001',
+           'docket_type': 'Rulemaking',
+            'documents_containing': 54,
+           'total_documents': 54,
+           'comments_containing': 20,
+           'total_comments': 100,
+           'date_range': '2008/03/31-2023/12/28',
+           'comment_date_range': '2008/03/31-2023/12/28',
            })
         return jsonify(response)
 
