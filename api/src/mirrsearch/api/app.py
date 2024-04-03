@@ -39,9 +39,9 @@ def create_app():
         response['data']['dockets'].append({
            'title': 'Recently Posted IHS Rules and Notices',
            'id': "IHS_FRDOC_0001",
-           'link': 'https://www.regulations.gov/docket/IHS-FRDOC-0001',
+           'link': 'https://www.regulations.gov/docket/IHS_FRDOC_0001',
            'docket_type': 'Rulemaking',
-            'documents_containing_search_term': 54,
+            'documents_containing': 54,
            'total_documents': 54,
            'comments_containing': 20,
            'total_comments': 100,
