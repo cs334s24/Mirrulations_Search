@@ -18,6 +18,11 @@ def create_app():
         data = {"message": "hello world", "status": 200}
         return jsonify(data)
 
+    @app.route('/zip_data')
+    def zip_data():
+        data = {"message": "The email to download your data will be sent shortly", "status": 200}
+        return jsonify(data)
+
     @app.route('/search_dockets')
     def search_dockets():
         response = {}
