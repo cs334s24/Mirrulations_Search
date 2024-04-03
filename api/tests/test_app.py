@@ -177,3 +177,8 @@ def test_search_comments_endpoint_returns_status_code_400_missing_docket_id(clie
     search_term = 'preexisting'
     response = client.get(f'/search_comments?term={search_term}')
     assert response.status_code == 400
+
+def test_zip_data_endpoint_returns_200(client):
+    """Test whether the zip_data endpoint returns a 200 OK status code."""
+    response = client.get('/zip_data')
+    assert response.status_code == 200
