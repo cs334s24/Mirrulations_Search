@@ -80,6 +80,16 @@ def test_search_dockets_returns_results():
     assert results is not None
     client.close_instance()
 
+def test_search_dockets_returns_results():
+    """
+    Tests that the search_dockets function returns the
+    expected results
+    """
+    client = MongoManager(hostname='mock')
+    results = client.search_dockets('test', 'test')
+    assert results is not None
+    client.close_instance()
+
 def test_database_manager_search_dockets_raises_error():
     """
     Tests that the MongoManager class raises an error
