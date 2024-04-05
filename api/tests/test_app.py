@@ -4,13 +4,13 @@
 
 import json
 import pytest
-from mirrsearch.api.app import create_app
+from mirrsearch.api.app import launch
 from flask import Flask, jsonify, request
 
 @pytest.fixture
 def app():
     """Creates a Flask app instance for testing."""
-    app = create_app()
+    app = launch('mockMongo')
     yield app
 
 @pytest.fixture
@@ -53,21 +53,22 @@ def test_data_endpoint_returns_status(client):
     data = json.loads(response.data)
     assert 'status' in data
 
-def test_search_dockets_endpoint_returns_status(client):
+def test_search_dockets_endpoint_valid_request_returns_200(client):
     """Test whether the search_dockets endpoint returns a 200 OK status code."""
-    search_term = 'meaningful+use'
+    search_term = 'Governance'
     response = client.get(f'/search_dockets?term={search_term}')
+    print(response)
     assert response.status_code == 200
 
 def test_search_dockets_endpoint_returns_valid_json(client):
     """Test whether the search_dockets endpoint returns a valid JSON response."""
-    search_term = 'meaningful+use'
+    search_term = 'Governance'
     response = client.get(f'/search_dockets?term={search_term}')
     assert response.is_json
 
 def test_search_dockets_endpoint_returns_data_key(client):
     """Test whether the search_dockets endpoint returns JSON data containing the key 'data'."""
-    search_term = 'meaningful+use'
+    search_term = 'Governance'
     response = client.get(f'/search_dockets?term={search_term}')
     data = json.loads(response.data)
     assert 'data' in data
@@ -177,3 +178,8 @@ def test_search_comments_endpoint_returns_status_code_400_missing_docket_id(clie
     search_term = 'preexisting'
     response = client.get(f'/search_comments?term={search_term}')
     assert response.status_code == 400
+
+def test_zip_data_endpoint_returns_200(client):
+    """Test whether the zip_data endpoint returns a 200 OK status code."""
+    response = client.get('/zip_data')
+    assert response.status_code == 200

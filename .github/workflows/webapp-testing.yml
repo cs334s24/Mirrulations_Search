@@ -27,6 +27,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install setuptools 
         pip install -e api/
+    - name: Add OpenSearch Environment Variables
+      env:
+        OPENSEARCH_USERNAME: ${{ secrets.OPENSEARCH_USERNAME }}
+        OPENSEARCH_PASSWORD: ${{ secrets.OPENSEARCH_PASSWORD }}
+      run: |
+        echo "OPENSEARCH_USERNAME=$OPENSEARCH_USERNAME" > ./api/src/mirrsearch/api/.env
+        echo "OPENSEARCH_PASSWORD=$OPENSEARCH_PASSWORD" > ./api/src/mirrsearch/api/.env
     - name: Call Makefile to test and lint
       run: |
         make
