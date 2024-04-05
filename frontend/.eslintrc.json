@@ -1,6 +1,28 @@
 {
- "extends": ["react-app", "react-app/jest", "prettier"],
+ "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+ "plugins": ["prettier"],
  "rules": {
+  "no-unused-vars": "off",
   "semi": ["warn", "always"]
- }
+ },
+  "parserOptions": {
+    "parser": "@babel/eslint-parser",
+    "ecmaVersion": "latest",
+    "ecmaFeatures": {
+        "jsx": true,
+        "modules": true
+    },
+    "requireConfigFile": false,
+    "sourceType": "module",
+    "allowImportExportEverywhere": true
+  },
+  "globals": {
+    "test": true
+  },
+ "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "jasmine": true
+  }
 }
