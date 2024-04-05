@@ -3,11 +3,10 @@ const URL = window.location.href;
 // api.js
 export const getDummyData = async (searchTerm) => {
  try {
-  const search = URL + "/api/search_dockets?term=" + searchTerm;
+  const search = `https://localhost/api/search_dockets?term=${searchTerm.replaceAll("/", "").replaceAll("'", "").replaceAll('"', "")}`;
   const response = await fetch(search);
 
   const data = await response.json();
-  console.log(data);
   return data;
  } catch (error) {
   console.error("Error calling the endpoint:", error);
