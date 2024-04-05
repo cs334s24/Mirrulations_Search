@@ -9,6 +9,7 @@ from mirrsearch.api.query_manager import MongoQueryManager
 from mirrsearch.api.database_manager import MongoManager
 from mirrsearch.api.mock_database_manager import MockMongoDatabase
 from mirrsearch.api.mock_query_manager import MockMongoQueries
+import boto3
 
 def create_app(query_manager):
     """
@@ -25,7 +26,15 @@ def create_app(query_manager):
     @app.route('/zip_data')
     def zip_data():
         data = {"message": "The email to download your data will be sent shortly", "status": 200}
+        trigger_lambda()
         return jsonify(data)
+
+    def trigger_lambda():
+        client = boto3.client('lambda', region_name='us-east-1')
+        client.invoke(
+            FunctionName='ProductionZipSystemLambda',
+            InvocationType='Event'
+        )
 
     @app.route('/search_dockets')
     def search_dockets():
