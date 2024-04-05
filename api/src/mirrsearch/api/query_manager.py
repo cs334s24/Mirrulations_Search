@@ -1,100 +1,105 @@
+"""
+Module for managing queries to the database
+"""
 from mirrsearch.api.database_manager import DatabaseManager
 
 class QueryManager:
+    """
+    Abstract class for managing queries to the database
+    """
 
-   __manager = None
+    def __init__(self, database_manager: DatabaseManager):
+        self._manager = database_manager
 
-   def __init__(self, database_manager):
-       self.__manager = database_manager
+    def search_dockets(self, search_term):
+        """
+        Function that searches the dockets collection in the database
+        for a given search term
+        """
+        raise NotImplementedError("Subclasses must implement search_dockets")
+    
+    def search_documents(self, search_term, docket_id):
+        """
+        Function that searches the documents collection in the database
+        for a given search term and docket ID
+        """
+        raise NotImplementedError("Subclasses must implement search_documents")
+
+    def search_comments(self, search_term, docket_id):
+        """
+        Function that searches the comments collection in the database
+        for a given search term and docket ID
+        """
+        raise NotImplementedError("Subclasses must implement search_comments")
 
 class MongoQueryManager(QueryManager):
+    """
+    Class for managing queries to a MongoDB database
+    """
 
-   __manager = None
+    def search_dockets(self, search_term):
+        """
+        Function that searches the dockets collection in the database
+        for a given search term
+        """
+        response = {'data': {'search_term': search_term, 'dockets': []}}
+        search = self._manager.search_dockets(search_term)
+        for doc in search:
+            title = doc['attributes']['title']
+            doc_id = doc['id']
+            link = doc['links']['self']
+            number_of_comments = 0  # Placeholder for counting comments
+            number_of_documents = 0  # Placeholder for counting documents
+            response['data']['dockets'].append({
+                'title': title,
+                'id': doc_id,
+                'link': link,
+                'total_comments': number_of_comments,
+                'total_documents': number_of_documents,
+                'documents_containing': 54,
+                'comments_containing': 20,
+                'docket_type': 'Notice',
+                'date_range': '2008/03/31-2023/12/28',
+                'comment_date_range': '2008/03/31-2023/12/28'
+            })
+        return response
+    
+    def search_documents(self, search_term, docket_id):
+        """
+        Function that searches the comments collection in the database
+        for a given search term and docket ID
+        """
+        response = {'data': {'search_term': search_term, 'docket_id': docket_id, 'comments': []}}
+        search = self._manager.search_documents(search_term, docket_id)
+        for document in search:
+            author = document['attributes']['lastName']
+            date_posted = document['postedDate']
+            link = document['links']['self']
+            docket_id = document['docketId']
+            response['data']['documents'].append({
+                'author': author,
+                'date_posted': date_posted,
+                'link': link,
+                'docket_id': docket_id,
+            })
+        return response
 
-   def search_dockets(self, search_term):
-       response = {}
-
-       # Uses the database manager to query the dockets
-       search = self.__manager.search_dockets(search_term)
-          
-       # If the search term is valid, data will be ingested into the JSON response
-       response['data'] = {
-           'search_term': search_term,
-               'dockets': []
-           }
-
-       for doc in search:
-           title = doc['attributes']['title']
-           id = doc['id']
-           link = doc['links']['self']
-           # TODO: Query comments and documents collections to get count of each using docket ID
-           number_of_comments = 0
-           number_of_documents = 0
-           response['data']['dockets'].append({
-               'title': title,
-               'id': id,
-               'link': link,
-               'number_of_comments': number_of_comments,
-               'number_of_documents': number_of_documents
-           })
-
-       return response
-  
-   def search_documents(self, search_term, docket_id):
-       response = {}
-
-       # Uses the database manager to query the documents
-       search = self.__manager.search_documents(search_term, docket_id)
-
-       # If the search term is valid, data will be ingested into the JSON response
-       response['data'] = {
-           'search_term': search_term,
-           'docket_id': docket_id,
-           'documents': []
-       }
-
-       for document in search:
-           author = document['attributes']['authors']
-           date_posted = document['postedDate']
-           link = document['links']['self']
-           docket_id = document['docketId']
-           response['data']['documents'].append({
-               'author': author,
-               'date_posted': date_posted,
-               'link': link,
-               'docket_id': docket_id,
-               })
-
-       return response
-  
-   def search_comments(self, search_term, docket_id):
-       response = {}
-
-       # Uses the database manager to query the comments
-       search = self.__manager.search_comments(search_term, docket_id)
-
-
-       # If the search term is valid, data will be ingested into the JSON response
-       response['data'] = {
-           'search_term': search_term,
-           'docket_id': docket_id,
-           'comments': []
-       }
-
-       for comment in search:
-           author = comment['attributes']['lastName']
-           date_posted = comment['postedDate']
-           link = comment['links']['self']
-           docket_id = comment['docketId']
-           response['data']['comments'].append({
-               'author': author,
-               'date_posted': date_posted,
-               'link': link,
-               'docket_id': docket_id,
-               })
-
-       return response
-  
-   def __init__(self, database_manager: DatabaseManager):
-       self.__manager = database_manager
-       
+    def search_comments(self, search_term, docket_id):
+        """
+        Function that searches the comments collection in the database
+        for a given search term and docket ID
+        """
+        response = {'data': {'search_term': search_term, 'docket_id': docket_id, 'comments': []}}
+        search = self._manager.search_comments(search_term, docket_id)
+        for comment in search:
+            author = comment['attributes']['lastName']
+            date_posted = comment['postedDate']
+            link = comment['links']['self']
+            docket_id = comment['docketId']
+            response['data']['comments'].append({
+                'author': author,
+                'date_posted': date_posted,
+                'link': link,
+                'docket_id': docket_id,
+            })
+        return response
