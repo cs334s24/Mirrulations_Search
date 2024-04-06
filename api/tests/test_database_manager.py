@@ -80,7 +80,7 @@ def test_search_dockets_returns_results():
     assert results is not None
     client.close_instance()
 
-def test_search_dockets_returns_results():
+def test_search_documents_returns_results():
     """
     Tests that the search_dockets function returns the
     expected results
