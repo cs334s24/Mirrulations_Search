@@ -3,7 +3,9 @@ const URL = window.location.href;
 // api.js
 export const getDummyData = async (searchTerm) => {
  try {
-  const search = `https://localhost/api/search_dockets?term=${searchTerm.replaceAll("/", "").replaceAll("'", "").replaceAll('"', "")}`;
+  const search =
+   URL +
+   `api/search_dockets?term=${searchTerm.replaceAll("/", "").replaceAll("'", "").replaceAll('"', "")}`;
   const response = await fetch(search);
 
   const data = await response.json();
