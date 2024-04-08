@@ -29,13 +29,6 @@ def create_app(query_manager):
         trigger_lambda()
         return jsonify(data)
 
-    def trigger_lambda():
-        client = boto3.client('lambda', region_name='us-east-1')
-        client.invoke(
-            FunctionName='ProductionZipSystemLambda',
-            InvocationType='Event'
-        )
-
     @app.route('/search_dockets')
     def search_dockets():
         # Obtains the search term
@@ -104,6 +97,16 @@ def create_app(query_manager):
         return jsonify(response)
 
     return app
+
+def trigger_lambda():
+    """
+    Trigger the Lambda function to zip the data
+    """
+    client = boto3.client('lambda', region_name='us-east-1')
+    client.invoke(
+        FunctionName='ProductionZipSystemLambda',
+        InvocationType='Event'
+    )
 
 def launch(database):
     """
