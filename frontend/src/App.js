@@ -8,9 +8,8 @@ import DocketList from "./components/DocketList";
 function App() {
  const [dockets, setDockets] = useState(); // Initialize docket state to false
 
- const handleOnClick = async () => {
-  const data = await getDummyData("Hi");
-  console.log(data.data.dockets);
+ const handleOnClick = async (term) => {
+  const data = await getDummyData(term);
   setDockets(data.data.dockets);
  };
 

@@ -125,6 +125,23 @@ because your browser will pick up that it is not 3rd party authenticated.
 Chrome is a little more strict about this so you may be better off using
 safari or another browser. 
 
+## Installing Node Dependencies for Front-End
+
+To run our `front-end` container within docker, you will need to install Node onto your laptop as a pre-requisite:
+
+  ```
+  brew install node
+  ```
+
+Navigate to the `frontend` folder and run the command:
+```
+cd frontend
+npm install
+```
+
+This will generate a folder called `node_modules`, as well as a `package-lock.json` that are necessary for the build process of the front-end container.
+
+
 ## Deploy the System in Development
 
 To launch the entire system:
