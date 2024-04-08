@@ -14,8 +14,38 @@ Modify the search_dockets method to accept two new parameters: last_id and limit
 
 Modify MongoManager 
 
+```
+def search_dockets(self, search_term):
+
+    query_filter = {'attributes.title': {'$regex': f'{search_term}'}}
+
+    if last_id:
+        query_filter['_id'] = {'$gt': last_id}
+    
+    query = dockets.find(query_filter).limit(limit).sort('_id', 1)
+
+```
+
 Modify QueryManager
 
+```
+def search_dockets(self, search_term, last_id=None, limit=10):
+
+    search = self._manager.search_dockets(search_term, last_id, limit)
+```
+
 Modify API Endpoint
+
+```
+    @app.route('/search_dockets')
+    def search_dockets():
+
+        search_term = request.args.get('term')
+        last_id = request.args.get('last_id', None)
+        limit = request.args.get('limit', 10, type=int)
+
+        response = query_manager.search_dockets(search_term, last_id, limit)
+        return jsonify(response)
+```
 
 
