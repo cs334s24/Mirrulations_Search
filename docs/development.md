@@ -184,6 +184,7 @@ To launch the entire system:
   - Make sure you have mongosh installed, but your localhost:27017 Mongo instance is not running
     - To check if you have mongosh run `brew list | grep mongosh`
     - If you do not have mongosh installed run `brew install mongosh`
+    - Be sure to check at this point that your docker-compose system is `NOT` running
     - Brew installing Mongo will automatcially start a local instance, which we do not want. To stop this, type `mongosh`
     - Inside of the prompt that opens up, type in:
     ```
