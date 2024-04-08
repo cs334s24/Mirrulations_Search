@@ -4,10 +4,18 @@
 
 Pagination is a process of dividing data into discrete pages, allowing users to view a specific subset of data at a time. This will be useful when we switch to a large data set, as it will reduce the amount of data transferred at once and improve the response times.
 
-## Pagination in MongoDB
+## Cursor-based pagination
 
-MongoDB supports pagination through the skip() and limit() functions
-* `limit(n)` limits the number of documents returned to n
-* `skip(n)` skips the first n documents
+Cursor-based pagination works by using a unique identifier (a cursor) from the currently loaded data set to fetch the next or previous set of records. This method is especially efficient for large data sets because it doesn't require the server to count or skip through a potentially large number of records to find the starting point of the desired page.
 
 ## Implementing Pagination
+
+Modify the search_dockets method to accept two new parameters: last_id and limit. last_id is the cursor indicating where the last query stopped, and limit is the maximum number of results to return
+
+Modify MongoManager 
+
+Modify QueryManager
+
+Modify API Endpoint
+
+
