@@ -72,6 +72,21 @@ nano .env
 
 * Add the line `WDS_SOCKET_PORT=0` and save
 
+## Installing Node
+To run our `front-end` container within docker, you will need to install Node onto your laptop as a pre-requisite:
+
+  ```
+  brew install node
+  ```
+
+Navigate to the `frontend` folder and run the command:
+```
+cd frontend
+npm install
+```
+
+This will generate a folder called `node_modules`, as well as a `package-lock.json` that are necessary for the build process of the front-end container.
+
 ## Setup HTTPS for Development
 
 * Starting from the root directory make your way to the nginx folder
@@ -125,22 +140,6 @@ because your browser will pick up that it is not 3rd party authenticated.
 Chrome is a little more strict about this so you may be better off using
 safari or another browser. 
 
-## Installing Node Dependencies for Front-End
-
-To run our `front-end` container within docker, you will need to install Node onto your laptop as a pre-requisite:
-
-  ```
-  brew install node
-  ```
-
-Navigate to the `frontend` folder and run the command:
-```
-cd frontend
-npm install
-```
-
-This will generate a folder called `node_modules`, as well as a `package-lock.json` that are necessary for the build process of the front-end container.
-
 
 ## Deploy the System in Development
 
@@ -180,7 +179,8 @@ To launch the entire system:
 ### Ingesting Data into mongoDB
 
 ##### Prerequisite: 
-  - Have the system running in by following [Deploy the System in Development]
+  - You have followed the: [Deploy the System in Development] setup steps
+    - This assumes that you have completed this step of the setup process, but that your docker system is `NOT` currently running.
   - Make sure you have mongosh installed, but your localhost:27017 Mongo instance is not running
     - To check if you have mongosh run `brew list | grep mongosh`
     - If you do not have mongosh installed run `brew install mongosh`
