@@ -22,6 +22,13 @@ class DatabaseManager:
         """
         raise NotImplementedError("Subclasses must implement search_dockets")
 
+    def search_documents(self, search_term, docket_id):
+        """
+        Function that searches the comments collection in the database
+        for a given search term and docket ID
+        """
+        raise NotImplementedError("Subclasses must implement search_documents")
+
     def search_comments(self, search_term, docket_id):
         """
         Function that searches the comments collection in the database
@@ -68,6 +75,22 @@ class MongoManager(DatabaseManager):
 
         return results
 
+    def search_documents(self, search_term, docket_id):
+        """
+        Function that searches the comments collection in the database
+        for a given search term and docket ID
+        """
+        client = self.get_instance()
+        db = client.get_database('mirrsearch')
+        comments = db.get_collection('documents')
+
+        total_comments = comments.count_documents({'attributes.docketId':
+                                                   {'$regex': f'{docket_id}'}})
+        total_terms = comments.count_documents({'$and': [ {'id': {'$regex': f'{docket_id}'}},
+                                                     {'data': {'$regex': f'{search_term}'}}]})
+
+        return total_comments, total_terms
+
     def search_comments(self, search_term, docket_id):
         """
         Function that searches the comments collection in the database
@@ -77,14 +100,22 @@ class MongoManager(DatabaseManager):
         db = client.get_database('mirrsearch')
         comments = db.get_collection('comments')
 
-        query = comments.find({'$and': [ {'attributes.docketId': {'$regex': f'{docket_id}'}},
-                                        {'attributes.comment': {'$regex': f'{search_term}'}}]})
+        total_comments = comments.count_documents({'attributes.docketId':
+                                                   {'$regex': f'{docket_id}'}})
+        total_terms = comments.count_documents({'$and': [ {'attributes.docketId':
+                                                {'$regex': f'{docket_id}'}},
+                                                {'attributes.comment':
+                                                 {'$regex': f'{search_term}'}}]})
 
-        results = []
-        for comment in query:
-            results.append(comment)
+        return total_comments, total_terms
+        # query = comments.find({'$and': [ {'attributes.docketId': {'$regex': f'{docket_id}'}},
+        #                                 {'attributes.comment': {'$regex': f'{search_term}'}}]})
 
-        return results
+        # results = []
+        # for comment in query:
+        #     results.append(comment)
+
+        # return results
 
     @staticmethod
     def get_instance():

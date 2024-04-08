@@ -40,18 +40,22 @@ class MongoQueryManager(QueryManager):
         for doc in search:
             title = doc['attributes']['title']
             doc_id = doc['id']
-            link = doc['links']['self']
-            number_of_comments = 0  # Placeholder for counting comments
-            number_of_documents = 0  # Placeholder for counting documents
+            # link = doc['links']['self']
+            link = "https://www.regulations.gov/docket/" +  doc_id
+            number_of_comments, comments_containing = self._manager.search_comments(
+                search_term, doc_id)
+            number_of_documents, documents_containing = self._manager.search_documents(
+                search_term, doc_id)
+            docket_type = doc['attributes']['docketType']
             response['data']['dockets'].append({
                 'title': title,
                 'id': doc_id,
                 'link': link,
                 'total_comments': number_of_comments,
                 'total_documents': number_of_documents,
-                'documents_containing': 54,
-                'comments_containing': 20,
-                'docket_type': 'Notice',
+                'documents_containing': documents_containing,
+                'comments_containing': comments_containing,
+                'docket_type': docket_type,
                 'date_range': '2008/03/31-2023/12/28',
                 'comment_date_range': '2008/03/31-2023/12/28'
             })
