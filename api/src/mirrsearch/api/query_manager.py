@@ -40,13 +40,13 @@ class MongoQueryManager(QueryManager):
         for doc in search:
             title = doc['attributes']['title']
             doc_id = doc['id']
-            # link = doc['links']['self']
             link = "https://www.regulations.gov/docket/" +  doc_id
             number_of_comments, comments_containing = self._manager.search_comments(
                 search_term, doc_id)
             number_of_documents, documents_containing = self._manager.search_documents(
                 search_term, doc_id)
             docket_type = doc['attributes']['docketType']
+            start_date, end_date =  self._manager.comments_date_range(doc_id)
             response['data']['dockets'].append({
                 'title': title,
                 'id': doc_id,
@@ -57,7 +57,7 @@ class MongoQueryManager(QueryManager):
                 'comments_containing': comments_containing,
                 'docket_type': docket_type,
                 'date_range': '2008/03/31-2023/12/28',
-                'comment_date_range': '2008/03/31-2023/12/28'
+                'comment_date_range': start_date + '-' + end_date,
             })
         return response
 
