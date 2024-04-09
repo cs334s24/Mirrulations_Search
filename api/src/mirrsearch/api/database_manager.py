@@ -117,6 +117,21 @@ class MongoManager(DatabaseManager):
 
         # return results
 
+    def comments_date_range(self, docket_id):
+        """ Finds earliest and latest comments for a docket """
+        client = self.get_instance()
+        db = client.get_database('mirrsearch')
+        comments = db.get_collection('comments')
+
+        start_date = comments.find({ "attributes.docketId" :
+                                    {'$regex': f'{docket_id}'} }).sort({ "attributes.postedDate" :
+                                                                        1 }).limit(1)
+        end_date = comments.find({ "attributes.docketId" :
+                                  {'$regex': f'{docket_id}'} }).sort({ "attributes.postedDate" :
+                                                                      -1 }).limit(1)
+        print(start_date, end_date)
+        return "hi", "hi"
+
     @staticmethod
     def get_instance():
         """
