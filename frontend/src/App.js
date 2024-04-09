@@ -9,9 +9,12 @@ function App() {
  const [dockets, setDockets] = useState(); // Initialize docket state to false
 
  const handleOnClick = async (term) => {
-  const data = await getDummyData(term);
-  console.log("deploy test");
-  setDockets(data.data.dockets);
+  try {
+   const data = await getDummyData(term);
+   setDockets(data.data.dockets);
+  } catch (error) {
+   console.log(error);
+  }
  };
 
  return (
