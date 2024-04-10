@@ -7,6 +7,7 @@ const Docket = ({
  id,
  link,
  docket_type,
+ docket_agency,
  documents_containing,
  total_documents,
  date_range,
@@ -19,6 +20,7 @@ const Docket = ({
    <div className="container-1">
     <h2>{title}</h2>
     <p>{docket_type}</p>
+    <p>{docket_agency}</p>
     <p>{date_range}</p>
     <p>
      <a href={link}>{id}</a>

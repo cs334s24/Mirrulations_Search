@@ -13,6 +13,7 @@ const DocketList = ({dockets}) => {
      id={docket.id}
      link={docket.link}
      docket_type={docket.docket_type}
+     docket_agency={docket.docket_agency}
      documents_containing={docket.documents_containing}
      total_documents={docket.total_documents}
      date_range={docket.date_range}
