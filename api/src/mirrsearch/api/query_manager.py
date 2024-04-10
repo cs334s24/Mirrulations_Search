@@ -40,7 +40,7 @@ class MongoQueryManager(QueryManager):
         for doc in search:
             title = doc['attributes']['title']
             doc_id = doc['id']
-            link = doc['links']['self']
+            link = "https://www.regulations.gov/docket/" + doc_id
             number_of_comments = 0  # Placeholder for counting comments
             number_of_documents = 0  # Placeholder for counting documents
             response['data']['dockets'].append({
