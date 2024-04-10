@@ -10,7 +10,6 @@ function App() {
 
  const handleOnClick = async (term) => {
   const data = await getDummyData(term);
-  console.log("deploy test");
   setDockets(data.data.dockets);
  };
 
