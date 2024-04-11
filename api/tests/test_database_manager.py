@@ -86,7 +86,7 @@ def test_search_documents_returns_results():
     expected results
     """
     client = MongoManager(hostname='mock')
-    results = client.search_dockets('test', 'test')
+    results = client.search_dockets('test')
     assert results is not None
     client.close_instance()
 
@@ -100,6 +100,17 @@ def test_database_manager_search_dockets_raises_error():
         client.search_dockets('test')
     except NotImplementedError as error:
         assert str(error) == "Subclasses must implement search_dockets"
+
+def test_database_manager_search_documents_raises_error():
+    """
+    Tests that the MongoManager class raises an error
+    when the search_documents function is called
+    """
+    client = DatabaseManager()
+    try:
+        client.search_dockets('test', 'test')
+    except NotImplementedError as error:
+        assert str(error) == "Subclasses must implement search_documents"
 
 def test_database_manager_search_comments_raises_error():
     """
