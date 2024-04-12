@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import "./App.css";
 // import {getDummyDataDemo} from "./static/script";
-import {getDummyData} from "./static/script";
+import {fetchDockets} from "./static/script";
 import SearchBar from "./components/SearchBar";
 import DocketList from "./components/DocketList";
 
@@ -9,14 +9,8 @@ function App() {
  const [dockets, setDockets] = useState(); // Initialize docket state to false
 
  const handleOnClick = async (term) => {
-  try {
-   const data = await getDummyData(term);
-   setDockets(data.data.dockets);
-  } catch (error) {
-   // show a message to the user that there was an error
-   alert("There was an error fetching the data. Please try again.");
-   console.log(error);
-  }
+  const data = await fetchDockets(term);
+  setDockets(data.data.dockets);
  };
 
  return (
