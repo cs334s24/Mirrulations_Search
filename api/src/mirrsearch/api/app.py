@@ -60,7 +60,7 @@ def create_app(query_manager):
             return jsonify(response), 400
        
         if docket_id is None:
-            return None 
+            return None
 
         response = query_manager.search_documents(search_term, docket_id)
 
