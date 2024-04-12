@@ -38,26 +38,31 @@ class MongoQueryManager(QueryManager):
         response = {'data': {'search_term': search_term, 'dockets': []}}
         search = self._manager.search_dockets(search_term)
         for doc in search:
-            title = doc['attributes']['title']
             doc_id = doc['id']
-            link = "https://www.regulations.gov/docket/" +  doc_id
             number_of_comments, comments_containing = self._manager.search_comments(
                 search_term, doc_id)
             number_of_documents, documents_containing = self._manager.search_documents(
                 search_term, doc_id)
-            docket_type = doc['attributes']['docketType']
+            date_modified = doc['attributes']['modifyDate']
+            date_modified = date_modified.split('T')[0]
+            date_modified = date_modified.replace('-', '/')
             start_date, end_date =  self._manager.comments_date_range(doc_id)
+            if start_date is None:
+                comment_date_range = "No comments"
+            else:
+                comment_date_range = f"{start_date} - {end_date}"
             response['data']['dockets'].append({
-                'title': title,
+                'title': doc['attributes']['title'],
                 'id': doc_id,
-                'link': link,
+                'link': "https://www.regulations.gov/docket/" +  doc_id,
                 'total_comments': number_of_comments,
                 'total_documents': number_of_documents,
                 'documents_containing': documents_containing,
                 'comments_containing': comments_containing,
-                'docket_type': docket_type,
-                'date_range': '2008/03/31-2023/12/28',
-                'comment_date_range': start_date + '-' + end_date,
+                'docket_type': doc['attributes']['docketType'],
+                'docket_agency': doc['attributes']['modifyDate'],
+                'date_range': date_modified,
+                'comment_date_range': comment_date_range,
             })
         return response
 
