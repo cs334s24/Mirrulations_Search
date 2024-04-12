@@ -39,9 +39,9 @@ class MongoQueryManager(QueryManager):
         search = self._manager.search_dockets(search_term)
         for doc in search:
             doc_id = doc['id']
-            number_of_comments, comments_containing = self._manager.search_comments(
+            number_of_comments, comments_containing = self._manager.get_comment_count(
                 search_term, doc_id)
-            number_of_documents, documents_containing = self._manager.search_documents(
+            number_of_documents, documents_containing = self._manager.get_document_count(
                 search_term, doc_id)
             date_modified = doc['attributes']['modifyDate']
             date_modified = date_modified.split('T')[0]
