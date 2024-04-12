@@ -21,7 +21,7 @@ const Docket = ({
     <p>{docket_type}</p>
     <p>{date_range}</p>
     <p>
-     <a href={link}>{id}</a>
+     <a href={link} target="_blank" rel="noopener noreferrer">{id}</a>
     </p>
    </div>
    <div className="container-2">
