@@ -22,7 +22,7 @@ class DatabaseManager:
         for a given search term
         """
         raise NotImplementedError("Subclasses must implement search_dockets")
-    
+
     def search_documents(self, search_term, docket_id):
         """
         Function that searches the documents collection in the database
@@ -75,7 +75,7 @@ class MongoManager(DatabaseManager):
             results.append(doc)
 
         return results
-    
+
     def search_documents(self, search_term, docket_id):
         """
         Function that searches the comments collection in the database

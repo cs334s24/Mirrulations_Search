@@ -91,7 +91,7 @@ def test_search_documents_success(client):
     assert len(data['data']['documents']) == 1
     document = data['data']['documents'][0]
     assert document['author'] == 'pass'
-    if document['docket_id'] == None:
+    if document['docket_id'] is None:
         assert document['docket_id'] == None
     else:
         assert document['docket_id'] == 'pass'
