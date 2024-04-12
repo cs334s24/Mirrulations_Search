@@ -40,7 +40,6 @@ def create_app(query_manager):
                                  'message': 'Error: You must provide a term to be searched'}
             return jsonify(response), 400
 
-
         # If the search term is valid, data will be ingested into the JSON response
         response = query_manager.search_dockets(search_term)
 
@@ -59,6 +58,9 @@ def create_app(query_manager):
            response['error'] = {'code': 400,
                                 'message': 'Error: You must provide a term to be searched'}
            return jsonify(response), 400
+       
+       if docket_id == None:
+           return None
 
        response = query_manager.search_documents(search_term, docket_id)
 
