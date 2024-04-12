@@ -3,11 +3,12 @@ const URL = window.location.href;
 // api.js
 export const getDummyData = async (searchTerm) => {
  try {
-  const search = URL + "/api/search_dockets?term=" + searchTerm;
+  const search =
+   URL +
+   `api/search_dockets?term=${searchTerm.replaceAll("/", "").replaceAll("'", "").replaceAll('"', "")}`;
   const response = await fetch(search);
 
   const data = await response.json();
-  console.log(data);
   return data;
  } catch (error) {
   console.error("Error calling the endpoint:", error);
@@ -23,6 +24,7 @@ export const getDummyDataDemo = async () => {
     //Add Agency Name
     link: "https://www.regulations.gov/docket/IHS-2005-0001",
     docket_type: "Notice",
+    docket_agency: "Indian Health Service",
     documents_containing: 54,
     total_documents: 54,
     date_range: "2008/3/13 - 2010/4/25",
