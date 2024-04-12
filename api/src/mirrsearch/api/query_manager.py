@@ -60,7 +60,7 @@ class MongoQueryManager(QueryManager):
                 'documents_containing': documents_containing,
                 'comments_containing': comments_containing,
                 'docket_type': doc['attributes']['docketType'],
-                'docket_agency': doc['attributes']['modifyDate'],
+                'docket_agency': doc['attributes']['agencyId'],
                 'date_range': date_modified,
                 'comment_date_range': comment_date_range,
             })
