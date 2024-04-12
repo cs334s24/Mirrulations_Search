@@ -8,10 +8,17 @@ import DocketList from "./components/DocketList";
 function App() {
  const [dockets, setDockets] = useState(); // Initialize docket state to false
 
- const handleOnClick = async () => {
-  const data = await getDummyData("Hi");
-  console.log(data.data.dockets);
-  setDockets(data.data.dockets);
+ const handleOnClick = async (term) => {
+  try {
+   const data = await getDummyData(term);
+   if (data.data.dockets.length === 0) {
+    alert("No results found for: '" + term + "'");
+   } else {
+    setDockets(data.data.dockets);
+   }
+  } catch (error) {
+   console.log(error);
+  }
  };
 
  return (
