@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import "../styles/Button.css";
 
-const Button = () => {
+const Button = ({docket}) => {
  const [clicked, setClicked] = useState(false);
 
  const handleClick = () => {
+  console.log(docket);
   setClicked(true);
  };
 

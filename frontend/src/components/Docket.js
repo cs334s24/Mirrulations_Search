@@ -14,6 +14,7 @@ const Docket = ({
  comment_date_range,
  comments_containing,
  total_comments,
+ docket,
 }) => {
  return (
   <div className="search-result">
@@ -41,7 +42,7 @@ const Docket = ({
       <span className="circle-text">75%</span>
      </div>
     </div>
-    <Button />
+    <Button docket={docket} />
    </div>
   </div>
  );
