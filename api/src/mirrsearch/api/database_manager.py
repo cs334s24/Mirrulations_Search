@@ -7,6 +7,8 @@ can also be created using this class.
 from pymongo import MongoClient
 from mirrsearch.api.mock_database_manager import MockMongoDatabase
 
+RESULTS_PER_PAGE = 10
+
 class DatabaseManager:
     """
     Class that manages the connection to a database
@@ -51,16 +53,17 @@ class MongoManager(DatabaseManager):
     """
     __instance = None
 
-    def search_dockets(self, search_term):
+    def search_dockets(self, search_term, page):
         """
         Function that searches the dockets collection in the database
         for a given search term
-        """
+        """        
         client = self.get_instance()
         db = client.get_database('mirrsearch')
         dockets = db.get_collection('docket')
 
-        query = dockets.find({'attributes.title': {'$regex': f'{search_term}'}})
+        skipNum = (page - 1) * RESULTS_PER_PAGE
+        query = dockets.find({'attributes.title': {'$regex': f'{search_term}'}}).limit(RESULTS_PER_PAGE).skip(skipNum)
 
         results = []
         for doc in query:
