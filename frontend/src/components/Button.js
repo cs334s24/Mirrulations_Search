@@ -1,17 +1,15 @@
 import React, {useState} from "react";
 import "../styles/Button.css";
+import {zipFiles} from "../static/script";
 
 const Button = () => {
- const [clicked, setClicked] = useState(false);
-
- const handleClick = () => {
-  setClicked(true);
+ const handleClick = async () => {
+  zipFiles();
  };
 
  return (
   <div>
    <button onClick={handleClick}>Download</button>
-   {clicked && <p>Clicked</p>}
   </div>
  );
 };
