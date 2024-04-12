@@ -34,11 +34,6 @@ const Docket = ({
       Related Documents: {documents_containing}/{total_documents}
      </p>
     </div>
-    <div className="right-half">
-     <div className="circle-outline">
-      <span className="circle-text">75%</span>
-     </div>
-    </div>
     <Button />
    </div>
   </div>
