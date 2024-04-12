@@ -59,7 +59,7 @@ def create_app(query_manager):
                                 'message': 'Error: You must provide a term to be searched'}
             return jsonify(response), 400
        
-        if docket_id == None:
+        if docket_id is None:
             return None
 
         response = query_manager.search_documents(search_term, docket_id)
