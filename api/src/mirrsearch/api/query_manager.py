@@ -66,10 +66,10 @@ class MongoQueryManager(QueryManager):
     
     def search_documents(self, search_term, docket_id):
         """
-        Function that searches the comments collection in the database
+        Function that searches the documents collection in the database
         for a given search term and docket ID
         """
-        response = {'data': {'search_term': search_term, 'docket_id': docket_id, 'comments': []}}
+        response = {'data': {'search_term': search_term, 'docket_id': docket_id, 'documents': []}}
         search = self._manager.search_documents(search_term, docket_id)
         for document in search:
             author = document['attributes']['lastName']
