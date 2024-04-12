@@ -61,7 +61,6 @@ def create_app(query_manager):
        
         if docket_id is None:
             return None
-
         response = query_manager.search_documents(search_term, docket_id)
 
         return jsonify(response)
