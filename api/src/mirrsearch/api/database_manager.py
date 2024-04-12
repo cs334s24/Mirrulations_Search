@@ -123,14 +123,19 @@ class MongoManager(DatabaseManager):
         db = client.get_database('mirrsearch')
         comments = db.get_collection('comments')
 
-        start_date = comments.find({ "attributes.docketId" :
+        start_date = list(comments.find({ "attributes.docketId" :
                                     {'$regex': f'{docket_id}'} }).sort({ "attributes.postedDate" :
-                                                                        1 }).limit(1)
-        end_date = comments.find({ "attributes.docketId" :
+                                                                        1 }).limit(1))
+        end_date = list(comments.find({ "attributes.docketId" :
                                   {'$regex': f'{docket_id}'} }).sort({ "attributes.postedDate" :
-                                                                      -1 }).limit(1)
-        print(start_date, end_date)
-        return "hi", "hi"
+                                                                      -1 }).limit(1))
+        if len(start_date) == 0 or len(end_date) == 0:
+            return None, None
+        start_date = start_date[0]['attributes']['postedDate']
+        start_date = start_date.split('T')[0]
+        end_date = end_date[0]['attributes']['postedDate']
+        end_date = end_date.split('T')[0]
+        return start_date.replace('-', '/'), end_date.replace('-', '/')
 
     @staticmethod
     def get_instance():
