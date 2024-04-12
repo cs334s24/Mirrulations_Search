@@ -17,7 +17,7 @@ class QueryManager:
         for a given search term
         """
         raise NotImplementedError("Subclasses must implement search_dockets")
-    
+
     def search_documents(self, search_term, docket_id):
         """
         Function that searches the documents collection in the database
@@ -63,7 +63,7 @@ class MongoQueryManager(QueryManager):
                 'comment_date_range': '2008/03/31-2023/12/28'
             })
         return response
-    
+
     def search_documents(self, search_term, docket_id):
         """
         Function that searches the documents collection in the database

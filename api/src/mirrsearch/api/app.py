@@ -48,23 +48,23 @@ def create_app(query_manager):
     @app.route('/search_documents')
     def search_documents():
 
-       # Obtains the search term and document id from a prior request
-       search_term = request.args.get('term')
-       docket_id = request.args.get('docket_id')
+        # Obtains the search term and document id from a prior request
+        search_term = request.args.get('term')
+        docket_id = request.args.get('docket_id')
 
-       # If a search term is not provided, the server will return this JSON and a 400 status code
-       if not search_term:
-           response = {}
-           response['error'] = {'code': 400,
+        # If a search term is not provided, the server will return this JSON and a 400 status code
+        if not search_term:
+            response = {}
+            response['error'] = {'code': 400,
                                 'message': 'Error: You must provide a term to be searched'}
-           return jsonify(response), 400
+            return jsonify(response), 400
        
-       if docket_id == None:
-           return None
+        if docket_id == None:
+            return None
 
-       response = query_manager.search_documents(search_term, docket_id)
+        response = query_manager.search_documents(search_term, docket_id)
 
-       return jsonify(response)
+        return jsonify(response)
 
     @app.route('/search_comments')
     def search_comments():

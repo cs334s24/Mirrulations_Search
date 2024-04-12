@@ -32,7 +32,7 @@ class MockMongoDatabase(MockDatabase):
                 'self': 'pass'
             }
         }]
-    
+
     def search_documents(self, _search_term, _docket_id):
         """
         Mocks the search_documents method of the MongoDatabase class. It returns

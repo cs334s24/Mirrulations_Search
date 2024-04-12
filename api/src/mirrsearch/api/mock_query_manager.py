@@ -54,7 +54,7 @@ class MockMongoQueries(MockQueryManager):
                     ]
                 }
                 }
-    
+
     def search_comments(self, search_term, docket_id):
         """
         Mocks the search_comments method of the MongoQueries class. It returns
