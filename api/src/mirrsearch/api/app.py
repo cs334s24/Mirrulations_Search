@@ -34,20 +34,15 @@ def create_app(query_manager):
         # Obtains the search term and page number
         search_term = request.args.get('term')
         page = request.args.get('page')
-        page = int(page)
+
+         # If a page number is not provided, the page number will default to 1
+        page = int(page) if page else 1
 
         # If a search term is not provided, the server will return this JSON and a 400 status code
         if not search_term:
             response = {}
             response['error'] = {'code': 400,
                                  'message': 'Error: You must provide a term to be searched'}
-            return jsonify(response), 400
-
-        # If a page number is not provided, the server will return this JSON and a 400 status code
-        if not page:
-            response = {}
-            response['error'] = {'code': 400,
-                                 'message': 'Error: You must provide a page number to be searched'}
             return jsonify(response), 400
 
         # If the search term is valid, data will be ingested into the JSON response
