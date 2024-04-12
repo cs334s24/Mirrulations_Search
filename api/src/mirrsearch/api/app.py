@@ -29,6 +29,22 @@ def create_app(query_manager):
         trigger_lambda()
         return jsonify(data)
 
+    @app.route('/search')
+    def search():
+        # Obtains the search term
+        search_term = request.args.get('term')
+        response = {}
+
+        # If a search term is not provided, the server will return this JSON and a 400 status code
+        if not search_term:
+            response = {}
+            response['error'] = {'code': 400,
+                                 'message': 'Error: You must provide a term to be searched'}
+            return jsonify(response), 400
+
+        response['data'] = {"search_term": search_term, "status": 200}
+        return jsonify(response)
+
     @app.route('/search_dockets')
     def search_dockets():
         # Obtains the search term
