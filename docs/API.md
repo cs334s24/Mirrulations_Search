@@ -7,7 +7,7 @@ The name for this API endpoint is `/search`. This endpoint uses the other three 
 
 ### Calling the Endpoint
 `/search?term=SEARCH_PARAMETER`
-To call this endpoint, make a request using the example above. When replacing the `term` to be searched, it is important to point out that all search terms are case sensitive. 
+To call this endpoint, make a request using the example above. When replacing the `term` to be searched, it is important to point out that all search terms are **case sensitive**. 
 
 #### Parameters
 `term` - String that contains the search term the user wishes to query.
