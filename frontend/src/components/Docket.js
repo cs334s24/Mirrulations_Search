@@ -21,7 +21,9 @@ const Docket = ({
     <p>{docket_type}</p>
     <p>{date_range}</p>
     <p>
-     <a href={link}>{id}</a>
+     <a href={link} target="_blank" rel="noopener noreferrer">
+      {id}
+     </a>
     </p>
    </div>
    <div className="container-2">
@@ -33,11 +35,6 @@ const Docket = ({
      <p>
       Related Documents: {documents_containing}/{total_documents}
      </p>
-    </div>
-    <div className="right-half">
-     <div className="circle-outline">
-      <span className="circle-text">75%</span>
-     </div>
     </div>
     <Button />
    </div>
