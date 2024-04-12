@@ -11,10 +11,12 @@ function App() {
  const handleOnClick = async (term) => {
   try {
    const data = await getDummyData(term);
-   setDockets(data.data.dockets);
+   if (data.data.dockets.length === 0) {
+    alert("No results found for: '" + term + "'");
+   } else {
+    setDockets(data.data.dockets);
+   }
   } catch (error) {
-   // show a message to the user that there were no results found for the search term with string replacement
-   alert("No results found for: '" + term + "'");
    console.log(error);
   }
  };
