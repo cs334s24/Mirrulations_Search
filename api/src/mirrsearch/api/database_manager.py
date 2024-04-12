@@ -75,10 +75,10 @@ class MongoManager(DatabaseManager):
 
         return results
 
-    def search_documents(self, search_term, docket_id):
+    def get_document_count(self, search_term, docket_id):
         """
-        Function that searches the comments collection in the database
-        for a given search term and docket ID
+        Function that returns the total number of documents related to a docket ID
+        and the number of documents with a search term in them
         """
         client = self.get_instance()
         db = client.get_database('mirrsearch')
@@ -100,6 +100,21 @@ class MongoManager(DatabaseManager):
         db = client.get_database('mirrsearch')
         comments = db.get_collection('comments')
 
+        query = comments.find({'$and': [ {'attributes.docketId': {'$regex': f'{docket_id}'}},
+                                        {'attributes.comment': {'$regex': f'{search_term}'}}]})
+
+        results = []
+        for comment in query:
+            results.append(comment)
+
+        return results
+
+    def get_comment_count(self, docket_id, search_term):
+        """ Returns the total number of comments and the number of comments with the search term"""
+        client = self.get_instance()
+        db = client.get_database('mirrsearch')
+        comments = db.get_collection('comments')
+
         total_comments = comments.count_documents({'attributes.docketId':
                                                    {'$regex': f'{docket_id}'}})
         total_terms = comments.count_documents({'$and': [ {'attributes.docketId':
@@ -108,14 +123,6 @@ class MongoManager(DatabaseManager):
                                                  {'$regex': f'{search_term}'}}]})
 
         return total_comments, total_terms
-        # query = comments.find({'$and': [ {'attributes.docketId': {'$regex': f'{docket_id}'}},
-        #                                 {'attributes.comment': {'$regex': f'{search_term}'}}]})
-
-        # results = []
-        # for comment in query:
-        #     results.append(comment)
-
-        # return results
 
     def comments_date_range(self, docket_id):
         """ Finds earliest and latest comments for a docket """
