@@ -13,8 +13,8 @@ function App() {
    const data = await getDummyData(term);
    setDockets(data.data.dockets);
   } catch (error) {
-   // show a message to the user that there was an error
-   alert("There was an error fetching the data. Please try again.");
+   // show a message to the user that there were no results found for the search term with string replacement
+   alert("No results found for: '" + term + "'");
    console.log(error);
   }
  };
