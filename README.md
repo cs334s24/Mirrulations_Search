@@ -1,4 +1,4 @@
-## Kickoff Webapp
+## Mirrulations Search
 
 ### Contributors: 
 
@@ -31,35 +31,47 @@ Characteristics of the Repo:
 * Setup process is documented in `README.md`
 * CI runs on PR creation/update
   * `pytest`
-  * linting
+  * linting (both Python and JavaScript)
 * CD runs on PR merge
   * deploy script runs on AWS instance
-* `requirements.txt` contains the python libraries needed
+* `setup.cfg` contains the python libraries needed
 * database access is encapsulated (pushed to the periphery)
 * `src` and `tests` folders, module for app
 
 Application:
 
-We are going to make a basic system to query a document database
-and give back results
+We have established a system in which a front-end React-based search utility utilizes a Flask API and give back results from a Mongo database.
 
-![system](https://i.ibb.co/ccmj6YK/52c0e1d0a08f.png)  
+![system](https://ibb.co/kG3JxZ7)  
 
-* Web interface: search bar that queries server and displays results
-* Document DB as the backend
+* Mongo DB as the backend
 * Flask server
 * Gunicorn
 * NGINX
-* Dockerized
-
-![detailed system](https://i.ibb.co/X5svbqF/28e27cd1280e.png)
+* Dockerized via Docker-Compose
+* React frontend for querying API results
+* AWS Lambda
+* AWS Secrets Manager
+* AWS S3
 
 ## Makefile:
-Use the command `make` to run the Makefile. The Makefile will call pytest and pylint
+Use the command `make` to run the Makefile. The Makefile will call pytest, pylint, and eslint
 to test and lint the system.  
 
-## Docker Commands:
+## Launching the System Locally:
 To run the dockerized version of the system utilizing Node.js:
 
-* Run `docker-compose build`
-* Run `docker-compose up`
+* First install [Node.js](https://nodejs.org/en/download) to satisfy a prerequisite of running React.
+* We recommend running the system on a Linux-based environment as many of the dependencies are native to Linux.
+
+Navigate to the `frontend` folder via Command Line and run the command:
+```
+npm install
+```
+
+Once you have done this, simply return to the root directory of `Mirrulations_Search` and launch the system via `docker-compose`:
+
+```
+docker-compose build
+docker-compose up
+```
