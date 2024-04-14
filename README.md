@@ -30,7 +30,7 @@ Characteristics of the Repo:
    * All students have a fork
 * Setup process is documented in `README.md`
 * CI runs on PR creation/update
-  * `pytest`
+  * `pytest` and `jest`
   * linting (both Python and JavaScript)
 * CD runs on PR merge
   * deploy script runs on AWS instance
@@ -56,23 +56,10 @@ We have established a system in which a front-end React-based search utility uti
 * Amazon Opensearch
 
 ## Makefile:
-Use the command `make` to run the Makefile. The Makefile will call pytest, pylint, and eslint
+Use the command `make` to run the Makefile. The Makefile will call pytest, pylint, jest, and eslint
 to test and lint the system.  
 
 ## Launching the System Locally:
-To run the dockerized version of the system utilizing Node.js:
+Launching the system involves a number of steps to be followed before the utility is usable.
 
-* First install [Node.js](https://nodejs.org/en/download) to satisfy a prerequisite of running React.
-* We recommend running the system on a Linux-based environment as many of the dependencies are native to Linux.
-
-Navigate to the `frontend` folder via Command Line and run the command:
-```
-npm install
-```
-
-Once you have done this, simply return to the root directory of `Mirrulations_Search` and launch the system via `docker-compose`:
-
-```
-docker-compose build
-docker-compose up
-```
+To do this, visit `docs/development.md` for a detailed walkthrough.
