@@ -1,7 +1,7 @@
 .search-bar {
  display: flex;
  align-items: center;
- max-width: 400px;
+ max-width: 600px;/* this adjusts the width of the search bar? */
  margin: 20px auto;
 }
 
@@ -13,6 +13,7 @@ input {
  margin-right: 8px;
  font-size: 16px;
  outline: none;
+ width: 800px;
 }
 
 button {
