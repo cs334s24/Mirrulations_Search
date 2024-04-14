@@ -1,6 +1,9 @@
 .App {
  text-align: center;
 }
+h1{
+    margin-bottom: 20px; /* this adjusts the heading's position on the webpage?*/
+}
 
 .App-logo {
  height: 40vmin;
@@ -35,4 +38,17 @@
  to {
   transform: rotate(360deg);
  }
+ 
+}
+
+.App-background {
+ background-image: url('./images/homepage pic.jpeg');
+ background-position: center;
+ background-size: cover;
+ background-repeat: no-repeat;
+ height: 100vh;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
 }

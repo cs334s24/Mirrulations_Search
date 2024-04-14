@@ -23,11 +23,13 @@ function App() {
 
  return (
   <div className="App">
-   <h1>Mirrulations Search</h1>
-   <div>
-    <SearchBar handleOnClick={handleOnClick} />
-    {dockets && <DocketList dockets={dockets} />}{" "}
-    {/* Render SearchResultsList only if dockets is true */}
+   <div className="App-background">
+    <h1>Mirrulations Search</h1>
+    <div>
+     <SearchBar handleOnClick={handleOnClick} />
+     {dockets && <DocketList dockets={dockets} />}{" "}
+     {/* Render SearchResultsList only if dockets is true */}
+    </div>
    </div>
   </div>
  );
