@@ -42,7 +42,7 @@ Application:
 
 We have established a system in which a front-end React-based search utility utilizes a Flask API and give back results from a Mongo database.
 
-![system](https://ibb.co/kG3JxZ7)  
+<img src="https://i.ibb.co/grvd3Y2/architecture.png" alt="system"/></a>
 
 * Mongo DB as the backend
 * Flask server
@@ -53,6 +53,7 @@ We have established a system in which a front-end React-based search utility uti
 * AWS Lambda
 * AWS Secrets Manager
 * AWS S3
+* Amazon Opensearch
 
 ## Makefile:
 Use the command `make` to run the Makefile. The Makefile will call pytest, pylint, and eslint
