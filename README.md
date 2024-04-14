@@ -42,7 +42,7 @@ Application:
 
 We have established a system in which a front-end React-based search utility utilizes a Flask API and give back results from a Mongo database.
 
-<img src="https://i.ibb.co/grvd3Y2/architecture.png" alt="system"/></a>
+![system](https://i.ibb.co/grvd3Y2/architecture.png)
 
 * Mongo DB as the backend
 * Flask server
