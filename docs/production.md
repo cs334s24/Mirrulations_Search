@@ -26,3 +26,30 @@ sudo docker-compose up -d
 sudo docker-compose down
 ```
 
+### Setup Certbot Certificates in Production
+
+* Make sure the server is not running
+
+* Install Certbot
+```
+sudo python3 -m venv /opt/certbot/
+sudo /opt/certbot/bin/pip install --upgrade pip
+sudo /opt/certbot/bin/pip install certbot certbot
+sudo ln -s /opt/certbot/bin/certbot /usr/bin/certbot
+```
+
+* Run Certbot to generate certificates
+```
+sudo certbot certonly --standalone
+```
+
+* Setup .env file with variables for NGINX
+
+The files are stored in etc/letsencrypt
+Setup the CERT and KEY variable similiar to development
+The CERT variable is for fullchain.pem
+The KEY variable is for privkey.pem
+
+Look in the .env file in a production or test instance
+in the root directory of the project for more detail.
+
