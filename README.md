@@ -40,7 +40,7 @@ Characteristics of the Repo:
 
 Application:
 
-We have established a system in which a front-end React-based search utility utilizes a Flask API and give back results from a Mongo database.
+We have established a system in which a front-end React-based search utility utilizes a Flask API and gives back results from a Mongo database.
 
 ![system](https://i.ibb.co/grvd3Y2/architecture.png)
 
