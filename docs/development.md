@@ -72,21 +72,6 @@ nano .env
 
 * Add the line `WDS_SOCKET_PORT=0` and save
 
-## Installing Node
-To run our `front-end` container within docker, you will need to install Node onto your laptop as a pre-requisite:
-
-  ```
-  brew install node
-  ```
-
-Navigate to the `frontend` folder and run the command:
-```
-cd frontend
-npm install
-```
-
-This will generate a folder called `node_modules`, as well as a `package-lock.json` that are necessary for the build process of the front-end container.
-
 ## Setup HTTPS for Development
 
 * Starting from the root directory make your way to the nginx folder
@@ -140,6 +125,22 @@ because your browser will pick up that it is not 3rd party authenticated.
 Chrome is a little more strict about this so you may be better off using
 safari or another browser. 
 
+## Installing Node Dependencies for Front-End
+
+To run our `front-end` container within docker, you will need to install Node onto your laptop as a pre-requisite:
+
+  ```
+  brew install node
+  ```
+
+Navigate to the `frontend` folder and run the command:
+```
+cd frontend
+npm install
+```
+
+This will generate a folder called `node_modules`, as well as a `package-lock.json` that are necessary for the build process of the front-end container.
+
 
 ## Deploy the System in Development
 
@@ -179,12 +180,10 @@ To launch the entire system:
 ### Ingesting Data into mongoDB
 
 ##### Prerequisite: 
-  - You have followed the: [Deploy the System in Development] setup steps
-    - This assumes that you have completed this step of the setup process, but that your docker system is `NOT` currently running.
+  - Have the system running in by following [Deploy the System in Development]
   - Make sure you have mongosh installed, but your localhost:27017 Mongo instance is not running
     - To check if you have mongosh run `brew list | grep mongosh`
     - If you do not have mongosh installed run `brew install mongosh`
-    - Be sure to check at this point that your docker-compose system is `NOT` running
     - Brew installing Mongo will automatcially start a local instance, which we do not want. To stop this, type `mongosh`
     - Inside of the prompt that opens up, type in:
     ```
@@ -227,3 +226,36 @@ use mirrsearch
 show collections
 db.collectionName.find()
 ```
+
+
+### Code Formatting with Prettier
+This project uses Prettier to ensure consistent code formatting. The Prettier configuration is defined in the `.prettierrc.json` file at the root of the frontend directory. For more details visit the https://prettier.io/ 
+
+## Prettier Configuration
+Our Prettier configuration is as follows:
+```json
+{
+  "bracketSpacing": false,
+  "singleQuote": false,
+  "trailingComma": "all",
+  "semi": true,
+  "tabWidth": 1,
+  "arrowParens": "always",
+  "printWidth": 100,
+  "jsxBracketSameLine": true
+}
+```
+
+## Ignored Files
+Files or directories that are not formatted by Prettier are listed in the .prettierignore file.
+Currently, the node_modules directory and README.md file are ignored.
+
+## Running Prettier
+To format your code with Prettier, run the following command from the frontend directory:
+npx prettier --write .
+
+## Fixing Linting Errors
+If you encounter linting errors, you can automatically fix many of them by running the following command:
+npx eslint --fix .
+
+If the linting errors are not automatically fixed, you will need to manually edit the code.
