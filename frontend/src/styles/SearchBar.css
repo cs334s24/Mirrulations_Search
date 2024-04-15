@@ -1,30 +1,51 @@
+/* This file contains the styles for the search bar 
+* .search-bar: This class is used to style the search bar container. It is a flex container that aligns its items vertically and has a maximum width of 400px. 
+* It is centered horizontally on the page with a margin of 20px.
+*/
 .search-bar {
- display: flex;
- align-items: center;
- max-width: 400px;
- margin: 20px auto;
-}
-
-input {
- padding: 8px;
- flex-grow: 1;
- border: 0px;
- border-bottom: 1px solid #ccc;
- margin-right: 8px;
- font-size: 16px;
- outline: none;
-}
-
-button {
- padding: 8px 12px;
- background-color: #4caf50;
- color: #fff;
- border: none;
- border-radius: 4px;
- cursor: pointer;
- font-size: 16px;
-}
-
-button:hover {
- background-color: #45a049;
-}
+    display: flex;
+    align-items: center;
+    max-inline-size: 400px;
+    margin: 20px auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 10px;
+   }
+   
+   /* input: This style is applied to the input element inside the search bar. It sets the padding, border, font size, and outline properties of the input element.
+   */
+   input {
+    padding: 8px;
+    flex-grow: 1;
+    border: 0px;
+    border-block-end: 1px solid #ccc;
+    margin-inline-end: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+   }
+   
+   input:focus {
+    border-block-end: 2px solid #4caf50;
+   }
+   
+   /* button: This style is applied to the button element inside the search bar. It sets the padding, background color, text color, border, border radius, cursor, and font size properties of the button element.
+   */
+   button {
+    padding: 8px 12px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+   }
+   
+   /* button:hover: This style is applied to the button element when the mouse hovers over it. It changes the background color to a lighter shade of green.
+   */
+   button:hover {
+    background-color: #45a049;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+   }
+   
