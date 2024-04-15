@@ -29,11 +29,13 @@ const Docket = ({
    <div className="container-2">
     <div className="left-half">
      <p>
-      Related Comments: {comments_containing}/{total_comments}
+      {comments_containing} comments relate to your term out of the {total_comments} total comments
+      in this docket.
      </p>
      <p>Comment Date Range: {comment_date_range}</p>
      <p>
-      Related Documents: {documents_containing}/{total_documents}
+      {documents_containing} documents relate to your term out of the {total_documents} total
+      documents in this docket.
      </p>
     </div>
     <Button />
