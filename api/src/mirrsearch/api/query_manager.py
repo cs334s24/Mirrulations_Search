@@ -30,7 +30,7 @@ class MongoQueryManager(QueryManager):
     Class for managing queries to a MongoDB database
     """
 
-    def search_dockets(self, search_term):
+    def search_dockets(self, search_term, page):
         """
         Function that searches the dockets collection in the database
         for a given search term
