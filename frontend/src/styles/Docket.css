@@ -17,8 +17,8 @@
 .container-2 {
  /* position: relative; */
  /* display: flex; */
- width: 100%; /* Ensure container-2 occupies entire width */
- margin-top: 10px; /* Add space between container-1 and container-2 */
+ inline-size: 100%; /* Ensure container-2 occupies entire width */
+ margin-block-start: 10px; /* Add space between container-1 and container-2 */
  align-self: flex-start; /* Align container-2 to the start (left) */
  /* border: 1px solid green; Border around container-2 */
  display: flex; /* Ensure container-2 behaves as flex container */
@@ -26,7 +26,7 @@
 
 .left-half {
  padding: 10px;
- margin-left: 0; /* Ensure left alignment */
+ margin-inline-start: 0; /* Ensure left alignment */
  flex-direction: column; /* Stack items vertically */
  justify-content: flex-start; /* Align items to the start (left) */
  /* border: 1px solid red; Border around left-half */
@@ -38,7 +38,7 @@
  justify-content: flex-end;
  align-items: center;
  padding: 10px;
- margin-right: 25%;
+ margin-inline-end: 25%;
  /* border: 1px solid orange; Border around right-half */
  flex-grow: 1; /* Utilize available space */
 }
