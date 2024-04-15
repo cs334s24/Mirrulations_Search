@@ -10,7 +10,6 @@ const Docket = ({
  docket_agency,
  documents_containing,
  total_documents,
- date_range,
  comment_date_range,
  comments_containing,
  total_comments,
@@ -21,7 +20,6 @@ const Docket = ({
     <h2>{title}</h2>
     <p>{docket_type}</p>
     <p>{docket_agency}</p>
-    <p>{date_range}</p>
     <p>
      <a href={link} target="_blank" rel="noopener noreferrer">
       {id}
