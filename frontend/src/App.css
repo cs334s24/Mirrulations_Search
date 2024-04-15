@@ -41,14 +41,26 @@ h1{
  
 }
 
-.App-background {
+.App-background_homepageimage {
  background-image: url('./images/homepage pic.jpeg');
  background-position: center;
  background-size: cover;
- background-repeat: no-repeat;
+ background-repeat: repeat;
  height: 100vh;
  display: flex;
  flex-direction: column;
  justify-content: center;
  align-items: center;
+}
+
+.App-background_searchimage{
+    background-image: url('./images/grey background.jpeg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: repeat;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
