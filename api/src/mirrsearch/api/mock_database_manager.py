@@ -25,7 +25,10 @@ class MockMongoDatabase(MockDatabase):
         """
         return [{
             'attributes': {
-                'title': 'pass'
+                'title': 'pass',
+                'modifyDate': 'pass',
+                'docketType': 'pass',
+                'agencyId': 'pass'
             },
             'id': 'pass',
             'links': {
@@ -44,6 +47,27 @@ class MockMongoDatabase(MockDatabase):
                 'links': {'self': 'pass'},
                 'docketId': 'test'
                 }]
+    
+    def get_comment_count(self, _search_term, _doc_id):
+        """
+        Mocks the get_comment_count method of the MongoDatabase class. It returns
+        a tuple with the search term and docket id that were passed in.
+        """
+        return 0, 0
+    
+    def get_document_count(self, _search_term, _doc_id):
+        """
+        Mocks the get_document_count method of the MongoDatabase class. It returns
+        a tuple with the search term and docket id that were passed in.
+        """
+        return 0, 0
+    
+    def comments_date_range(self, _doc_id):
+        """
+        Mocks the comments_date_range method of the MongoDatabase class. It returns
+        None.
+        """
+        return None, None
 
     def close(self):
         """
