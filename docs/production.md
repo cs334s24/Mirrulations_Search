@@ -45,10 +45,10 @@ sudo certbot certonly --standalone
 
 * Setup .env file with variables for NGINX
 
-The files are stored in etc/letsencrypt
-Setup the CERT and KEY variable similiar to development
-The CERT variable is for fullchain.pem
-The KEY variable is for privkey.pem
+The files are stored in etc/letsencrypt </br>
+Setup the CERT and KEY variable similiar to development </br>
+The CERT variable is for fullchain.pem </br>
+The KEY variable is for privkey.pem </br>
 
 Look in the .env file in a production or test instance
 in the root directory of the project for more detail.
