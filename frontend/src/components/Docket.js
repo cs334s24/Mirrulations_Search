@@ -17,9 +17,9 @@ const Docket = ({
  return (
   <div className="search-result">
    <div className="container-1">
+    <p>{docket_agency}</p>
     <h2>{title}</h2>
     <p>{docket_type}</p>
-    <p>{docket_agency}</p>
     <p>
      <a href={link} target="_blank" rel="noopener noreferrer">
       {id}
