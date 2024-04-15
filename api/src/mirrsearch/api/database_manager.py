@@ -1,3 +1,4 @@
+
 """
 Python module that establishes database connections. This class
 follows the singleton design pattern to ensure there is never
@@ -21,6 +22,13 @@ class DatabaseManager:
         for a given search term
         """
         raise NotImplementedError("Subclasses must implement search_dockets")
+
+    def search_documents(self, search_term, docket_id):
+        """
+        Function that searches the documents collection in the database
+        for a given search term and docket ID
+        """
+        raise NotImplementedError("Subclasses must implement search_documents")
 
     def search_comments(self, search_term, docket_id):
         """
@@ -65,6 +73,24 @@ class MongoManager(DatabaseManager):
         results = []
         for doc in query:
             results.append(doc)
+
+        return results
+
+    def search_documents(self, search_term, docket_id):
+        """
+        Function that searches the comments collection in the database
+        for a given search term and docket ID
+        """
+        client = self.get_instance()
+        db = client.get_database('mirrsearch')
+        documents = db.get_collection('documents')
+
+        query = documents.find({'$and': [ {'attributes.docketId': {'$regex': f'{docket_id}'}},
+                                        {'attributes.document': {'$regex': f'{search_term}'}}]})
+
+        results = []
+        for document in query:
+            results.append(document)
 
         return results
 
