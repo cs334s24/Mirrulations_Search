@@ -75,15 +75,13 @@ def create_app(query_manager):
             response['error'] = {'code': 400,
                                 'message': 'Error: You must provide a term to be searched'}
             return jsonify(response), 400
-        
-        """
-        This checks if there is a docket ID present
-        If there is no docket ID, the function will return None
-        If there is a docket ID, the function will return the search results
-        """
-        if docket_id is None: 
-            return None 
-        response = query_manager.search_documents(search_term, docket_id) 
+
+        # This checks if there is a docket ID present
+        # If there is no docket ID, the function will return None
+        # If there is a docket ID, the function will return the search results
+        if docket_id is None:
+            return None
+        response = query_manager.search_documents(search_term, docket_id)
 
         return jsonify(response)
 
