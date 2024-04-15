@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/Homepage_image.css"; // Import the CSS file
+import "../styles/pictures.css"; // Import the CSS file
 import SearchBar from "./SearchBar";
 import "../styles/SearchBar.css";
 import Button from "./Button";
