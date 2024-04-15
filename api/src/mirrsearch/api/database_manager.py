@@ -78,7 +78,7 @@ class MongoManager(DatabaseManager):
 
     def search_documents(self, search_term, docket_id):
         """
-        Function that searches the comments collection in the database
+        Function that searches the documents collection in the database
         for a given search term and docket ID
         """
         client = self.get_instance()
