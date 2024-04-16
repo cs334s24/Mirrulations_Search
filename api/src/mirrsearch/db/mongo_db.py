@@ -9,9 +9,9 @@ import sys
 from pymongo import MongoClient
 
 
-def connect_to_mongodb(URI):
+def connect_to_mongodb(uri):
     """ Function to connect to MongoDB and ensure collections exist """
-    client = MongoClient(URI)
+    client = MongoClient(uri)
     database = clear_db(client)
     database.create_collection('docket')
     database.create_collection('documents')
@@ -78,7 +78,7 @@ def add_data_to_database(root_folder, database):
 
 if __name__ == "__main__":
     data_folder = sys.argv[1]
-    URI = 'mongodb://localhost:27017'
-    database, client = connect_to_mongodb(URI)
+    MONGO_URI = 'mongodb://localhost:27017'
+    database, client = connect_to_mongodb(MONGO_URI)
     add_data_to_database(data_folder, database)
     client.close()
