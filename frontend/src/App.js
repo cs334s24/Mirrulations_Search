@@ -11,10 +11,12 @@ function App() {
  const handleOnClick = async (term) => {
   try {
    const data = await getDummyData(term);
-   setDockets(data.data.dockets);
+   if (data.data.dockets.length === 0) {
+    alert("No results found for: '" + term + "'");
+   } else {
+    setDockets(data.data.dockets);
+   }
   } catch (error) {
-   // show a message to the user that there was an error
-   alert("There was an error fetching the data. Please try again.");
    console.log(error);
   }
  };
