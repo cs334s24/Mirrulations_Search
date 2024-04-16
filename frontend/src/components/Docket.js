@@ -38,7 +38,7 @@ const Docket = ({
       Related Documents: {documents_containing}/{total_documents}
      </p>
     </div>
-    <Button />
+    <Button email={email} docketID={id}/>
    </div>
   </div>
  );
