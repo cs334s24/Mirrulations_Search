@@ -15,7 +15,7 @@ export const fetchDockets = async (searchTerm) => {
  }
 };
 
-export const zipFiles = async () => {
+export const zipFiles = async (email, docketID) => {
  try {
   const search = URL + `api/zip_data`;
   const response = await fetch(search);
@@ -25,5 +25,3 @@ export const zipFiles = async () => {
   console.error("Error calling the endpoint:", error);
  }
 };
-
-// export default [getDummyData, getDummyDataDemo];
