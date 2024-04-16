@@ -9,8 +9,14 @@ function App() {
  const [dockets, setDockets] = useState(); // Initialize docket state to false
 
  const handleOnClick = async (term) => {
-  const data = await fetchDockets(term);
-  setDockets(data.data.dockets);
+  try {
+   const data = await fetchDockets(term);
+   setDockets(data.data.dockets);
+  } catch (error) {
+   // show a message to the user that there was an error
+   alert("There was an error fetching the data. Please try again.");
+   console.log(error);
+  }
  };
 
  return (
@@ -24,5 +30,4 @@ function App() {
   </div>
  );
 }
-
 export default App;

@@ -1,0 +1,21 @@
+name: Deploying Lambdas
+on:
+  push:
+    branches:
+      - main
+jobs:
+  lambdaOne:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - run: zip -j lambdaOne.zip ./lambda/lambda_function.py
+      - run: aws lambda update-function-code --function-name=ProductionZipSystemLambda --zip-file=fileb://lambdaOne.zip
+ 
