@@ -1,12 +1,12 @@
 """ This script connects to MongoDB and inserts data into collections """
 
 # pylint: disable=too-many-nested-blocks, unspecified-encoding
-# pylint: disable=unused-variable
+# pylint: disable=consider-using-from-import
+# pylint: disable=used-before-assignment
 
 import os
 import json
 import sys
-from pymongo import MongoClient
 import boto3
 import mirrsearch.db.mongo_db as mongo_db
 
@@ -21,7 +21,7 @@ def pull_data_from_s3(agency):
     )
     bucket = s3.Bucket('mirrulations')
     for obj in bucket.objects.filter(Prefix=agency):
-        if (obj.key.endswith('.json') or obj.key.endswith('.txt') or obj.key.endswith('.htm')) and obj.key.split('/')[2].startswith('text'):
+        if (obj.key.endswith('.json') or obj.key.endswith('.txt') or obj.key.endswith('.htm')):
             bucket.download_file(obj.key, obj.key.split('/')[-1])
             add_data_to_database(obj.key, database)
             os.remove(obj.key.split('/')[-1])
@@ -52,7 +52,6 @@ def insert_docket_file(file, collection, docket_id):
 def add_data_to_database(root, database):
     """ Function to add data to the database """
     file = root.split('/')[-1]
-    print(file)
     if root.split('/')[-2] == 'docket':
         if file.endswith('.json') or file.endswith('.txt') or file.endswith('.htm'):
             docket_id = root.split('/')[-4]
