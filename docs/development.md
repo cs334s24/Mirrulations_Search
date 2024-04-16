@@ -226,3 +226,36 @@ use mirrsearch
 show collections
 db.collectionName.find()
 ```
+
+
+### Code Formatting with Prettier
+This project uses Prettier to ensure consistent code formatting. The Prettier configuration is defined in the `.prettierrc.json` file at the root of the frontend directory. For more details visit the https://prettier.io/ 
+
+## Prettier Configuration
+Our Prettier configuration is as follows:
+```json
+{
+  "bracketSpacing": false,
+  "singleQuote": false,
+  "trailingComma": "all",
+  "semi": true,
+  "tabWidth": 1,
+  "arrowParens": "always",
+  "printWidth": 100,
+  "jsxBracketSameLine": true
+}
+```
+
+## Ignored Files
+Files or directories that are not formatted by Prettier are listed in the .prettierignore file.
+Currently, the node_modules directory and README.md file are ignored.
+
+## Running Prettier
+To format your code with Prettier, run the following command from the frontend directory:
+npx prettier --write .
+
+## Fixing Linting Errors
+If you encounter linting errors, you can automatically fix many of them by running the following command:
+npx eslint --fix .
+
+If the linting errors are not automatically fixed, you will need to manually edit the code.
