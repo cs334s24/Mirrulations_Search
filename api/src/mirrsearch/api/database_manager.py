@@ -75,22 +75,6 @@ class MongoManager(DatabaseManager):
 
         return results
 
-    def get_document_count(self, search_term, docket_id):
-        """
-        Function that returns the total number of documents related to a docket ID
-        and the number of documents with a search term in them
-        """
-        client = self.get_instance()
-        db = client.get_database('mirrsearch')
-        comments = db.get_collection('documents')
-
-        total_comments = comments.count_documents({'attributes.docketId':
-                                                   {'$regex': f'{docket_id}'}})
-        total_terms = comments.count_documents({'$and': [ {'id': {'$regex': f'{docket_id}'}},
-                                                     {'data': {'$regex': f'{search_term}'}}]})
-
-        return total_comments, total_terms
-
     def search_comments(self, search_term, docket_id):
         """
         Function that searches the comments collection in the database
@@ -124,14 +108,29 @@ class MongoManager(DatabaseManager):
 
         return total_comments, total_terms
 
+    def get_document_count(self, search_term, docket_id):
+        """
+        Function that returns the total number of documents related to a docket ID
+        and the number of documents with a search term in them
+        """
+        client = self.get_instance()
+        db = client.get_database('mirrsearch')
+        documents = db.get_collection('documents')
+
+        total_comments = documents.count_documents({'attributes.docketId':
+                                                   {'$regex': f'{docket_id}'}})
+        total_terms = documents.count_documents({'$and': [ {'id': {'$regex': f'{docket_id}'}},
+                                                     {'data': {'$regex': f'{search_term}'}}]})
+
+        return total_comments, total_terms
+
     def comments_date_range(self, docket_id):
         """ Finds earliest and latest comments for a docket """
         client = self.get_instance()
         db = client.get_database('mirrsearch')
         comments = db.get_collection('comments')
 
-        start_date = list(comments.find({ "attributes.docketId" :
-                                    {'$regex': f'{docket_id}'} }).sort({ "attributes.postedDate" :
+        start_date = list(comments.find({ "attributes.docketId" : {'$regex': f'{docket_id}'} }).sort({ "attributes.postedDate" :
                                                                         1 }).limit(1))
         end_date = list(comments.find({ "attributes.docketId" :
                                   {'$regex': f'{docket_id}'} }).sort({ "attributes.postedDate" :

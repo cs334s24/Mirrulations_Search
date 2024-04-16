@@ -184,3 +184,8 @@ def test_zip_data_endpoint_returns_200(client, mocker):
     mocker.patch('mirrsearch.api.app.trigger_lambda')
     response = client.get('/zip_data')
     assert response.status_code == 200
+
+def test_launch_returns_flask_app():
+    """Test whether the launch function returns a Flask app instance."""
+    app = launch('mockMongo')
+    assert isinstance(app, Flask)

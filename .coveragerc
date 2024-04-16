@@ -5,5 +5,7 @@ exclude_lines =
 
 [run]
 omit = 
+    ./api/src/mirrsearch/api/mock_database_manager.py
+    ./api/src/mirrsearch/api/mock_query_manager.py
     ./api/src/mirrsearch/db/*
     ./api/setup.py
