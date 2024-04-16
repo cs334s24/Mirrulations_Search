@@ -8,16 +8,7 @@ import json
 import sys
 from pymongo import MongoClient
 import boto3
-
-
-def connect_to_mongodb():
-    """ Function to connect to MongoDB and ensure collections exist """
-    client = MongoClient(URI)
-    database = clear_db(client)
-    database.create_collection('docket')
-    database.create_collection('documents')
-    database.create_collection('comments')
-    return database, client
+import mirrsearch.db.mongo_db as mongo_db
 
 
 def pull_data_from_s3(agency):
@@ -36,25 +27,6 @@ def pull_data_from_s3(agency):
             os.remove(obj.key.split('/')[-1])
 
 
-def clear_db(client):
-    """ Function to clear all collections in the database """
-    database = client['mirrsearch']
-    for collection in database.list_collection_names():
-        database[collection].drop()
-        print('Dropped collection:', collection)
-    return database
-
-
-def insert_json_data(collection, data):
-    """ Function to insert data into collections """
-    collection.insert_one(data['data'])
-
-
-def insert_txt_data(collection, data, docket_id):
-    """ Function to insert data into collections """
-    collection.insert_one({'id':docket_id, 'data': data})
-
-
 # This function is currently bypassing utf-8 encoding errors by ignoring them for .htm files
 # This is not a good solution, but it is a temporary fix for the time being
 def insert_docket_file(file, collection, docket_id):
@@ -62,18 +34,18 @@ def insert_docket_file(file, collection, docket_id):
     if file.endswith('.json'):
         with open(file, 'r', encoding='utf-8') as f:
             data = json.load(f)
-            insert_json_data(collection, data)
+            mongo_db.insert_json_data(collection, data)
             print('inserted json data: ', file)
     if file.endswith('.txt'):
         with open(file, 'r', encoding='utf-8') as f:
             data = f.read()
-            insert_txt_data(collection, data, docket_id)
+            mongo_db.insert_txt_data(collection, data, docket_id)
             print('inserted txt data: ', file)
     if file.endswith('.htm'):
         # The below line is a temporary fix for the time being to get .htm files loaded
         with open(file, 'r', encoding='utf-8', errors="ignore") as f:
             data = f.read()
-            insert_txt_data(collection, data, docket_id)
+            mongo_db.insert_txt_data(collection, data, docket_id)
             print('inserted htm data: ', file)
 
 
@@ -98,6 +70,6 @@ def add_data_to_database(root, database):
 if __name__ == "__main__":
     agency = sys.argv[1]
     URI = 'mongodb://localhost:27017'
-    database, client = connect_to_mongodb()
+    database, client = mongo_db.connect_to_mongodb(URI)
     pull_data_from_s3(agency)
     client.close()
