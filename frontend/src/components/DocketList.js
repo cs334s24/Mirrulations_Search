@@ -17,7 +17,6 @@ const DocketList = ({dockets, email}) => {
      docket_agency={docket.docket_agency}
      documents_containing={docket.documents_containing}
      total_documents={docket.total_documents}
-     date_range={docket.date_range}
      comments_containing={docket.comments_containing}
      total_comments={docket.total_comments}
      comment_date_range={docket.comment_date_range}
