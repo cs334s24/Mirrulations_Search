@@ -35,7 +35,6 @@ function App() {
 
  const handleInputChange = async (event) => {
   setEmail(event.target.value);
-  console.log(event.target.value);
  };
 
  return (
