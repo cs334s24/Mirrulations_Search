@@ -4,6 +4,7 @@ import Button from "./Button";
 
 const Docket = ({
  title,
+ email,
  id,
  link,
  docket_type,
@@ -38,7 +39,7 @@ const Docket = ({
       Related Documents: {documents_containing}/{total_documents}
      </p>
     </div>
-    <Button email={email} docketID={id}/>
+    <Button email={email} docketID={id} />
    </div>
   </div>
  );
