@@ -79,6 +79,18 @@ class MockMongoDatabase(MockDatabase):
             }
         }]
 
+    def search_documents(self, _search_term, _docket_id):
+        """
+        Mocks the search_documents method of the MongoDatabase class. It returns
+        a list of dictionaries with the search term and docket id that were passed in.
+        """
+        return [{
+                'attributes': {'lastName': 'pass'},
+                'postedDate': 'pass',
+                'links': {'self': 'pass'},
+                'docketId': 'test'
+                }]
+
     def search_comments(self, _search_term, _docket_id):
         """
         Mocks the search_comments method of the MongoDatabase class. It returns

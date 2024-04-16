@@ -18,6 +18,13 @@ class QueryManager:
         """
         raise NotImplementedError("Subclasses must implement search_dockets")
 
+    def search_documents(self, search_term, docket_id):
+        """
+        Function that searches the documents collection in the database
+        for a given search term and docket ID
+        """
+        raise NotImplementedError("Subclasses must implement search_documents")
+
     def search_comments(self, search_term, docket_id):
         """
         Function that searches the comments collection in the database
@@ -63,6 +70,26 @@ class MongoQueryManager(QueryManager):
                 'docket_agency': doc['attributes']['agencyId'],
                 'date_range': date_modified,
                 'comment_date_range': comment_date_range,
+            })
+        return response
+
+    def search_documents(self, search_term, docket_id):
+        """
+        Function that searches the documents collection in the database
+        for a given search term and docket ID
+        """
+        response = {'data': {'search_term': search_term, 'docket_id': docket_id, 'documents': []}}
+        search = self._manager.search_documents(search_term, docket_id)
+        for document in search:
+            author = document['attributes']['lastName']
+            date_posted = document['postedDate']
+            link = document['links']['self']
+            docket_id = document['docketId']
+            response['data']['documents'].append({
+                'author': author,
+                'date_posted': date_posted,
+                'link': link,
+                'docket_id': docket_id,
             })
         return response
 
