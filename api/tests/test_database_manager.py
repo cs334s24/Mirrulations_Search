@@ -164,3 +164,42 @@ def test_get_instance_after_connection_closed():
         client.get_instance()
     except NotImplementedError as error:
         assert str(error) == "Subclasses must implement get_instance"
+
+def test_get_comment_count():
+    """
+    Tests that the get_comment_count function returns the
+    expected results
+    """
+    client = MongoManager(hostname='mock')
+    results = client.get_comment_count('test', 'test')
+    assert results is not None
+    client.close_instance()
+
+def test_get_document_count():
+    """
+    Tests that the get_document_count function returns the
+    expected results
+    """
+    client = MongoManager(hostname='mock')
+    results = client.get_document_count('test', 'test')
+    assert results is not None
+    client.close_instance()
+
+def test_comment_date_range():
+    """
+    Tests that the comment_date_range function returns the
+    expected results
+    """
+    client = MongoManager(hostname='mock')
+    results = client.comments_date_range('test')
+    assert results is not None
+    client.close_instance()
+
+def test_comments_date_range_returns_none():
+    """
+    Tests that the comments_date_range function returns None
+    """
+    client = MongoManager(hostname='mock')
+    results = client.comments_date_range('test')
+    assert results == (None, None)
+    client.close_instance()
