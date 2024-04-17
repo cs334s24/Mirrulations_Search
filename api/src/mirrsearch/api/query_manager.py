@@ -37,7 +37,7 @@ class MongoQueryManager(QueryManager):
     Class for managing queries to a MongoDB database
     """
 
-    _cursor = None
+    _dockets_cursor = None
 
     def search_dockets(self, search_term, page):
         """
@@ -46,8 +46,8 @@ class MongoQueryManager(QueryManager):
         """
         response = {'data': {'search_term': search_term, 'dockets': []}}
         search = self._manager.search_dockets(search_term)
-        self._cursor = search
-        for doc in self._cursor[page*10-10:page*10]:
+        self._dockets_cursor = search
+        for doc in self._dockets_cursor[page*10-10:page*10]:
             doc_id = doc['id']
             number_of_comments, comments_containing = self._manager.get_comment_count(
                 search_term, doc_id)
@@ -74,6 +74,28 @@ class MongoQueryManager(QueryManager):
                 'date_range': date_modified,
                 'comment_date_range': comment_date_range,
             })
+
+        response['meta'] = self.get_meta_data(search_term, page)
+
+        return response
+
+    def get_meta_data(self, search_term, page):
+        """
+        Function that returns the metadata for the search results
+        """
+        response = {'links': {}}
+
+        total_results = len(list(self._dockets_cursor))
+        response['total_results'] = total_results
+        response['links']['current'] = f'api/search_dockets?{search_term}&page={page}'
+        if page > 1:
+            response['links']['prev'] = f'api/search_dockets?{search_term}&page={page-1}'
+        if page <= total_results//10:
+            response['links']['next'] = f'api/search_dockets?{search_term}&page={page+1}'
+        response['links']['first'] = f'api/search_dockets?{search_term}&page=1'
+        last_link = f'api/search_dockets?{search_term}&page={total_results//10+1}'
+        response['links']['last'] = last_link
+
         return response
 
     def search_documents(self, search_term, docket_id):
