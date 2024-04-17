@@ -1,6 +1,9 @@
 .App {
  text-align: center;
 }
+h1{
+    margin-bottom: 20px; /* this adjusts the heading's position on the webpage?*/
+}
 
 .App-logo {
  block-size: 40vmin;
@@ -35,4 +38,6 @@
  to {
   transform: rotate(360deg);
  }
+ 
 }
+

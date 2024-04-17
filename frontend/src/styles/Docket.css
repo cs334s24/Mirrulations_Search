@@ -1,3 +1,9 @@
+/* Styles for Docket component 
+* Docket component is a container for search results. 
+* It displays search results in a list format.
+* .se
+*/
+
 .search-result {
     border: 1px solid #b0b0b0;
     border-radius: 8px;
