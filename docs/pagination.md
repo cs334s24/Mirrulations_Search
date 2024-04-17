@@ -4,48 +4,54 @@
 
 Pagination is a process of dividing data into discrete pages, allowing users to view a specific subset of data at a time. This will be useful when we switch to a large data set, as it will reduce the amount of data transferred at once and improve the response times.
 
-## Cursor-based pagination
+## Example Queries
 
-Cursor-based pagination works by using a unique identifier (a cursor) from the currently loaded data set to fetch the next or previous set of records. This method is especially efficient for large data sets because it doesn't require the server to count or skip through a potentially large number of records to find the starting point of the desired page.
+The below examples are for the search term Indian and the IHS agency
+Currently this search term returns 33 results
 
-## Implementing Pagination
-
-Modify the search_dockets method to accept two new parameters: last_id and limit. last_id is the cursor indicating where the last query stopped, and limit is the maximum number of results to return
-
-Modify MongoManager 
-
+* query for page 1
 ```
-def search_dockets(self, search_term):
-
-    query_filter = {'attributes.title': {'$regex': f'{search_term}'}}
-
-    if last_id:
-        query_filter['_id'] = {'$gt': last_id}
-    
-    query = dockets.find(query_filter).limit(limit).sort('_id', 1)
-
+curl 'localhost:8000/search_dockets?term=Indian&page=1'
 ```
 
-Modify QueryManager
+Will return results 1-10
 
+* query for page 2
 ```
-def search_dockets(self, search_term, last_id=None, limit=10):
-
-    search = self._manager.search_dockets(search_term, last_id, limit)
+curl 'localhost:8000/search_dockets?term=Indian&page=2'
 ```
 
-Modify API Endpoint
+Will return results 11-20
 
+* query with no page parameter
 ```
-    @app.route('/search_dockets')
-    def search_dockets():
-
-        search_term = request.args.get('term')
-        last_id = request.args.get('last_id', None)
-        limit = request.args.get('limit', 10, type=int)
-
-        response = query_manager.search_dockets(search_term, last_id, limit)
-        return jsonify(response)
+curl 'localhost:8000/search_dockets?term=Indian'
 ```
+
+This will deafault to page 1 if not given a page parameter
+
+* query for last page
+```
+curl 'localhost:8000/search_dockets?term=Indian&page=4'
+```
+
+Will return results 31-33
+
+* query out of bounds
+```
+curl 'localhost:8000/search_dockets?term=Indian&page=5'
+```
+
+Will return nothing
+
+
+
+
+
+
+
+
+
+
 
 
