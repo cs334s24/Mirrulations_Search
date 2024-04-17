@@ -177,6 +177,11 @@ def test_zip_data_endpoint_returns_200(client, mocker):
     response = client.get('/zip_data')
     assert response.status_code == 200
 
+def test_launch_returns_flask_app():
+    """Test whether the launch function returns a Flask app instance."""
+    app = launch('mockMongo')
+    assert isinstance(app, Flask)
+
 def test_search_endpoint_returns_200(client):
     """Test whether the search endpoint returns a 200 OK status code."""
     search_term = 'Governance'
