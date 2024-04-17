@@ -221,6 +221,6 @@ def test_comments_date_range_returns_none():
     Tests that the comments_date_range function returns None
     """
     client = MongoManager(hostname='mock')
-    results = client.comments_date_range('test')
+    results = client.comments_date_range('null')
     assert results == (None, None)
     client.close_instance()
