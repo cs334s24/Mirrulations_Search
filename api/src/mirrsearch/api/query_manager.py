@@ -18,6 +18,13 @@ class QueryManager:
         """
         raise NotImplementedError("Subclasses must implement search_dockets")
 
+    def search_documents(self, search_term, docket_id):
+        """
+        Function that searches the documents collection in the database
+        for a given search term and docket ID
+        """
+        raise NotImplementedError("Subclasses must implement search_documents")
+
     def search_comments(self, search_term, docket_id):
         """
         Function that searches the comments collection in the database
@@ -38,22 +45,51 @@ class MongoQueryManager(QueryManager):
         response = {'data': {'search_term': search_term, 'dockets': []}}
         search = self._manager.search_dockets(search_term)
         for doc in search:
-            title = doc['attributes']['title']
             doc_id = doc['id']
-            link = "https://www.regulations.gov/docket/" + doc_id
-            number_of_comments = 0  # Placeholder for counting comments
-            number_of_documents = 0  # Placeholder for counting documents
+            number_of_comments, comments_containing = self._manager.get_comment_count(
+                search_term, doc_id)
+            number_of_documents, documents_containing = self._manager.get_document_count(
+                search_term, doc_id)
+            date_modified = doc['attributes']['modifyDate']
+            date_modified = date_modified.split('T')[0]
+            date_modified = date_modified.replace('-', '/')
+            start_date, end_date =  self._manager.comments_date_range(doc_id)
+            if start_date is None:
+                comment_date_range = "No comments"
+            else:
+                comment_date_range = f"{start_date} - {end_date}"
             response['data']['dockets'].append({
-                'title': title,
+                'title': doc['attributes']['title'],
                 'id': doc_id,
-                'link': link,
+                'link': "https://www.regulations.gov/docket/" +  doc_id,
                 'total_comments': number_of_comments,
                 'total_documents': number_of_documents,
-                'documents_containing': 54,
-                'comments_containing': 20,
-                'docket_type': 'Notice',
-                'date_range': '2008/03/31-2023/12/28',
-                'comment_date_range': '2008/03/31-2023/12/28'
+                'documents_containing': documents_containing,
+                'comments_containing': comments_containing,
+                'docket_type': doc['attributes']['docketType'],
+                'docket_agency': doc['attributes']['agencyId'],
+                'date_range': date_modified,
+                'comment_date_range': comment_date_range,
+            })
+        return response
+
+    def search_documents(self, search_term, docket_id):
+        """
+        Function that searches the documents collection in the database
+        for a given search term and docket ID
+        """
+        response = {'data': {'search_term': search_term, 'docket_id': docket_id, 'documents': []}}
+        search = self._manager.search_documents(search_term, docket_id)
+        for document in search:
+            author = document['attributes']['lastName']
+            date_posted = document['postedDate']
+            link = document['links']['self']
+            docket_id = document['docketId']
+            response['data']['documents'].append({
+                'author': author,
+                'date_posted': date_posted,
+                'link': link,
+                'docket_id': docket_id,
             })
         return response
 

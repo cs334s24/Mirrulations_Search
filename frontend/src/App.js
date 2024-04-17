@@ -7,7 +7,6 @@ import DocketList from "./components/DocketList";
 
 function App() {
  const [dockets, setDockets] = useState(); // Initialize docket state to false
-
  const handleOnClick = async (term) => {
   try {
    // This will display a message if the search term is invalid or no results are found
