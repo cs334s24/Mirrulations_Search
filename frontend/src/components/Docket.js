@@ -42,14 +42,24 @@ const Docket = ({
    <div className="container-2">
     <div className="left-half">
      <p>
-      {comments_containing} comments relate to your term out of the {total_comments} total comments
-      in this docket.
+      {documents_containing === 1 && total_documents === 1
+       ? `1 document relates to your term out of the 1 document in this docket.`
+       : documents_containing === 1
+         ? `${documents_containing} document relates to your term out of the ${total_documents} total documents in this docket.`
+         : total_documents === 1
+           ? `${documents_containing} documents relate to your term out of the 1 document in this docket.`
+           : `${documents_containing} documents relate to your term out of the ${total_documents} total documents in this docket.`}
+     </p>
+     <p>
+      {comments_containing == 1 && total_comments === 1
+       ? `1 comment relates to your term out of the 1 comment in this docket.`
+       : comments_containing === 1
+         ? `${comments_containing} comment relates to your term out of the ${total_comments} total comments in this docket.`
+         : total_comments === 1
+           ? `${comments_containing} comments relate to your term out of the 1 comment in this docket.`
+           : `${comments_containing} comments relate to your term out of the ${total_comments} total comments in this docket.`}
      </p>
      <p>Comment Date Range: {comment_date_range}</p>
-     <p>
-      {documents_containing} documents relate to your term out of the {total_documents} total
-      documents in this docket.
-     </p>
     </div>
     <Button />
    </div>
