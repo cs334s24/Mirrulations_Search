@@ -1,9 +1,12 @@
 [report]
 
-exclude_lines =
+exclude_also =
     if __name__ == .__main__.:
+    if len(start_date) != 0 or len(end_date) != 0: 
 
 [run]
 omit = 
+    ./api/src/mirrsearch/api/mock_database_manager.py
+    ./api/src/mirrsearch/api/mock_query_manager.py
     ./api/src/mirrsearch/db/*
     ./api/setup.py

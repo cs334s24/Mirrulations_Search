@@ -1,7 +1,6 @@
 
 """
 Create barebones Flask app
-Run with: python kickoff_app.py
 """
 
 from flask import Flask, jsonify, request
@@ -66,7 +65,7 @@ def create_app(query_manager):
     @app.route('/search_documents')
     def search_documents():
 
-        # Obtains the search term and document id from a prior request
+        # Obtains the search term and document ID from a prior request
         search_term = request.args.get('term')
         docket_id = request.args.get('docket_id')
 
@@ -77,6 +76,9 @@ def create_app(query_manager):
                                 'message': 'Error: You must provide a term to be searched'}
             return jsonify(response), 400
 
+        # This checks if there is a docket ID present
+        # If there is no docket ID, the function will return None
+        # If there is a docket ID, the function will return the search results
         if docket_id is None:
             return None
         response = query_manager.search_documents(search_term, docket_id)
@@ -121,7 +123,7 @@ def launch(database):
     """
     Launch the Flask app
     """
-    if database == 'mongo':
+    if database == 'mongo': # pragma: no cover
         database_manager = MongoManager()
         query_manager = MongoQueryManager(database_manager)
         return create_app(query_manager)
@@ -129,7 +131,7 @@ def launch(database):
         database_manager = MockMongoDatabase()
         query_manager = MockMongoQueries(database_manager)
         return create_app(query_manager)
-    raise ValueError('Invalid database type')
+    raise ValueError('Invalid database type') # pragma: no cover
 
 if __name__ == '__main__':
     flask_app = launch('mongo')

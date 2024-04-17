@@ -72,13 +72,13 @@ class MongoManager(DatabaseManager):
 
         results = []
         for doc in query:
-            results.append(doc)
+            results.append(doc) # pragma: no cover
 
         return results
 
     def search_documents(self, search_term, docket_id):
         """
-        Function that searches the comments collection in the database
+        Function that searches the documents collection in the database
         for a given search term and docket ID
         """
         client = self.get_instance()
@@ -90,7 +90,7 @@ class MongoManager(DatabaseManager):
 
         results = []
         for document in query:
-            results.append(document)
+            results.append(document) # pragma: no cover
 
         return results
 
@@ -108,9 +108,60 @@ class MongoManager(DatabaseManager):
 
         results = []
         for comment in query:
-            results.append(comment)
+            results.append(comment) # pragma: no cover
 
         return results
+
+    def get_comment_count(self, docket_id, search_term):
+        """ Returns the total number of comments and the number of comments with the search term"""
+        client = self.get_instance()
+        db = client.get_database('mirrsearch')
+        comments = db.get_collection('comments')
+
+        total_comments = comments.count_documents({'attributes.docketId':
+                                                   {'$regex': f'{docket_id}'}})
+        total_terms = comments.count_documents({'$and': [ {'attributes.docketId':
+                                                {'$regex': f'{docket_id}'}},
+                                                {'attributes.comment':
+                                                 {'$regex': f'{search_term}'}}]})
+
+        return total_comments, total_terms
+
+    def get_document_count(self, search_term, docket_id):
+        """
+        Function that returns the total number of documents related to a docket ID
+        and the number of documents with a search term in them
+        """
+        client = self.get_instance()
+        db = client.get_database('mirrsearch')
+        documents = db.get_collection('documents')
+
+        total_comments = documents.count_documents({'attributes.docketId':
+                                                   {'$regex': f'{docket_id}'}})
+        total_terms = documents.count_documents({'$and': [ {'id': {'$regex': f'{docket_id}'}},
+                                                     {'data': {'$regex': f'{search_term}'}}]})
+
+        return total_comments, total_terms
+
+    def comments_date_range(self, docket_id):
+        """ Finds earliest and latest comments for a docket """
+        client = self.get_instance()
+        db = client.get_database('mirrsearch')
+        comments = db.get_collection('comments')
+
+        start_date = list(comments.find({ "attributes.docketId" :
+                                         {'$regex': f'{docket_id}'}}).sort(
+                                            {"attributes.postedDate" : 1 }).limit(1))
+        end_date = list(comments.find({ "attributes.docketId" :
+                                  {'$regex': f'{docket_id}'} }).sort({ "attributes.postedDate" :
+                                                                      -1 }).limit(1))
+        if len(start_date) != 0 or len(end_date) != 0:
+            start_date = start_date[0]['attributes']['postedDate']
+            start_date = start_date.split('T')[0]
+            end_date = end_date[0]['attributes']['postedDate']
+            end_date = end_date.split('T')[0]
+            return start_date.replace('-', '/'), end_date.replace('-', '/')
+        return None, None
 
     @staticmethod
     def get_instance():
