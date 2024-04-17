@@ -82,7 +82,7 @@ def test_search_dockets_returns_results():
 
 def test_search_documents_returns_results():
     """
-    Tests that the search_dockets function returns the
+    Tests that the search_documents function returns the
     expected results
     """
     client = MongoManager(hostname='mock')
