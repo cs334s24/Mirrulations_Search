@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/Docket.css"; // Import the CSS file
-import Button from "./Button";
+import ZipButton from "./ZipButton";
 
 const Docket = ({
  title,
@@ -39,7 +39,7 @@ const Docket = ({
       documents in this docket.
      </p>
     </div>
-    <Button email={email} docketID={id} />
+    <ZipButton email={email} docketID={id} />
    </div>
   </div>
  );

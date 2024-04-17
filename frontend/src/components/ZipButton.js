@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import "../styles/Button.css";
+import "../styles/ZipButton.css";
 import {zipFiles} from "../static/script";
 
-const Button = ({email, docketID}) => {
+const ZipButton = ({email, docketID}) => {
  const handleClick = () => {
   zipFiles(email, docketID);
  };
@@ -14,4 +14,4 @@ const Button = ({email, docketID}) => {
  );
 };
 
-export default Button;
+export default ZipButton;
