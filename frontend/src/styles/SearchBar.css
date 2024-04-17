@@ -10,6 +10,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     padding: 10px;
+    max-width: 600px;
    }
    
    /* input: This style is applied to the input element inside the search bar. It sets the padding, border, font size, and outline properties of the input element.
@@ -23,6 +24,7 @@
     font-size: 16px;
     outline: none;
     transition: all 0.3s ease;
+    width: 800px;
    }
    
    input:focus {
@@ -48,4 +50,3 @@
     background-color: #45a049;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
    }
-   

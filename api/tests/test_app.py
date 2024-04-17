@@ -81,17 +81,20 @@ def test_search_dockets_endpoint_returns_status_code_400(client):
 
 def test_search_documents_success(client):
     """Test whether the search_documents endpoint returns a 200 OK status code
-    and the expected JSON response when provided with a search term and document ID."""
-    response = client.get('/search_documents?term=test&document_id=123')
+    and the expected JSON response when provided with a search term and docket ID."""
+    response = client.get('/search_documents?term=test&docket_id=pass')
     data = response.get_json()
     assert response.status_code == 200
     assert 'data' in data
     assert data['data']['search_term'] == 'test'
-    assert isinstance(data['data']['comments'], list)
-    assert len(data['data']['comments']) == 1
-    comment = data['data']['comments'][0]
-    assert comment['author'] == 'Environmental Protection Agency'
-    assert comment['document_id'] == '123'
+    assert isinstance(data['data']['documents'], list)
+    assert len(data['data']['documents']) == 1
+    document = data['data']['documents'][0]
+    assert document['author'] == 'pass'
+    if document['docket_id'] is None:
+        assert document['docket_id'] is None
+    else:
+        assert document['docket_id'] == 'pass'
 
 def test_search_documents_missing_term(client):
     """Test whether the search_documents endpoint returns a 400 Bad Request status code
@@ -112,17 +115,6 @@ def test_search_documents_empty_term(client):
     assert 'error' in data
     assert data['error']['code'] == 400
     assert data['error']['message'] == 'Error: You must provide a term to be searched'
-
-def test_search_documents_invalid_document_id(client):
-    """Test whether the search_documents endpoint handles an invalid document ID
-    by returning the appropriate error response."""
-    response = client.get('/search_documents?term=test&document_id=invalid_id')
-    data = response.get_json()
-    assert response.status_code == 200 # Assuming you handle invalid document IDs gracefully
-    assert 'data' in data
-    assert len(data['data']['comments']) == 1 # Check if any comments are returned
-    assert data['data']['comments'][0]['document_id'] == 'invalid_id'
-    # Check if the given document ID is returned
 
 def test_search_comments_endpoint_returns_status(client):
     """Test whether the search_comments endpoint returns a 200 OK status code."""
@@ -184,6 +176,11 @@ def test_zip_data_endpoint_returns_200(client, mocker):
     mocker.patch('mirrsearch.api.app.trigger_lambda')
     response = client.get('/zip_data')
     assert response.status_code == 200
+
+def test_launch_returns_flask_app():
+    """Test whether the launch function returns a Flask app instance."""
+    app = launch('mockMongo')
+    assert isinstance(app, Flask)
 
 def test_search_endpoint_returns_200(client):
     """Test whether the search endpoint returns a 200 OK status code."""

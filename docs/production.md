@@ -28,6 +28,8 @@ sudo docker-compose down
 
 ### Setup Certbot Certificates in Production
 
+[Click Here For Official Documentation](https://certbot.eff.org/instructions?ws=other&os=pip)
+
 * Make sure the server is not running
 
 * Install Certbot
@@ -53,3 +55,9 @@ The KEY variable is for privkey.pem </br>
 Look in the .env file in a production or test instance
 in the root directory of the project for more detail.
 
+### Give docker-compose executable permissions
+
+* Run this command in the production instance
+```
+sudo chmod +x /usr/local/bin/docker-compose
+```
