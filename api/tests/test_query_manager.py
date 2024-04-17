@@ -11,7 +11,7 @@ def test_search_dockets_mongo_queries():
     """
     manager = MockMongoDatabase()
     query_manager = MongoQueryManager(manager)
-    response = query_manager.search_dockets('test')
+    response = query_manager.search_dockets('test', 1)
     assert response['data']['search_term'] == 'test'
 
 def test_search_documents_mongo_queries():
@@ -51,7 +51,7 @@ def test_query_manager_search_dockets_raises_error():
     manager = MockMongoDatabase()
     try:
         query_manager = QueryManager(manager)
-        query_manager.search_dockets('test')
+        query_manager.search_dockets('test', 1)
     except NotImplementedError as error:
         assert str(error) == "Subclasses must implement search_dockets"
 
