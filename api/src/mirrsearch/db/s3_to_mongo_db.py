@@ -15,11 +15,13 @@ import mirrsearch.db.mongo_db as mongo_db
 def connect_to_mongodb(uri):
     """ Function to connect to MongoDB and ensure collections exist """
     client = MongoClient(uri)
-    database = client['mirrsearch']
     if 'mirrsearch' not in client.list_database_names():
+        database = client['mirrsearch']
         database.create_collection('docket')
         database.create_collection('documents')
         database.create_collection('comments')
+    else:
+        database = client['mirrsearch']
     return database, client
 
 
