@@ -10,7 +10,18 @@ const Button = () => {
 
  return (
   <div>
-   <button onClick={handleClick}>Download</button>
+   <button
+    style={{background: !clicked ? "green" : "gray"}}
+    onClick={
+     !clicked
+      ? () => {
+         handleClick();
+        }
+      : null
+    }
+    disabled={clicked}>
+    {!clicked ? "Download" : "Downloaded"}
+   </button>
    {clicked && <p>Clicked</p>}
   </div>
  );
