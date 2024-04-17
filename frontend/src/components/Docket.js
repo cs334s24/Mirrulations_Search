@@ -16,16 +16,29 @@ const Docket = ({
 }) => {
  return (
   <div className="search-result">
-   <div className="container-1">
-    <p>{docket_agency}</p>
-    <h2>{title}</h2>
-    <p>{docket_type}</p>
-    <p>
-     <a href={link} target="_blank" rel="noopener noreferrer">
-      {id}
+   <article className="docket-container">
+    <header className="docket-header">
+     <h2 className="docket-title">{title}</h2>
+     <p className="docket-agency">{docket_agency}</p>
+    </header>
+    <p className="docket-type">{docket_type}</p>
+    <footer className="docket-footer">
+     <a href={link} className="docket-link" target="_blank" rel="noopener noreferrer">
+      Docket ID : {id}
      </a>
-    </p>
-   </div>
+    </footer>
+   </article>
+
+   {/* <div className="container-1">
+                <p>{docket_agency}</p>
+                <h2>{title}</h2>
+                <p>{docket_type}</p>
+                <p>
+                    <a href={link} target="_blank" rel="noopener noreferrer">
+                        {id}
+                    </a>
+                </p>
+            </div> */}
    <div className="container-2">
     <div className="left-half">
      <p>
