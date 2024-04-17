@@ -80,6 +80,16 @@ def test_search_dockets_returns_results():
     assert results is not None
     client.close_instance()
 
+def test_search_documents_returns_results():
+    """
+    Tests that the search_documents function returns the
+    expected results
+    """
+    client = MongoManager(hostname='mock')
+    results = client.search_documents('test', 'test')
+    assert results is not None
+    client.close_instance()
+
 def test_database_manager_search_dockets_raises_error():
     """
     Tests that the MongoManager class raises an error
@@ -90,6 +100,17 @@ def test_database_manager_search_dockets_raises_error():
         client.search_dockets('test')
     except NotImplementedError as error:
         assert str(error) == "Subclasses must implement search_dockets"
+
+def test_database_manager_search_documents_raises_error():
+    """
+    Tests that the MongoManager class raises an error
+    when the search_documents function is called
+    """
+    client = DatabaseManager()
+    try:
+        client.search_documents('test', 'test')
+    except NotImplementedError as error:
+        assert str(error) == "Subclasses must implement search_documents"
 
 def test_database_manager_search_comments_raises_error():
     """
@@ -164,3 +185,42 @@ def test_get_instance_after_connection_closed():
         client.get_instance()
     except NotImplementedError as error:
         assert str(error) == "Subclasses must implement get_instance"
+
+def test_get_comment_count():
+    """
+    Tests that the get_comment_count function returns the
+    expected results
+    """
+    client = MongoManager(hostname='mock')
+    results = client.get_comment_count('test', 'test')
+    assert results is not None
+    client.close_instance()
+
+def test_get_document_count():
+    """
+    Tests that the get_document_count function returns the
+    expected results
+    """
+    client = MongoManager(hostname='mock')
+    results = client.get_document_count('test', 'test')
+    assert results is not None
+    client.close_instance()
+
+def test_comment_date_range():
+    """
+    Tests that the comment_date_range function returns the
+    expected results
+    """
+    client = MongoManager(hostname='mock')
+    results = client.comments_date_range('test')
+    assert results is not None
+    client.close_instance()
+
+def test_comments_date_range_returns_none():
+    """
+    Tests that the comments_date_range function returns None
+    """
+    client = MongoManager(hostname='mock')
+    results = client.comments_date_range('null')
+    assert results == (None, None)
+    client.close_instance()

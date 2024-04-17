@@ -9,8 +9,16 @@ function App() {
  const [dockets, setDockets] = useState(); // Initialize docket state to false
 
  const handleOnClick = async (term) => {
-  const data = await getDummyData(term);
-  setDockets(data.data.dockets);
+  try {
+   const data = await getDummyData(term);
+   if (data.data.dockets.length === 0) {
+    alert("No results found for: '" + term + "'");
+   } else {
+    setDockets(data.data.dockets);
+   }
+  } catch (error) {
+   console.log(error);
+  }
  };
 
  return (

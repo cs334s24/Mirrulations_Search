@@ -24,9 +24,9 @@ export const getDummyDataDemo = async () => {
     //Add Agency Name
     link: "https://www.regulations.gov/docket/IHS-2005-0001",
     docket_type: "Notice",
+    docket_agency: "Indian Health Service",
     documents_containing: 54,
     total_documents: 54,
-    date_range: "2008/3/13 - 2010/4/25",
     comment_date_range: "2008/3/13 - 2010/4/25",
     comments_containing: 20,
     total_comments: 100,

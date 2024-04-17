@@ -10,7 +10,7 @@ const Button = () => {
 
  return (
   <div>
-   <button onClick={handleClick}>Click me</button>
+   <button onClick={handleClick}>Download</button>
    {clicked && <p>Clicked</p>}
   </div>
  );
