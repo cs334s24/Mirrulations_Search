@@ -6,6 +6,7 @@ const Button = () => {
 
  const handleClick = () => {
   setClicked(true);
+  alert("The docket is being sent to your email", "Mirrulations");
  };
 
  return (
@@ -22,7 +23,6 @@ const Button = () => {
     disabled={clicked}>
     {!clicked ? "Download" : "Downloaded"}
    </button>
-   {clicked && <p>Clicked</p>}
   </div>
  );
 };
