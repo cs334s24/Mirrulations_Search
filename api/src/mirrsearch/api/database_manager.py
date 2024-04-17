@@ -136,12 +136,12 @@ class MongoManager(DatabaseManager):
         db = client.get_database('mirrsearch')
         documents = db.get_collection('documents')
 
-        total_comments = documents.count_documents({'attributes.docketId':
+        total_documents = documents.count_documents({'attributes.docketId':
                                                    {'$regex': f'{docket_id}'}})
         total_terms = documents.count_documents({'$and': [ {'id': {'$regex': f'{docket_id}'}},
                                                      {'data': {'$regex': f'{search_term}'}}]})
 
-        return total_comments, total_terms
+        return total_documents, total_terms
 
     def comments_date_range(self, docket_id):
         """ Finds earliest and latest comments for a docket """
