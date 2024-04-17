@@ -44,7 +44,7 @@ class MongoQueryManager(QueryManager):
         Function that searches the dockets collection in the database
         for a given search term
         """
-        response = {'data': {'search_term': search_term, 'dockets': []}}
+        response = {'data': {'search_term': search_term, 'dockets': []}, 'meta': {}}
         search = self._manager.search_dockets(search_term)
         self._cursor = search
         for doc in self._cursor[page*10-10:page*10]:
@@ -74,6 +74,8 @@ class MongoQueryManager(QueryManager):
                 'date_range': date_modified,
                 'comment_date_range': comment_date_range,
             })
+        response['meta']['total_results'] = len(list(self._cursor))
+
         return response
 
     def search_documents(self, search_term, docket_id):
