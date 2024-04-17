@@ -22,21 +22,27 @@
 
 .docket-header {
     margin-block-end: 10px;
+    display: flex;
+    align-items: center;
+
+
 }
 
 .docket-title {
     font-size: 1.5em;
     margin-block-end: 5px;
+    justify-content: center;
 }
 
 .docket-agency {
+    margin-inline-end: 20px;
     font-size: 1em;
-    color: red;
+    color: #027a2a;
 }
 
 .docket-type {
     font-style: italic;
-    color: #DC143C;
+    color: darkred;
     font-weight: bold;
 }
 
@@ -45,7 +51,7 @@
 }
 
 .docket-link {
-    color: #1e88e5;
+    color: royalblue;
     text-decoration: none;
 }
 

@@ -18,7 +18,7 @@ const Docket = ({
   <div className="search-result">
    <article className="docket-container">
     <header className="docket-header">
-    <p className="docket-agency">{docket_agency}</p>
+     <p className="docket-agency">{docket_agency}</p>
      <h2 className="docket-title">{title}</h2>
     </header>
     <p className="docket-type">{docket_type}</p>
