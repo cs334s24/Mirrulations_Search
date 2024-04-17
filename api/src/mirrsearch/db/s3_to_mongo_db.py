@@ -8,7 +8,19 @@ import os
 import json
 import sys
 import boto3
+import pymongo as MongoClient
 import mirrsearch.db.mongo_db as mongo_db
+
+
+def connect_to_mongodb(uri):
+    """ Function to connect to MongoDB and ensure collections exist """
+    client = MongoClient(uri)
+    database = client['mirrsearch']
+    if 'mirrsearch' not in client.list_database_names():
+        database.create_collection('docket')
+        database.create_collection('documents')
+        database.create_collection('comments')
+    return database, client
 
 
 def pull_data_from_s3(agency):
@@ -70,5 +82,9 @@ if __name__ == "__main__":
     agency = sys.argv[1]
     URI = 'mongodb://localhost:27017'
     database, client = mongo_db.connect_to_mongodb(URI)
+    if agency == 'reset':
+        database = mongo_db.clear_db(database)
+        client.close()
+        sys.exit()
     pull_data_from_s3(agency)
     client.close()
