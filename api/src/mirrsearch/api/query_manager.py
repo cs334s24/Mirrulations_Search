@@ -11,7 +11,7 @@ class QueryManager:
     def __init__(self, database_manager: DatabaseManager):
         self._manager = database_manager
 
-    def search_dockets(self, search_term):
+    def search_dockets(self, search_term, page):
         """
         Function that searches the dockets collection in the database
         for a given search term
