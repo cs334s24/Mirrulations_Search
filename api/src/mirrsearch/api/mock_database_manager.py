@@ -27,7 +27,7 @@ class MockCursor:
         an empty list.
         """
         return iter(self.data)
-    
+
     def __next__(self):
         """
         Mocks the __next__ method of the Cursor class. It returns
@@ -41,13 +41,13 @@ class MockCursor:
         0.
         """
         return 0
-    
+
     def sort(self, _query):
         """
         Mocks the sort method of the Cursor class. It returns an empty list.
         """
         return self
-    
+
     def limit(self, _query):
         """
         Mocks the limit method of the Cursor class. It returns an empty list.
@@ -102,7 +102,7 @@ class MockMongoDatabase(MockDatabase):
                 'links': {'self': 'pass'},
                 'docketId': 'test'
                 }]
-    
+
     def comments_date_range(self, _doc_id):
         """
         Mocks the comments_date_range method of the MongoDatabase class. It returns
@@ -123,13 +123,6 @@ class MockMongoDatabase(MockDatabase):
         a tuple with the search term and docket id that were passed in.
         """
         return 0, 0
-
-    def comments_date_range(self, _doc_id):
-        """
-        Mocks the comments_date_range method of the MongoDatabase class. It returns
-        None.
-        """
-        return None, None
 
     def close(self):
         """
@@ -156,19 +149,19 @@ class MockMongoDatabase(MockDatabase):
         Mocks the find method of the MongoDatabase class. It returns an empty list.
         """
         return MockCursor()
-    
+
     def sort(self, _query):
         """
         Mocks the sort method of the MongoDatabase class. It returns an empty list.
         """
         return MockCursor()
-    
+
     def limit(self, _query):
         """
         Mocks the limit method of the MongoDatabase class. It returns an empty list.
         """
         return MockCursor()
-    
+
     def count_documents(self, _query):
         """
         Mocks the count_documents method of the MongoDatabase class. It returns

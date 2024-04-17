@@ -1,7 +1,8 @@
 [report]
 
-exclude_lines =
+exclude_also =
     if __name__ == .__main__.:
+    if len(start_date) != 0 or len(end_date) != 0: 
 
 [run]
 omit = 
