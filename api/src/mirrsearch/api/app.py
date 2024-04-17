@@ -51,6 +51,13 @@ def create_app(query_manager):
         search_term = request.args.get('term')
         page = request.args.get('page')
 
+        try:
+            page = int(page)
+        except (ValueError, TypeError):
+            response = {}
+            response['error'] = {'code': 400,
+                                    'message': 'Error: Page must be an integer'}
+
         # If a search term is not provided, the server will return this JSON and a 400 status code
         if not search_term:
             response = {}
