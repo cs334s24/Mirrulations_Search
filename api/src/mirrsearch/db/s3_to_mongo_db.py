@@ -8,7 +8,7 @@ import os
 import json
 import sys
 import boto3
-import pymongo as MongoClient
+from pymongo import MongoClient
 import mirrsearch.db.mongo_db as mongo_db
 
 
@@ -81,9 +81,9 @@ def add_data_to_database(root, database):
 if __name__ == "__main__":
     agency = sys.argv[1]
     URI = 'mongodb://localhost:27017'
-    database, client = mongo_db.connect_to_mongodb(URI)
-    if agency == 'reset':
-        database = mongo_db.clear_db(database)
+    database, client = connect_to_mongodb(URI)
+    if agency.lower() == 'reset':
+        database = mongo_db.clear_db(client)
         client.close()
         sys.exit()
     pull_data_from_s3(agency)
