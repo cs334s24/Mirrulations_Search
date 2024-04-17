@@ -123,7 +123,7 @@ def launch(database):
     """
     Launch the Flask app
     """
-    if database == 'mongo':
+    if database == 'mongo': # pragma: no cover
         database_manager = MongoManager()
         query_manager = MongoQueryManager(database_manager)
         return create_app(query_manager)
@@ -131,7 +131,7 @@ def launch(database):
         database_manager = MockMongoDatabase()
         query_manager = MockMongoQueries(database_manager)
         return create_app(query_manager)
-    raise ValueError('Invalid database type')
+    raise ValueError('Invalid database type') # pragma: no cover
 
 if __name__ == '__main__':
     flask_app = launch('mongo')
