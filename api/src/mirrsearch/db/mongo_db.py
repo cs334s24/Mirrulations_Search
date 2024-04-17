@@ -1,7 +1,7 @@
 """ This script connects to MongoDB and inserts data into collections """
 
 # pylint: disable=too-many-nested-blocks, unspecified-encoding
-# pylint: disable=unused-variable
+# pylint: disable=unused-variable, used-before-assignment
 
 import os
 import json
