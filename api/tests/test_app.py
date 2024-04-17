@@ -56,7 +56,7 @@ def test_data_endpoint_returns_status(client):
 def test_search_dockets_endpoint_valid_request_returns_200(client):
     """Test whether the search_dockets endpoint returns a 200 OK status code."""
     search_term = 'Governance'
-    response = client.get(f'/search_dockets?term={search_term}')
+    response = client.get(f'/search_dockets?term={search_term}&page=1')
     print(response)
     assert response.status_code == 200
 

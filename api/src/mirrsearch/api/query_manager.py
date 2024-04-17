@@ -11,7 +11,7 @@ class QueryManager:
     def __init__(self, database_manager: DatabaseManager):
         self._manager = database_manager
 
-    def search_dockets(self, search_term):
+    def search_dockets(self, search_term, page):
         """
         Function that searches the dockets collection in the database
         for a given search term
@@ -37,14 +37,17 @@ class MongoQueryManager(QueryManager):
     Class for managing queries to a MongoDB database
     """
 
-    def search_dockets(self, search_term):
+    _cursor = None
+
+    def search_dockets(self, search_term, page):
         """
         Function that searches the dockets collection in the database
         for a given search term
         """
         response = {'data': {'search_term': search_term, 'dockets': []}}
         search = self._manager.search_dockets(search_term)
-        for doc in search:
+        self._cursor = search
+        for doc in self._cursor[page*10-10:page*10]:
             doc_id = doc['id']
             number_of_comments, comments_containing = self._manager.get_comment_count(
                 search_term, doc_id)
