@@ -4,6 +4,9 @@ import {zipFiles} from "../static/script";
 
 const ZipButton = ({email, docketID}) => {
  const handleClick = () => {
+  alert(
+   `An email containing a downloadable version of docket ${docketID} has been sent to ${email}`,
+  );
   zipFiles(email, docketID);
  };
 

@@ -49,6 +49,14 @@ def create_app(query_manager):
     def search_dockets():
         # Obtains the search term
         search_term = request.args.get('term')
+        page = request.args.get('page')
+
+        try:
+            page = int(page)
+        except (ValueError, TypeError):
+            response = {}
+            response['error'] = {'code': 400,
+                                    'message': 'Error: Page must be an integer'}
 
         # If a search term is not provided, the server will return this JSON and a 400 status code
         if not search_term:
@@ -57,8 +65,11 @@ def create_app(query_manager):
                                  'message': 'Error: You must provide a term to be searched'}
             return jsonify(response), 400
 
+        if not page:
+            page = 1
+
         # If the search term is valid, data will be ingested into the JSON response
-        response = query_manager.search_dockets(search_term)
+        response = query_manager.search_dockets(search_term, page)
 
         return jsonify(response)
 
