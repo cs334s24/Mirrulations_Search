@@ -53,9 +53,6 @@ class MongoQueryManager(QueryManager):
                 search_term, doc_id)
             number_of_documents, documents_containing = self._manager.get_document_count(
                 search_term, doc_id)
-            date_modified = doc['attributes']['modifyDate']
-            date_modified = date_modified.split('T')[0]
-            date_modified = date_modified.replace('-', '/')
             start_date, end_date =  self._manager.comments_date_range(doc_id)
             if start_date is None:
                 comment_date_range = "No comments"
@@ -71,7 +68,6 @@ class MongoQueryManager(QueryManager):
                 'comments_containing': comments_containing,
                 'docket_type': doc['attributes']['docketType'],
                 'docket_agency': doc['attributes']['agencyId'],
-                'date_range': date_modified,
                 'comment_date_range': comment_date_range,
             })
 

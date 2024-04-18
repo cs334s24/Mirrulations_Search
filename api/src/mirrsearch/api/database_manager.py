@@ -112,7 +112,7 @@ class MongoManager(DatabaseManager):
 
         return results
 
-    def get_comment_count(self, docket_id, search_term):
+    def get_comment_count(self, search_term, docket_id):
         """ Returns the total number of comments and the number of comments with the search term"""
         client = self.get_instance()
         db = client.get_database('mirrsearch')
@@ -136,12 +136,12 @@ class MongoManager(DatabaseManager):
         db = client.get_database('mirrsearch')
         documents = db.get_collection('documents')
 
-        total_comments = documents.count_documents({'attributes.docketId':
+        total_documents = documents.count_documents({'attributes.docketId':
                                                    {'$regex': f'{docket_id}'}})
         total_terms = documents.count_documents({'$and': [ {'id': {'$regex': f'{docket_id}'}},
                                                      {'data': {'$regex': f'{search_term}'}}]})
 
-        return total_comments, total_terms
+        return total_documents, total_terms
 
     def comments_date_range(self, docket_id):
         """ Finds earliest and latest comments for a docket """
@@ -155,13 +155,13 @@ class MongoManager(DatabaseManager):
         end_date = list(comments.find({ "attributes.docketId" :
                                   {'$regex': f'{docket_id}'} }).sort({ "attributes.postedDate" :
                                                                       -1 }).limit(1))
-        if len(start_date) != 0 or len(end_date) != 0:
-            start_date = start_date[0]['attributes']['postedDate']
-            start_date = start_date.split('T')[0]
-            end_date = end_date[0]['attributes']['postedDate']
-            end_date = end_date.split('T')[0]
-            return start_date.replace('-', '/'), end_date.replace('-', '/')
-        return None, None
+        if len(start_date) == 0 or len(end_date) == 0:
+            return None, None
+        start_date = start_date[0]['attributes']['postedDate']
+        start_date = start_date.split('T')[0]
+        end_date = end_date[0]['attributes']['postedDate']
+        end_date = end_date.split('T')[0]
+        return start_date.replace('-', '/'), end_date.replace('-', '/')
 
     @staticmethod
     def get_instance():
