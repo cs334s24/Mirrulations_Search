@@ -1,6 +1,7 @@
 """
 Module for managing queries to the database
 """
+import operator
 from mirrsearch.api.database_manager import DatabaseManager
 
 class QueryManager:
@@ -44,7 +45,7 @@ class MongoQueryManager(QueryManager):
         Function that searches the dockets collection in the database
         for a given search term
         """
-        response = {'data': {'search_term': search_term, 'dockets': []}}
+        dockets = []
         search = self._manager.search_dockets(search_term)
         self._dockets_cursor = search
         for doc in self._dockets_cursor[page*10-10:page*10]:
@@ -58,7 +59,7 @@ class MongoQueryManager(QueryManager):
                 comment_date_range = "No comments"
             else:
                 comment_date_range = f"{start_date} - {end_date}"
-            response['data']['dockets'].append({
+            dockets.append({
                 'title': doc['attributes']['title'],
                 'id': doc_id,
                 'link': "https://www.regulations.gov/docket/" +  doc_id,
@@ -70,7 +71,9 @@ class MongoQueryManager(QueryManager):
                 'docket_agency': doc['attributes']['agencyId'],
                 'comment_date_range': comment_date_range,
             })
-
+        dockets.sort(key=operator.itemgetter('documents_containing', 'comments_containing'),
+                     reverse=True)
+        response = {'data': {'search_term': search_term, 'dockets': dockets}}
         response['meta'] = self.get_meta_data(search_term, page)
 
         return response
