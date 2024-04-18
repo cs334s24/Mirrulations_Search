@@ -26,7 +26,7 @@ const SearchBar = ({handleOnClick}) => {
     value={query}
     onChange={handleInputChange}
     onKeyDown={handleKeyDown}
-    placeholder="Search..."
+    placeholder="Enter Search Term"
     className="search-input" // Add the search-input class
    />
    <button onClick={handleSearch} className="search-button">

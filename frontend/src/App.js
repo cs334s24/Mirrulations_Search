@@ -4,21 +4,24 @@ import "./App.css";
 import {getDummyData} from "./static/script";
 import SearchBar from "./components/SearchBar";
 import DocketList from "./components/DocketList";
-import AppBackgroundHomepageImage from "./images/homepage pic.jpeg";
-import AppBackgroundSearchResultsImage from "./images/grey background.jpeg";
 
 function App() {
  const [dockets, setDockets] = useState(); // Initialize docket state to false
- const [currentImage, setCurrentImage] = useState(AppBackgroundHomepageImage); // Initialize currentImage and set it to AppBackgroundHomepageImage
  const handleOnClick = async (term) => {
   try {
-   const data = await getDummyData(term);
-   if (data.data.dockets.length === 0) {
-    alert("No results found for: '" + term + "'");
+   // This will display a message if the search term is invalid or no results are found
+   // It still has issues with some search terms such as ' ' (a single space)
+   if (!term) {
+    alert("Please enter a valid search term.");
+    return;
    } else {
-    setDockets(data.data.dockets);
-    setCurrentImage(AppBackgroundSearchResultsImage);
-    console.log("image should be changing now");
+    const data = await getDummyData(term);
+    if (data.data.dockets.length === 0) {
+     alert("No results found for: '" + term + "'");
+     return;
+    } else {
+     setDockets(data.data.dockets);
+    }
    }
   } catch (error) {
    console.log(error);
@@ -27,13 +30,13 @@ function App() {
 
  return (
   <div className="App">
-   <div className="App-background_homepageimage" style={{backgroundImage: `url(${currentImage})`}}>
-    <h1>Mirrulations Search</h1>
-    <div>
-     <SearchBar handleOnClick={handleOnClick} />
-     {dockets && <DocketList dockets={dockets} />}{" "}
-     {/* Render SearchResultsList only if dockets is true */}
-    </div>
+   <h1>Mirrulations Search</h1>
+   <div>
+    <SearchBar handleOnClick={handleOnClick} />
+    {/* list total number of dockets found for the term */}
+    {dockets && <h2>{dockets.length} Results Found</h2>}
+    {dockets && <DocketList dockets={dockets} />}{" "}
+    {/* Render SearchResultsList only if dockets is true */}
    </div>
   </div>
  );
