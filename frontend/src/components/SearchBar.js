@@ -14,6 +14,7 @@ const SearchBar = ({handleOnClick}) => {
 
  const handleKeyDown = (event) => {
   if (event.key === "Enter") {
+   //    docker;
    handleSearch();
   }
  };
@@ -25,7 +26,7 @@ const SearchBar = ({handleOnClick}) => {
     value={query}
     onChange={handleInputChange}
     onKeyDown={handleKeyDown}
-    placeholder="Search..."
+    placeholder="Enter Search Term"
     className="search-input" // Add the search-input class
    />
    <button onClick={handleSearch} className="search-button">
