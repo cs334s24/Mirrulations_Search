@@ -28,12 +28,32 @@ class MockMongoQueries(MockQueryManager):
     interacting with the database.
     """
 
-    def search_dockets(self, search_term):
+    def search_dockets(self, search_term, page):
         """
         Mocks the search_dockets method of the MongoQueries class. It returns
         a dictionary with the search term that was passed in.
         """
-        return {'data': search_term}
+        return {'data': search_term, 'page': page}
+
+    def search_documents(self, search_term, docket_id):
+        """
+        Mocks the search_documents method of the MongoQueries class. It returns
+        a dictionary with the search term and docket id that were passed in.
+        """
+        return {
+                'data': 
+                {'search_term': search_term,
+                 'docket_id': docket_id,
+                 'documents': [
+                        {
+                         'author': 'pass', 
+                         'date_posted': 'pass', 
+                         'link': 'pass',
+                         'docket_id': docket_id
+                        }
+                    ]
+                }
+                }
 
     def search_comments(self, search_term, docket_id):
         """
