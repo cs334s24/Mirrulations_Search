@@ -1,104 +1,80 @@
 .search-result {
-    border: 1px solid #b0b0b0;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #f0f0f0;
-    color: #333333;
-    margin: 16px;
-    padding: 16px;
     display: flex;
     flex-direction: column;
-    /* Ensure containers stack vertically */
-}
-
-.docket-container {
-    border: 1px solid #c0c0c0;
-    border-radius: 4px;
-    padding: 15px;
-    margin-block-end: 10px;
-    background-color: #4f4f4f;
-    color: #ffffff;
-}
-
-.docket-header {
-    margin-block-end: 10px;
-}
-
-.docket-title {
-    font-size: 1.5em;
-    margin-block-end: 5px;
-}
-
-.docket-agency {
-    font-size: 1em;
-    color: red;
-}
-
-.docket-type {
-    font-style: italic;
-    color: #DC143C;
-    font-weight: bold;
-}
-
-.docket-footer {
-    margin-block-start: 10px;
-}
-
-.docket-link {
-    color: #1e88e5;
-    text-decoration: none;
-}
-
-.docket-link:hover {
-    text-decoration: underline;
-}
-
-
-.container-2 {
-    /* position: relative; */
-    /* display: flex; */
-    inline-size: 100%;
-    /* Ensure container-2 occupies entire width */
-    margin-block-start: 10px;
-    /* Add space between container-1 and container-2 */
-    align-self: flex-start;
-    /* Align container-2 to the start (left) */
-    /* border: 1px solid green; Border around container-2 */
-    display: flex;
-    /* Ensure container-2 behaves as flex container */
-}
-
-.left-half {
-    padding: 10px;
-    margin-inline-start: 0;
-    /* Ensure left alignment */
-    flex-direction: column;
-    /* Stack items vertically */
-    justify-content: flex-start;
-    /* Align items to the start (left) */
-    /* border: 1px solid red; Border around left-half */
-    flex-grow: 1;
-    /* Utilize available space */
-}
-
-.right-half {
-    display: flex;
-    justify-content: flex-end;
     align-items: center;
-    padding: 10px;
-    margin-inline-end: 25%;
-    /* border: 1px solid orange; Border around right-half */
-    flex-grow: 1;
-    /* Utilize available space */
+    /*margin + padding*/
+    margin: 4px;
+    padding: 4px;
+    border: 1px solid black;
+    border-radius: 8px;
 }
 
-.button {
-    padding: 8px 12px;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: all 0.3s ease;
+/**
+* Header styles for search result
+*/
+.header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /*background and border*/
+    background-color: #cdcdcd; /*#dadada;*/ 
+    
+}
+
+.h-row1 {
+    display: flex;
+    flex-direction: row;
+}
+
+.h-col1 {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: inherit;
+    text-align: left;
+    margin-top: 4px;
+    margin-left: 4px;
+}
+
+.h-col2 {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: inherit;
+    text-align: right;
+    margin-top: 4px;
+    margin-right: 4px;
+}
+
+.h-row2 {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: inherit;
+    text-align: left;
+    margin-left: 4px;
+}
+
+/**
+* Body styles for search result
+*/
+.b-col1 {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    height: inherit;
+}
+
+.b-col2 {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    height: inherit;
+}
+
+.b-col3 {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    height: inherit;
 }
