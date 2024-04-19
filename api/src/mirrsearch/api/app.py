@@ -1,6 +1,6 @@
+
 """
 Create barebones Flask app
-Run with: python kickoff_app.py
 """
 
 from flask import Flask, jsonify, request
@@ -29,10 +29,11 @@ def create_app(query_manager):
         trigger_lambda()
         return jsonify(data)
 
-    @app.route('/search_dockets')
-    def search_dockets():
+    @app.route('/search')
+    def search():
         # Obtains the search term
         search_term = request.args.get('term')
+        response = {}
 
         # If a search term is not provided, the server will return this JSON and a 400 status code
         if not search_term:
@@ -41,37 +42,58 @@ def create_app(query_manager):
                                  'message': 'Error: You must provide a term to be searched'}
             return jsonify(response), 400
 
+        response['data'] = {"search_term": search_term, "status": 200}
+        return jsonify(response)
+
+    @app.route('/search_dockets')
+    def search_dockets():
+        # Obtains the search term
+        search_term = request.args.get('term')
+        page = request.args.get('page')
+
+        try:
+            page = int(page)
+        except (ValueError, TypeError):
+            response = {}
+            response['error'] = {'code': 400,
+                                    'message': 'Error: Page must be an integer'}
+
+        # If a search term is not provided, the server will return this JSON and a 400 status code
+        if not search_term:
+            response = {}
+            response['error'] = {'code': 400,
+                                 'message': 'Error: You must provide a term to be searched'}
+            return jsonify(response), 400
+
+        if not page:
+            page = 1
 
         # If the search term is valid, data will be ingested into the JSON response
-        response = query_manager.search_dockets(search_term)
+        response = query_manager.search_dockets(search_term, page)
 
         return jsonify(response)
 
     @app.route('/search_documents')
     def search_documents():
-        response = {}
 
-        # Obtains the search term and document id from a prior request
+        # Obtains the search term and document ID from a prior request
         search_term = request.args.get('term')
-        document_id = request.args.get('document_id')
+        docket_id = request.args.get('docket_id')
 
         # If a search term is not provided, the server will return this JSON and a 400 status code
         if not search_term:
+            response = {}
             response['error'] = {'code': 400,
-                                 'message': 'Error: You must provide a term to be searched'}
+                                'message': 'Error: You must provide a term to be searched'}
             return jsonify(response), 400
 
-        # If the search term is valid, data will be ingested into the JSON response
-        response['data'] = {
-            'search_term': search_term,
-            'comments': []
-        }
-        response['data']['comments'].append({
-            "author": "Environmental Protection Agency",
-            "date_posted": "Dec 22, 2003",
-            "link": "https://www.regulations.gov/document/EPA-HQ-OAR-2003-0083-0794",
-            "document_id": document_id
-           })
+        # This checks if there is a docket ID present
+        # If there is no docket ID, the function will return None
+        # If there is a docket ID, the function will return the search results
+        if docket_id is None:
+            return None
+        response = query_manager.search_documents(search_term, docket_id)
+
         return jsonify(response)
 
     @app.route('/search_comments')
@@ -112,7 +134,7 @@ def launch(database):
     """
     Launch the Flask app
     """
-    if database == 'mongo':
+    if database == 'mongo': # pragma: no cover
         database_manager = MongoManager()
         query_manager = MongoQueryManager(database_manager)
         return create_app(query_manager)
@@ -120,7 +142,7 @@ def launch(database):
         database_manager = MockMongoDatabase()
         query_manager = MockMongoQueries(database_manager)
         return create_app(query_manager)
-    raise ValueError('Invalid database type')
+    raise ValueError('Invalid database type') # pragma: no cover
 
 if __name__ == '__main__':
     flask_app = launch('mongo')
