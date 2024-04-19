@@ -15,6 +15,13 @@ function App() {
 
  return (
   <div className="App">
+   <input
+    type="text"
+    value={email}
+    onChange={handleInputChange}
+    placeholder="Enter Email"
+    className="search-input" // Add the search-input class
+   />
    <h1>Mirrulations Search</h1>
    <div>
     <SearchBar handleOnClick={handleOnClick} />
