@@ -3,12 +3,14 @@
 Create barebones Flask app
 """
 
+import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from mirrsearch.api.query_manager import MongoQueryManager
 from mirrsearch.api.database_manager import MongoManager
 from mirrsearch.api.mock_database_manager import MockMongoDatabase
 from mirrsearch.api.mock_query_manager import MockMongoQueries
+from dotenv import load_dotenv
 import boto3
 
 def create_app(query_manager):
@@ -124,7 +126,12 @@ def trigger_lambda():
     """
     Trigger the Lambda function to zip the data
     """
-    client = boto3.client('lambda', region_name='us-east-1')
+    aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID")
+    aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY")
+
+    client = boto3.client('lambda',region_name='us-east-1',aws_access_key_id=aws_access_key_id,
+                          aws_secret_access_key=aws_secret_access_key)
+
     client.invoke(
         FunctionName='ProductionZipSystemLambda',
         InvocationType='Event'
@@ -134,6 +141,7 @@ def launch(database):
     """
     Launch the Flask app
     """
+    load_dotenv()
     if database == 'mongo': # pragma: no cover
         database_manager = MongoManager()
         query_manager = MongoQueryManager(database_manager)
