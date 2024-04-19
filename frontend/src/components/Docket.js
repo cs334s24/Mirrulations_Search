@@ -36,7 +36,7 @@ const Docket = ({
    </div>
    <div className="body">
     <div className="b-col1">
-    <p>
+     <p>
       {documents_containing === 1 && total_documents === 1
        ? `1 document relates to your term out of the 1 document in this docket.`
        : documents_containing === 1
@@ -45,9 +45,9 @@ const Docket = ({
            ? `${documents_containing} documents relate to your term out of the 1 document in this docket.`
            : `${documents_containing} documents relate to your term out of the ${total_documents} total documents in this docket.`}
      </p>
-     </div>
+    </div>
     <div className="b-col2">
-    <p>
+     <p>
       {comments_containing == 1 && total_comments === 1
        ? `1 comment relates to your term out of the 1 comment in this docket.`
        : comments_containing === 1
@@ -56,9 +56,9 @@ const Docket = ({
            ? `${comments_containing} comments relate to your term out of the 1 comment in this docket.`
            : `${comments_containing} comments relate to your term out of the ${total_comments} total comments in this docket.`}
      </p>
-     </div>
+    </div>
     <div className="b-col3">
-    <p>Comment Date Range: {comment_date_range}</p>
+     <p>Comment Date Range: {comment_date_range}</p>
     </div>
    </div>
   </div>
