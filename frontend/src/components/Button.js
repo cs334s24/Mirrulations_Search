@@ -3,7 +3,6 @@ import "../styles/Button.css";
 import {zipFiles} from "../static/script";
 
 const Button = () => {
-  
  const [clicked, setClicked] = useState(false);
 
  const handleClick = () => {
