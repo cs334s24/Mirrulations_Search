@@ -30,6 +30,18 @@ This document also describes how to launch a local instance of the complete syst
 
   The `setup.cfg` file contains all the libraries for the package (Flask, gunicorn, pytest, etc.).
 
+* Go into `api/src/mirrsearch/api` and create a dotenv file
+
+  ```
+  cd api/src/mirrsearch/api/
+  nano .env
+  ```
+
+  Inside of this file we need to copy and paste our AWS credentials which can be
+  found in 1password.
+  The format should be as follows
+  AWS_ACCESS_KEY_ID=x
+  AWS_SECRET_ACCESS_KEY=y
 
 At this point, you should be able to run `pytest` in the `api` folder or `api/tests` folder.
 
