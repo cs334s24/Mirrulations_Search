@@ -27,8 +27,10 @@ def create_app(query_manager):
 
     @app.route('/zip_data')
     def zip_data():
-        data = {"message": "The email to download your data will be sent shortly", "status": 200}
-        trigger_lambda()
+        result = trigger_lambda()
+        data = {"message": "The email to download your data will be sent shortly",
+                "result": result,
+                "status": 200}
         return jsonify(data)
 
     @app.route('/search')
@@ -132,10 +134,12 @@ def trigger_lambda():
     client = boto3.client('lambda',region_name='us-east-1',aws_access_key_id=aws_access_key_id,
                           aws_secret_access_key=aws_secret_access_key)
 
-    client.invoke(
-        FunctionName='ProductionZipSystemLambda',
-        InvocationType='Event'
+    result = client.invoke(
+        FunctionName='ProductionZipSystemLambda'
     )
+
+    return result['Payload'].read()
+
 
 def launch(database):
     """
