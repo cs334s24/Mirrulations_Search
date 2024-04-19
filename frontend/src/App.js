@@ -7,11 +7,15 @@ import DocketList from "./components/DocketList";
 
 function App() {
  const [dockets, setDockets] = useState(); // Initialize docket state to false
-
+ const [email, setEmail] = useState()
  const handleOnClick = async (term) => {
   const data = await fetchDockets(term);
   setDockets(data.data.dockets);
  };
+
+ const handleInputChange = async (event) => {
+    setEmail(event.target.value);
+   };
 
  return (
   <div className="App">
