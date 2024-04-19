@@ -11,6 +11,9 @@ function App() {
  const [email, setEmail] = useState();
  const [validTerm, setValidTerm] = useState(false);
 
+ const [totalResults, setTotalResults] = useState(0);
+
+
  const handleOnClick = async (term) => {
   try {
    // This will display a message if the search term is invalid or no results are found
@@ -20,12 +23,14 @@ function App() {
     return;
    } else {
     const data = await fetchDockets(term);
+
     if (data.data.dockets.length === 0) {
      alert("No results found for: '" + term + "'");
      return;
     } else {
      setDockets(data.data.dockets);
-     setValidTerm(true);
+     setValidTerm(true)
+     setTotalResults(data.meta.total_results);
     }
    }
   } catch (error) {
@@ -51,7 +56,7 @@ function App() {
     <SearchBar handleOnClick={handleOnClick} />
     <EmailVisibleInvisible isVisible={validTerm} handleInputChange={handleInputChange} />
     {/* list total number of dockets found for the term */}
-    {dockets && <h2>{dockets.length} Results Found</h2>}
+    {totalResults > 0 && <h2>{totalResults} Results Found</h2>}
     {dockets && <DocketList dockets={dockets} />}{" "}
     {/* Render SearchResultsList only if dockets is true */}
    </div>
