@@ -244,8 +244,7 @@ def test_trigger_lambda(mock_boto3_client, mock_env_variables): # pylint: disabl
 
     # Assert that the invoke method was called with correct arguments
     mock_invoke.assert_called_once_with(
-        FunctionName='ProductionZipSystemLambda',
-        InvocationType='Event'
+        FunctionName='ProductionZipSystemLambda'
     )
 
 def test_launch_returns_flask_app():
