@@ -1,7 +1,7 @@
 const URL = window.location.href;
 
 // api.js
-export const getDummyData = async (searchTerm) => {
+export const fetchDockets = async (searchTerm) => {
  try {
   const search =
    URL +
@@ -15,7 +15,7 @@ export const getDummyData = async (searchTerm) => {
  }
 };
 
-export const getDummyDataDemo = async () => {
+export const zipFiles = async () => {
  try {
   const data = [
    {
