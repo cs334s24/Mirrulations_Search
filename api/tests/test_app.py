@@ -2,9 +2,12 @@
 
 # pylint: disable=unused-import
 
+from unittest.mock import MagicMock, patch
 import json
+import os
 import pytest
-from mirrsearch.api.app import launch
+import boto3
+from mirrsearch.api.app import launch, trigger_lambda
 from flask import Flask, jsonify, request
 
 @pytest.fixture
@@ -184,3 +187,71 @@ def test_zip_data_endpoint_returns_200(client, mocker):
     mocker.patch('mirrsearch.api.app.trigger_lambda')
     response = client.get('/zip_data')
     assert response.status_code == 200
+
+@pytest.fixture
+def mock_boto3_client():
+    """
+    Mocks the boto3.client function using the patch decorator.
+
+    Yields:
+        mock_client: The mocked boto3 client object.
+    """
+    with patch('boto3.client') as mock_client:
+        yield mock_client
+
+
+@pytest.fixture
+def mock_env_variables():
+    """
+    A context manager that mocks the environment variables required for AWS access.
+
+    This context manager sets the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` 
+    environment variables
+    to the provided values, allowing for mocking AWS access during testing.
+
+    Usage:
+        with mock_env_variables():
+            # Code that requires AWS access
+
+    """
+    with patch.dict(os.environ, {
+        "AWS_ACCESS_KEY_ID": "your_access_key_id",
+        "AWS_SECRET_ACCESS_KEY": "your_secret_access_key"
+    }):
+        yield
+
+
+def test_trigger_lambda(mock_boto3_client, mock_env_variables): # pylint: disable=unused-argument
+    """
+    Test case for the trigger_lambda function.
+
+    This test case verifies that the trigger_lambda function correctly invokes the
+    ProductionZipSystemLambda function with the correct arguments.
+
+    Args:
+        mock_boto3_client: A MagicMock object representing the mocked boto3 client.
+
+    Returns:
+        None
+    """
+
+    # Mocking the client.invoke method
+    mock_invoke = MagicMock()
+    mock_boto3_client.return_value.invoke = mock_invoke
+
+    # Call the function
+    trigger_lambda()
+
+    # Assert that the boto3 client was called with correct arguments
+    mock_boto3_client.assert_called_once_with(
+        'lambda',
+        region_name='us-east-1',
+        aws_access_key_id='your_access_key_id',
+        aws_secret_access_key='your_secret_access_key'
+    )
+
+    # Assert that the invoke method was called with correct arguments
+    mock_invoke.assert_called_once_with(
+        FunctionName='ProductionZipSystemLambda',
+        InvocationType='Event'
+    )
