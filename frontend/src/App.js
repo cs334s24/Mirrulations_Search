@@ -8,7 +8,7 @@ import DocketList from "./components/DocketList";
 function App() {
  const [dockets, setDockets] = useState(); // Initialize docket state to false
  const [email, setEmail] = useState();
- 
+
  const handleOnClick = async (term) => {
   try {
    // This will display a message if the search term is invalid or no results are found
@@ -17,7 +17,7 @@ function App() {
     alert("Please enter a valid search term.");
     return;
    } else {
-    const data = await getDummyData(term);
+    const data = await fetchDockets(term);
     if (data.data.dockets.length === 0) {
      alert("No results found for: '" + term + "'");
      return;
