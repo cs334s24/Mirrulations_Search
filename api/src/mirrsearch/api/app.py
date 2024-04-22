@@ -3,6 +3,7 @@
 Create barebones Flask app
 """
 
+import json
 import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -27,8 +28,14 @@ def create_app(query_manager):
 
     @app.route('/zip_data')
     def zip_data():
+        email = request.args.get('email')
+        docket_id = request.args.get('docketID')
+
+        if email is None or docket_id is None:
+            return jsonify({"error": "Email and docketID are required parameters."}), 400
+
         data = {"message": "The email to download your data will be sent shortly", "status": 200}
-        trigger_lambda()
+        trigger_lambda(email, docket_id)
         return jsonify(data)
 
     @app.route('/search')
@@ -122,7 +129,7 @@ def create_app(query_manager):
 
     return app
 
-def trigger_lambda():
+def trigger_lambda(email, docket_id):
     """
     Trigger the Lambda function to zip the data
     """
@@ -132,9 +139,15 @@ def trigger_lambda():
     client = boto3.client('lambda',region_name='us-east-1',aws_access_key_id=aws_access_key_id,
                           aws_secret_access_key=aws_secret_access_key)
 
+    payload = {
+        "email": email,
+        "docket_id": docket_id
+    }
+
     client.invoke(
         FunctionName='ProductionZipSystemLambda',
-        InvocationType='Event'
+        InvocationType='Event',
+        Payload=json.dumps(payload)
     )
 
 def launch(database):
