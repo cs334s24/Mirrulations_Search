@@ -1,6 +1,7 @@
 """
 Module for managing queries to the database
 """
+import operator
 from mirrsearch.api.database_manager import DatabaseManager
 
 class QueryManager:
@@ -11,7 +12,7 @@ class QueryManager:
     def __init__(self, database_manager: DatabaseManager):
         self._manager = database_manager
 
-    def search_dockets(self, search_term):
+    def search_dockets(self, search_term, page):
         """
         Function that searches the dockets collection in the database
         for a given search term
@@ -37,28 +38,28 @@ class MongoQueryManager(QueryManager):
     Class for managing queries to a MongoDB database
     """
 
-    def search_dockets(self, search_term):
+    _dockets_cursor = None
+
+    def search_dockets(self, search_term, page):
         """
         Function that searches the dockets collection in the database
         for a given search term
         """
-        response = {'data': {'search_term': search_term, 'dockets': []}}
+        dockets = []
         search = self._manager.search_dockets(search_term)
-        for doc in search:
+        self._dockets_cursor = search
+        for doc in self._dockets_cursor[page*10-10:page*10]:
             doc_id = doc['id']
             number_of_comments, comments_containing = self._manager.get_comment_count(
                 search_term, doc_id)
             number_of_documents, documents_containing = self._manager.get_document_count(
                 search_term, doc_id)
-            date_modified = doc['attributes']['modifyDate']
-            date_modified = date_modified.split('T')[0]
-            date_modified = date_modified.replace('-', '/')
             start_date, end_date =  self._manager.comments_date_range(doc_id)
             if start_date is None:
                 comment_date_range = "No comments"
             else:
                 comment_date_range = f"{start_date} - {end_date}"
-            response['data']['dockets'].append({
+            dockets.append({
                 'title': doc['attributes']['title'],
                 'id': doc_id,
                 'link': "https://www.regulations.gov/docket/" +  doc_id,
@@ -68,9 +69,32 @@ class MongoQueryManager(QueryManager):
                 'comments_containing': comments_containing,
                 'docket_type': doc['attributes']['docketType'],
                 'docket_agency': doc['attributes']['agencyId'],
-                'date_range': date_modified,
                 'comment_date_range': comment_date_range,
             })
+        dockets.sort(key=operator.itemgetter('documents_containing', 'comments_containing'),
+                     reverse=True)
+        response = {'data': {'search_term': search_term, 'dockets': dockets}}
+        response['meta'] = self.get_meta_data(search_term, page)
+
+        return response
+
+    def get_meta_data(self, search_term, page):
+        """
+        Function that returns the metadata for the search results
+        """
+        response = {'links': {}}
+
+        total_results = len(list(self._dockets_cursor))
+        response['total_results'] = total_results
+        response['links']['current'] = f'api/search_dockets?{search_term}&page={page}'
+        if page > 1:
+            response['links']['prev'] = f'api/search_dockets?{search_term}&page={page-1}'
+        if page <= total_results//10:
+            response['links']['next'] = f'api/search_dockets?{search_term}&page={page+1}'
+        response['links']['first'] = f'api/search_dockets?{search_term}&page=1'
+        last_link = f'api/search_dockets?{search_term}&page={total_results//10+1}'
+        response['links']['last'] = last_link
+
         return response
 
     def search_documents(self, search_term, docket_id):
