@@ -11,6 +11,11 @@ const Button = () => {
   zipFiles();
  };
 
+ const loadOtherDocket = () => {
+  window.location.reload();
+  setClicked(true);
+ };
+
  return (
   <div>
    <button
@@ -24,6 +29,9 @@ const Button = () => {
     }
     disabled={clicked}>
     {!clicked ? "Download" : "Downloaded"}
+   </button>
+   <button className="load-docket-button" onClick={loadOtherDocket}>
+    Load Other Docket
    </button>
   </div>
  );
