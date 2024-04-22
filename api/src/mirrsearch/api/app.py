@@ -139,7 +139,7 @@ def trigger_lambda(email, docket_id):
     client = boto3.client('lambda',region_name='us-east-1',aws_access_key_id=aws_access_key_id,
                           aws_secret_access_key=aws_secret_access_key)
 
-    payload = {
+    data = {
         "email": email,
         "docket_id": docket_id
     }
@@ -147,7 +147,7 @@ def trigger_lambda(email, docket_id):
     client.invoke(
         FunctionName='ZipSystemLambda',
         InvocationType='Event',
-        Payload=json.dumps(payload)
+        Payload=json.dumps(data)
     )
 
 def launch(database):
