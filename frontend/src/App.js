@@ -13,7 +13,6 @@ function App() {
 
  const [totalResults, setTotalResults] = useState(0);
 
-
  const handleOnClick = async (term) => {
   try {
    // This will display a message if the search term is invalid or no results are found
@@ -29,7 +28,7 @@ function App() {
      return;
     } else {
      setDockets(data.data.dockets);
-     setValidTerm(true)
+     setValidTerm(true);
      setTotalResults(data.meta.total_results);
     }
    }
