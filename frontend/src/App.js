@@ -37,6 +37,11 @@ function App() {
   setEmail(event.target.value);
  };
 
+ const loadOtherDocket = () => {
+  //fetch more dockets from the API
+  console.log("Loading other docket");
+ };
+
  return (
   <div className="App">
    <input
@@ -54,6 +59,12 @@ function App() {
     {dockets && <DocketList dockets={dockets} />}{" "}
     {/* Render SearchResultsList only if dockets is true */}
    </div>
+   <div></div>
+   {dockets && dockets.length > 0 && (
+    <button className="load-docket-button" onClick={loadOtherDocket}>
+     Load Other Docket
+    </button>
+   )}
   </div>
  );
 }
