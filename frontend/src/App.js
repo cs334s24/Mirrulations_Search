@@ -7,6 +7,9 @@ import DocketList from "./components/DocketList";
 
 function App() {
  const [dockets, setDockets] = useState(); // Initialize docket state to false
+ const [email, setEmail] = useState();
+ const [totalResults, setTotalResults] = useState(0);
+
  const handleOnClick = async (term) => {
   try {
    // This will display a message if the search term is invalid or no results are found
@@ -16,11 +19,13 @@ function App() {
     return;
    } else {
     const data = await fetchDockets(term);
+
     if (data.data.dockets.length === 0) {
      alert("No results found for: '" + term + "'");
      return;
     } else {
      setDockets(data.data.dockets);
+     setTotalResults(data.meta.total_results);
     }
    }
   } catch (error) {
@@ -28,13 +33,24 @@ function App() {
   }
  };
 
+ const handleInputChange = async (event) => {
+  setEmail(event.target.value);
+ };
+
  return (
   <div className="App">
+   <input
+    type="text"
+    value={email}
+    onChange={handleInputChange}
+    placeholder="Enter Email"
+    className="search-input" // Add the search-input class
+   />
    <h1>Mirrulations Search</h1>
    <div>
     <SearchBar handleOnClick={handleOnClick} />
     {/* list total number of dockets found for the term */}
-    {dockets && <h2>{dockets.length} Results Found</h2>}
+    {totalResults > 0 && <h2>{totalResults} Results Found</h2>}
     {dockets && <DocketList dockets={dockets} />}{" "}
     {/* Render SearchResultsList only if dockets is true */}
    </div>

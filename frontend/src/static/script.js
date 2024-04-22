@@ -19,11 +19,10 @@ export const zipFiles = async () => {
  try {
   const search = URL + `api/zip_data`;
   const response = await fetch(search);
+
   const data = await response.json();
   return data;
  } catch (error) {
   console.error("Error calling the endpoint:", error);
  }
 };
-
-// export default [getDummyData, getDummyDataDemo];

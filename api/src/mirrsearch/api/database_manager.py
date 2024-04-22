@@ -68,11 +68,28 @@ class MongoManager(DatabaseManager):
         db = client.get_database('mirrsearch')
         dockets = db.get_collection('docket')
 
-        query = dockets.find({'attributes.title': {'$regex': f'{search_term}'}})
+        docket_ids = set()
+
+        query = dockets.find({'attributes.title': {'$regex': f'{search_term}', '$options': 'i'}})
 
         results = []
         for doc in query:
             results.append(doc) # pragma: no cover
+            docket_ids.add(doc['id'])
+
+        documents = db.get_collection('documents')
+        query = documents.find({'data': {'$regex': f'{search_term}', '$options': 'i'}})
+        for doc in query:
+            if doc['id'] not in docket_ids: # pragma: no cover
+                docket_ids.add(doc['id'])
+                results.append(dockets.find_one({'id': doc['id']}))
+
+        comments = db.get_collection('comments')
+        query = comments.find({'attributes.comment': {'$regex': f'{search_term}', '$options': 'i'}})
+        for doc in query:
+            if doc['attributes']['docketId'] not in docket_ids: # pragma: no cover
+                docket_ids.add(doc['attributes']['docketId'])
+                results.append(dockets.find_one({'id': doc['attributes']['docketId']}))
 
         return results
 
