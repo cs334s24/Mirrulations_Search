@@ -27,7 +27,7 @@ const Docket = ({
       </p>
      </div>
      <div className="h-col2">
-      <Button />
+      <Button id={id} />
      </div>
     </div>
     <div className="h-row2">
