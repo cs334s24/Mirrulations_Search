@@ -133,7 +133,7 @@ def trigger_lambda():
                           aws_secret_access_key=aws_secret_access_key)
 
     client.invoke(
-        FunctionName='ProductionZipSystemLambda',
+        FunctionName='ZipSystemLambda',
         InvocationType='Event'
     )
 
