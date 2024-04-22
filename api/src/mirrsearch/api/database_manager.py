@@ -68,11 +68,28 @@ class MongoManager(DatabaseManager):
         db = client.get_database('mirrsearch')
         dockets = db.get_collection('docket')
 
-        query = dockets.find({'attributes.title': {'$regex': f'{search_term}'}})
+        docket_ids = set()
+
+        query = dockets.find({'attributes.title': {'$regex': f'{search_term}', '$options': 'i'}})
 
         results = []
         for doc in query:
             results.append(doc) # pragma: no cover
+            docket_ids.add(doc['id'])
+
+        documents = db.get_collection('documents')
+        query = documents.find({'data': {'$regex': f'{search_term}', '$options': 'i'}})
+        for doc in query:
+            if doc['id'] not in docket_ids: # pragma: no cover
+                docket_ids.add(doc['id'])
+                results.append(dockets.find_one({'id': doc['id']}))
+
+        comments = db.get_collection('comments')
+        query = comments.find({'attributes.comment': {'$regex': f'{search_term}', '$options': 'i'}})
+        for doc in query:
+            if doc['attributes']['docketId'] not in docket_ids: # pragma: no cover
+                docket_ids.add(doc['attributes']['docketId'])
+                results.append(dockets.find_one({'id': doc['attributes']['docketId']}))
 
         return results
 
@@ -112,7 +129,7 @@ class MongoManager(DatabaseManager):
 
         return results
 
-    def get_comment_count(self, docket_id, search_term):
+    def get_comment_count(self, search_term, docket_id):
         """ Returns the total number of comments and the number of comments with the search term"""
         client = self.get_instance()
         db = client.get_database('mirrsearch')
@@ -123,7 +140,7 @@ class MongoManager(DatabaseManager):
         total_terms = comments.count_documents({'$and': [ {'attributes.docketId':
                                                 {'$regex': f'{docket_id}'}},
                                                 {'attributes.comment':
-                                                 {'$regex': f'{search_term}'}}]})
+                                                 {'$regex': f'{search_term}', '$options': 'i'}}]})
 
         return total_comments, total_terms
 
@@ -136,12 +153,13 @@ class MongoManager(DatabaseManager):
         db = client.get_database('mirrsearch')
         documents = db.get_collection('documents')
 
-        total_comments = documents.count_documents({'attributes.docketId':
+        total_documents = documents.count_documents({'attributes.docketId':
                                                    {'$regex': f'{docket_id}'}})
         total_terms = documents.count_documents({'$and': [ {'id': {'$regex': f'{docket_id}'}},
-                                                     {'data': {'$regex': f'{search_term}'}}]})
+                                                     {'data': {'$regex': f'{search_term}',
+                                                               '$options': 'i'}}]})
 
-        return total_comments, total_terms
+        return total_documents, total_terms
 
     def comments_date_range(self, docket_id):
         """ Finds earliest and latest comments for a docket """
@@ -155,13 +173,13 @@ class MongoManager(DatabaseManager):
         end_date = list(comments.find({ "attributes.docketId" :
                                   {'$regex': f'{docket_id}'} }).sort({ "attributes.postedDate" :
                                                                       -1 }).limit(1))
-        if len(start_date) != 0 or len(end_date) != 0:
-            start_date = start_date[0]['attributes']['postedDate']
-            start_date = start_date.split('T')[0]
-            end_date = end_date[0]['attributes']['postedDate']
-            end_date = end_date.split('T')[0]
-            return start_date.replace('-', '/'), end_date.replace('-', '/')
-        return None, None
+        if len(start_date) == 0 or len(end_date) == 0:
+            return None, None
+        start_date = start_date[0]['attributes']['postedDate']
+        start_date = start_date.split('T')[0]
+        end_date = end_date[0]['attributes']['postedDate']
+        end_date = end_date.split('T')[0]
+        return start_date.replace('-', '/'), end_date.replace('-', '/')
 
     @staticmethod
     def get_instance():
