@@ -140,7 +140,7 @@ class MongoManager(DatabaseManager):
         total_terms = comments.count_documents({'$and': [ {'attributes.docketId':
                                                 {'$regex': f'{docket_id}'}},
                                                 {'attributes.comment':
-                                                 {'$regex': f'{search_term}'}}]})
+                                                 {'$regex': f'{search_term}', '$options': 'i'}}]})
 
         return total_comments, total_terms
 
@@ -156,7 +156,8 @@ class MongoManager(DatabaseManager):
         total_documents = documents.count_documents({'attributes.docketId':
                                                    {'$regex': f'{docket_id}'}})
         total_terms = documents.count_documents({'$and': [ {'id': {'$regex': f'{docket_id}'}},
-                                                     {'data': {'$regex': f'{search_term}'}}]})
+                                                     {'data': {'$regex': f'{search_term}',
+                                                               '$options': 'i'}}]})
 
         return total_documents, total_terms
 
