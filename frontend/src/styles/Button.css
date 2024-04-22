@@ -10,3 +10,9 @@
 button:hover {
  background-color: #45a049;
 }
+
+.load-docket-button {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
