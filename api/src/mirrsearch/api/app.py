@@ -145,7 +145,7 @@ def trigger_lambda(email, docket_id):
     }
 
     client.invoke(
-        FunctionName='ProductionZipSystemLambda',
+        FunctionName='ZipSystemLambda',
         InvocationType='Event',
         Payload=json.dumps(payload)
     )
