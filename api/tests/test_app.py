@@ -218,7 +218,7 @@ def test_trigger_lambda(mock_boto3_client, mock_env_variables): # pylint: disabl
     Test case for the trigger_lambda function.
 
     This test case verifies that the trigger_lambda function correctly invokes the
-    ProductionZipSystemLambda function with the correct arguments.
+    ZipSystemLambda function with the correct arguments.
 
     Args:
         mock_boto3_client: A MagicMock object representing the mocked boto3 client.
@@ -244,7 +244,7 @@ def test_trigger_lambda(mock_boto3_client, mock_env_variables): # pylint: disabl
 
     # Assert that the invoke method was called with correct arguments
     mock_invoke.assert_called_once_with(
-        FunctionName='ProductionZipSystemLambda',
+        FunctionName='ZipSystemLambda',
         InvocationType='Event',
         Payload=json.dumps({
             "email": 'fake_email',
