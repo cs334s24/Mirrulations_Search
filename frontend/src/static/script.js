@@ -15,11 +15,10 @@ export const fetchDockets = async (searchTerm) => {
  }
 };
 
-export const zipFiles = async () => {
+export const zipFiles = async (email, docketID) => {
  try {
-  const search = URL + `api/zip_data`;
+  const search = URL + `api/zip_data?to_email=${email}&docket_id=${docketID}`;
   const response = await fetch(search);
-
   const data = await response.json();
   return data;
  } catch (error) {

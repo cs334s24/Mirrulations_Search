@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
-import "../styles/Button.css";
+import "../styles/ZipButton.css";
 import {zipFiles} from "../static/script";
 
-const Button = ({id}) => {
+const ZipButton = ({email, id}) => {
  const [clicked, setClicked] = useState(false);
 
  useEffect(() => {
@@ -12,7 +12,7 @@ const Button = ({id}) => {
  const handleClick = () => {
   alert(`An email containing a downloadable version of the docket has been sent`);
   setClicked(true);
-  zipFiles();
+  zipFiles(email, id);
  };
 
  return (
@@ -33,4 +33,4 @@ const Button = ({id}) => {
  );
 };
 
-export default Button;
+export default ZipButton;
