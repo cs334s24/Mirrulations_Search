@@ -74,8 +74,9 @@ class MongoQueryManager(QueryManager):
                 'docket_agency': doc['attributes']['agencyId'],
                 'comment_date_range': comment_date_range,
             })
-        dockets_list.sort(key=lambda doc: doc['comments_containing'] +
-                     doc['documents_containing'], reverse=True)
+        dockets_list.sort(key=lambda doc: (
+            doc['comments_containing'] + doc['documents_containing'],
+            doc['total_comments'] + doc['total_documents']), reverse=True)
         self._dockets_cursor = dockets_list
         for doc in self._dockets_cursor[page*10-10:page*10]:
             dockets.append(doc)
