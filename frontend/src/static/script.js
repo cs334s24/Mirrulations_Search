@@ -1,11 +1,11 @@
 const URL = window.location.href;
 
 // api.js
-export const fetchDockets = async (searchTerm) => {
+export const fetchDockets = async (searchTerm, page) => {
  try {
   const search =
    URL +
-   `api/search_dockets?term=${searchTerm.replaceAll("/", "").replaceAll("'", "").replaceAll('"', "")}`;
+   `api/search_dockets?term=${searchTerm.replaceAll("/", "").replaceAll("'", "").replaceAll('"', "")}&page=${page}`;
   const response = await fetch(search);
 
   const data = await response.json();
