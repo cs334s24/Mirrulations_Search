@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import "./App.css";
 // import {getDummyDataDemo} from "./static/script";
 import {fetchDockets} from "./static/script";
@@ -12,28 +12,30 @@ function App() {
  const [validTerm, setValidTerm] = useState(false);
 
  const [totalResults, setTotalResults] = useState(0);
- const [page, setPage] = useState(0);
+ const [page, setPage] = useState(1);
  const [term, setTerm] = useState("");
 
- const handleOnClick = async (term) => {
+ const handleOnClick = async (newTerm) => {
   try {
    // This will display a message if the search term is invalid or no results are found
    // It still has issues with some search terms such as ' ' (a single space)
-   setTerm(term);
-   if (!term) {
+
+   if (!newTerm) {
     alert("Please enter a valid search term.");
     return;
    } else {
-    const data = await fetchDockets(term, page);
-    setPage(page + 1);
+    const data = await fetchDockets(newTerm, page);
 
     if (data.data.dockets.length === 0) {
-     alert("No results found for: '" + term + "'");
+     alert("No results found for: '" + newTerm + "'");
      return;
     } else {
-     setDockets([...dockets, ...data.data.dockets]);
+     term === newTerm
+      ? setDockets([...dockets, ...data.data.dockets])
+      : setDockets([...data.data.dockets]);
      setValidTerm(true);
      setTotalResults(data.meta.total_results);
+     term !== newTerm ? setPage(page + 1) : setPage(1);
     }
    }
   } catch (error) {
@@ -56,7 +58,12 @@ function App() {
    /> */}
    <h1>Mirrulations Search</h1>
    <div>
-    <SearchBar handleOnClick={handleOnClick} />
+    <SearchBar
+     handleOnClick={handleOnClick}
+     setPage={setPage}
+     setDockets={setDockets}
+     setTerm={setTerm}
+    />
     <EmailVisibleInvisible isVisible={validTerm} handleInputChange={handleInputChange} />
     {/* list total number of dockets found for the term */}
     {totalResults > 0 && <h2>{totalResults} Results Found</h2>}
@@ -69,7 +76,7 @@ function App() {
      onClick={() => {
       handleOnClick(term);
      }}>
-     Load Other Docket
+     Show More Dockets
     </button>
    )}
   </div>
