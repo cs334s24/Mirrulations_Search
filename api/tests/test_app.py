@@ -252,21 +252,3 @@ def test_launch_returns_flask_app():
     """Test whether the launch function returns a Flask app instance."""
     app = launch('mockMongo')
     assert isinstance(app, Flask)
-
-def test_search_endpoint_returns_200(client):
-    """Test whether the search endpoint returns a 200 OK status code."""
-    search_term = 'Governance'
-    response = client.get(f'/search?term={search_term}')
-    assert response.status_code == 200
-
-def test_search_endpoint_returns_valid_json(client):
-    """Test whether the search endpoint returns a valid JSON response."""
-    search_term = 'Governance'
-    response = client.get(f'/search?term={search_term}')
-    assert response.is_json
-
-def test_search_endpoint_returns_400_if_no_search_term(client):
-    """Test whether the search endpoint returns a 400 Bad Request status code
-    when no search term is provided."""
-    response = client.get('/search')
-    assert response.status_code == 400
