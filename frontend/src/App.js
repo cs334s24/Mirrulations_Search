@@ -15,11 +15,6 @@ function App() {
 
  const handleOnClick = async (term) => {
   try {
-   const data = await fetchDockets(term);
-   setDockets(data.data.dockets);
-  } catch (error) {
-   // show a message to the user that there was an error
-   alert("There was an error fetching the data. Please try again.");
    // This will display a message if the search term is invalid or no results are found
    // It still has issues with some search terms such as ' ' (a single space)
    if (!term) {
@@ -37,6 +32,8 @@ function App() {
      setTotalResults(data.meta.total_results);
     }
    }
+  } catch (error) {
+   console.log(error);
   }
  };
 
