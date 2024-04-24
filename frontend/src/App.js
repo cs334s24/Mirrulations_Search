@@ -59,7 +59,7 @@ function App() {
     {/* Render SearchResultsList only if dockets is true */}
    </div>
    <div></div>
-   {dockets && dockets.length > 0 && dockets.length < totalResults && (
+   {dockets && dockets.length > 0 && (
     <button
      onClick={() => {
       handleOnClick(term);
