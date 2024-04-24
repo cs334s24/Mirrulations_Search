@@ -55,6 +55,7 @@
 .h-row2 {
     display: flex;
     flex-direction: row;
+    font-weight: bold;
     width: 100%;
     height: inherit;
     text-align: left;
