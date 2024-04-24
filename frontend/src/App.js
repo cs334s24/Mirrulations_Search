@@ -14,31 +14,29 @@ function App() {
  const [totalResults, setTotalResults] = useState(0);
 
  const handleOnClick = async (term) => {
-  try {
-   const data = await fetchDockets(term);
-   setDockets(data.data.dockets);
-  } catch (error) {
-   // show a message to the user that there was an error
-   alert("There was an error fetching the data. Please try again.");
-   // This will display a message if the search term is invalid or no results are found
-   // It still has issues with some search terms such as ' ' (a single space)
-   if (!term) {
-    alert("Please enter a valid search term.");
-    return;
-   } else {
-    const data = await fetchDockets(term);
-
-    if (data.data.dockets.length === 0) {
-     alert("No results found for: '" + term + "'");
-     return;
-    } else {
-     setDockets(data.data.dockets);
-     setValidTerm(true);
-     setTotalResults(data.meta.total_results);
+    try {
+     // This will display a message if the search term is invalid or no results are found
+     // It still has issues with some search terms such as ' ' (a single space)
+     if (!term) {
+      alert("Please enter a valid search term.");
+      return;
+     } else {
+      const data = await fetchDockets(term);
+  
+      if (data.data.dockets.length === 0) {
+       alert("No results found for: '" + term + "'");
+       return;
+      } else {
+       setDockets(data.data.dockets);
+       setValidTerm(true);
+       setTotalResults(data.meta.total_results);
+      }
+     }
+    } catch (error) {
+     console.log(error);
     }
-   }
-  }
- };
+   };
+  
 
  const handleInputChange = async (event) => {
   setEmail(event.target.value);
