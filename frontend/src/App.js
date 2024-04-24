@@ -60,7 +60,7 @@ function App() {
     <EmailVisibleInvisible isVisible={validTerm} handleInputChange={handleInputChange} />
     {/* list total number of dockets found for the term */}
     {totalResults > 0 && <h2>{totalResults} Results Found</h2>}
-    {dockets && <DocketList dockets={dockets} />}{" "}
+    {dockets && <DocketList dockets={dockets} email={email} />}{" "}
     {/* Render SearchResultsList only if dockets is true */}
    </div>
    <div></div>
@@ -75,5 +75,4 @@ function App() {
   </div>
  );
 }
-
 export default App;
