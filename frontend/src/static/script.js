@@ -17,7 +17,7 @@ export const fetchDockets = async (searchTerm, page) => {
 
 export const zipFiles = async (email, docketID) => {
  try {
-  const search = URL + `api/zip_data?to_email=${email}&docket_id=${docketID}`;
+  const search = URL + `api/zip_data?email=${email}&docketID=${docketID}`;
   const response = await fetch(search);
   const data = await response.json();
   return data;
