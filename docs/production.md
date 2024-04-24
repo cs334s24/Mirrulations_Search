@@ -39,17 +39,17 @@ python3 s3_to_mongo_db.py reset
 
 * Build docker container
 ```
-sudo docker-compose build
+docker-compose build
 ```
 
 * Run docker container
 ```
-sudo docker-compose up -d
+docker-compose up -d
 ```
 
 * Bring the conatiner down
 ```
-sudo docker-compose down
+docker-compose down
 ```
 
 ### Setup Certbot Certificates in Production
@@ -86,4 +86,21 @@ in the root directory of the project for more detail.
 * Run this command in the production instance
 ```
 sudo chmod +x /usr/local/bin/docker-compose
+```
+
+### Clean Docker Environment
+
+* Run this command in the production instance
+```
+docker system prune -a
+```
+
+This command is useful for clearing up disc space. 
+It will remove all stopped conatiners, all unused networks, 
+all images without a container associated to them and 
+the build cache. 
+
+* To display the amount of available disc space
+```
+df -h
 ```
