@@ -1,54 +1,5 @@
 # API Documentation
 
-
-## /search
-### Description
-The name for this API endpoint is `/search`. This endpoint uses the other three endpoints below to query their respective collections. 
-
-### Calling the Endpoint
-`/search?term=SEARCH_PARAMETER`
-To call this endpoint, make a request using the example above. When replacing the `term` to be searched, it is important to point out that all search terms are **case sensitive**. 
-
-#### Parameters
-`term` - String that contains the search term the user wishes to query.
-
-### Endpoint Return
-* `200`<br>
-```
-{
-  "data": {
-    "search_term": "string",
-    "dockets": [
-      {
-        "comment_date_range": "string",
-        "comments_containing": "int,
-        "date_range": "string",
-        "docket_type": "string",
-        "documents_containing": "int",
-        "id": "string",
-        "link": "string",
-        "title": "string",
-        "total_comments": "int",
-        "total_documents": "int"
-      }
-    ]
-  }
-}
-```
-
-* 400
-```
-{
-    "error": {
-        "code": "integer",
-        "message": "string"
-    }
-}
-```
-The response above will be returned for every API call with a 400 status code. If the caller does not provide a search term, the server will return a 400 error because the term was not found.
-
-# ANYTHING BELOW THIS MAY BE OUTDATED
-
 ## /search_dockets
 ### Description
 The name for this API endpoint will be `/search_dockets`. This endpoint will be used to search our database for dockets that contain the specified term and will return all dockets that contain it. Within the dockets, specific comments and documents that contain that term will also be specified. 
@@ -67,16 +18,29 @@ All API calls will return a JSON response type that contains each docket that ha
 ```
 {
   "data": {
-    "search_term": "string",
     "dockets": [
       {
-        "title": "string",
+        "comment_date_range": "string",
+        "comments_containing": "integer",
+        "docket_agency": "string",
+        "docket_type": "string",
+        "documents_containing": "integer",
         "id": "string",
         "link": "string",
-        "number_of_comments": "int",
-        "number_of_documents": "int"
-      }
+        "title": "string",
+        "total_comments": "integer",
+        "total_documents": "integer"
+      },
     ]
+  },
+  "meta": {
+    "links": {
+      "current": "string",
+      "first": "string",
+      "last": "string",
+      "next": "string"
+    },
+    "total_results": "integer"
   }
 }
 ```
