@@ -4,10 +4,13 @@ import "./App.css";
 import {fetchDockets} from "./static/script";
 import SearchBar from "./components/SearchBar";
 import DocketList from "./components/DocketList";
+import EmailVisibleInvisible from "./components/emailVisibleInvisible";
 
 function App() {
  const [dockets, setDockets] = useState(); // Initialize docket state to false
  const [email, setEmail] = useState();
+ const [validTerm, setValidTerm] = useState(false);
+
  const [totalResults, setTotalResults] = useState(0);
 
  const handleOnClick = async (term) => {
@@ -25,6 +28,7 @@ function App() {
      return;
     } else {
      setDockets(data.data.dockets);
+     setValidTerm(true);
      setTotalResults(data.meta.total_results);
     }
    }
@@ -39,23 +43,23 @@ function App() {
 
  return (
   <div className="App">
-   <input
+   {/* <input
     type="text"
     value={email}
     onChange={handleInputChange}
     placeholder="Enter Email"
     className="search-input" // Add the search-input class
-   />
+   /> */}
    <h1>Mirrulations Search</h1>
    <div>
     <SearchBar handleOnClick={handleOnClick} />
+    <EmailVisibleInvisible isVisible={validTerm} handleInputChange={handleInputChange} />
     {/* list total number of dockets found for the term */}
     {totalResults > 0 && <h2>{totalResults} Results Found</h2>}
-    {dockets && <DocketList dockets={dockets} />}{" "}
+    {dockets && <DocketList dockets={dockets} email={email} />}{" "}
     {/* Render SearchResultsList only if dockets is true */}
    </div>
   </div>
  );
 }
-
 export default App;
