@@ -1,9 +1,10 @@
 import React from "react";
 import "../styles/Docket.css"; // Import the CSS file
-import Button from "./Button";
+import ZipButton from "./ZipButton";
 
 const Docket = ({
  title,
+ email,
  id,
  link,
  docket_type,
@@ -27,7 +28,7 @@ const Docket = ({
       </p>
      </div>
      <div className="h-col2">
-      <Button />
+      <ZipButton email={email} id={id} />
      </div>
     </div>
     <div className="h-row2">

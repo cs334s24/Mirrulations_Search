@@ -1,7 +1,7 @@
 import React from "react";
 import Docket from "./Docket"; // Assuming SearchResult.js is in the same directory
 
-const DocketList = ({dockets}) => {
+const DocketList = ({dockets, email}) => {
  // Sample data for demonstration
 
  return (
@@ -9,6 +9,7 @@ const DocketList = ({dockets}) => {
    {dockets.map((docket, index) => (
     <Docket
      key={index}
+     email={email}
      title={docket.title}
      id={docket.id}
      link={docket.link}

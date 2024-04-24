@@ -1,4 +1,4 @@
-## Kickoff Webapp
+## Mirrulations Search
 
 ### Contributors: 
 
@@ -30,36 +30,36 @@ Characteristics of the Repo:
    * All students have a fork
 * Setup process is documented in `README.md`
 * CI runs on PR creation/update
-  * `pytest`
-  * linting
+  * `pytest` and `jest`
+  * linting (both Python and JavaScript)
 * CD runs on PR merge
   * deploy script runs on AWS instance
-* `requirements.txt` contains the python libraries needed
+* `setup.cfg` contains the python libraries needed
 * database access is encapsulated (pushed to the periphery)
 * `src` and `tests` folders, module for app
 
 Application:
 
-We are going to make a basic system to query a document database
-and give back results
+We have established a system in which a front-end React-based search utility utilizes a Flask API and gives back results from a Mongo database.
 
-![system](https://i.ibb.co/ccmj6YK/52c0e1d0a08f.png)  
+![system](https://i.ibb.co/grvd3Y2/architecture.png)
 
-* Web interface: search bar that queries server and displays results
-* Document DB as the backend
+* Mongo DB as the backend
 * Flask server
 * Gunicorn
 * NGINX
-* Dockerized
-
-![detailed system](https://i.ibb.co/X5svbqF/28e27cd1280e.png)
+* Dockerized via Docker-Compose
+* React frontend for querying API results
+* AWS Lambda
+* AWS Secrets Manager
+* AWS S3
+* Amazon Opensearch
 
 ## Makefile:
-Use the command `make` to run the Makefile. The Makefile will call pytest and pylint
+Use the command `make` to run the Makefile. The Makefile will call pytest, pylint, jest, and eslint
 to test and lint the system.  
 
-## Docker Commands:
-To run the dockerized version of the system utilizing Node.js:
+## Launching the System Locally:
+Launching the system involves a number of steps to be followed before the utility is usable.
 
-* Run `docker-compose build`
-* Run `docker-compose up`
+To do this, visit `docs/development.md` for a detailed walkthrough.
