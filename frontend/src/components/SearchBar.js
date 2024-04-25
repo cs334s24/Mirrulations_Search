@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import "../styles/SearchBar.css";
 
-const SearchBar = ({handleOnClick}) => {
+const SearchBar = ({handleOnClick, setPage, setDockets, setTerm}) => {
  const [query, setQuery] = useState("");
 
  const handleInputChange = (event) => {
@@ -9,6 +9,7 @@ const SearchBar = ({handleOnClick}) => {
  };
 
  const handleSearch = () => {
+  setTerm(query);
   handleOnClick(query);
  };
 
