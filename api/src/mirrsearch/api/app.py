@@ -3,6 +3,7 @@
 Create barebones Flask app
 """
 
+import json
 import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -27,25 +28,15 @@ def create_app(query_manager):
 
     @app.route('/zip_data')
     def zip_data():
+        email = request.args.get('email')
+        docket_id = request.args.get('docketID')
+
+        if email is None or docket_id is None:
+            return jsonify({"error": "Email and docketID are required parameters."}), 400
+
         data = {"message": "The email to download your data will be sent shortly", "status": 200}
-        trigger_lambda()
+        trigger_lambda(email, docket_id)
         return jsonify(data)
-
-    @app.route('/search')
-    def search():
-        # Obtains the search term
-        search_term = request.args.get('term')
-        response = {}
-
-        # If a search term is not provided, the server will return this JSON and a 400 status code
-        if not search_term:
-            response = {}
-            response['error'] = {'code': 400,
-                                 'message': 'Error: You must provide a term to be searched'}
-            return jsonify(response), 400
-
-        response['data'] = {"search_term": search_term, "status": 200}
-        return jsonify(response)
 
     @app.route('/search_dockets')
     def search_dockets():
@@ -122,7 +113,7 @@ def create_app(query_manager):
 
     return app
 
-def trigger_lambda():
+def trigger_lambda(email, docket_id):
     """
     Trigger the Lambda function to zip the data
     """
@@ -132,9 +123,15 @@ def trigger_lambda():
     client = boto3.client('lambda',region_name='us-east-1',aws_access_key_id=aws_access_key_id,
                           aws_secret_access_key=aws_secret_access_key)
 
+    data = {
+        "email": email,
+        "docket_id": docket_id
+    }
+
     client.invoke(
         FunctionName='ZipSystemLambda',
-        InvocationType='Event'
+        InvocationType='Event',
+        Payload=json.dumps(data)
     )
 
 def launch(database):
