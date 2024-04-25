@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import "../styles/ZipButton.css";
 import {zipFiles} from "../static/script";
 
@@ -6,6 +6,10 @@ import {zipFiles} from "../static/script";
 //the button then becomes gray and disabled
 const ZipButton = ({email, id}) => {
  const [clicked, setClicked] = useState(false);
+
+ useEffect(() => {
+  setClicked(false);
+ }, [id]);
 
  const handleClick = () => {
   alert(`An email containing a downloadable version of the docket has been sent`);

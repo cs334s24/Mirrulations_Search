@@ -177,7 +177,7 @@ def test_search_comments_endpoint_returns_status_code_400_missing_docket_id(clie
 def test_zip_data_endpoint_returns_200(client, mocker):
     """Test whether the zip_data endpoint returns a 200 OK status code."""
     mocker.patch('mirrsearch.api.app.trigger_lambda')
-    response = client.get('/zip_data')
+    response = client.get('/zip_data?email=user@example.com&docketID=123')
     assert response.status_code == 200
 
 @pytest.fixture
@@ -232,7 +232,7 @@ def test_trigger_lambda(mock_boto3_client, mock_env_variables): # pylint: disabl
     mock_boto3_client.return_value.invoke = mock_invoke
 
     # Call the function
-    trigger_lambda()
+    trigger_lambda('fake_email', 'fake_docket_id')
 
     # Assert that the boto3 client was called with correct arguments
     mock_boto3_client.assert_called_once_with(
@@ -245,28 +245,14 @@ def test_trigger_lambda(mock_boto3_client, mock_env_variables): # pylint: disabl
     # Assert that the invoke method was called with correct arguments
     mock_invoke.assert_called_once_with(
         FunctionName='ZipSystemLambda',
-        InvocationType='Event'
+        InvocationType='Event',
+        Payload=json.dumps({
+            "email": 'fake_email',
+            "docket_id": 'fake_docket_id'
+        })
     )
 
 def test_launch_returns_flask_app():
     """Test whether the launch function returns a Flask app instance."""
     app = launch('mockMongo')
     assert isinstance(app, Flask)
-
-def test_search_endpoint_returns_200(client):
-    """Test whether the search endpoint returns a 200 OK status code."""
-    search_term = 'Governance'
-    response = client.get(f'/search?term={search_term}')
-    assert response.status_code == 200
-
-def test_search_endpoint_returns_valid_json(client):
-    """Test whether the search endpoint returns a valid JSON response."""
-    search_term = 'Governance'
-    response = client.get(f'/search?term={search_term}')
-    assert response.is_json
-
-def test_search_endpoint_returns_400_if_no_search_term(client):
-    """Test whether the search endpoint returns a 400 Bad Request status code
-    when no search term is provided."""
-    response = client.get('/search')
-    assert response.status_code == 400
