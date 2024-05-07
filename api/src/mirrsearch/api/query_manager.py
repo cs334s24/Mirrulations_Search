@@ -1,7 +1,8 @@
+# pylint: disable=too-many-locals
+
 """
 Module for managing queries to the database
 """
-import operator
 from mirrsearch.api.database_manager import DatabaseManager
 
 class QueryManager:
@@ -45,10 +46,12 @@ class MongoQueryManager(QueryManager):
         Function that searches the dockets collection in the database
         for a given search term
         """
+        dockets_list = []
         dockets = []
         search = self._manager.search_dockets(search_term)
-        self._dockets_cursor = search
-        for doc in self._dockets_cursor[page*10-10:page*10]:
+        # self._dockets_cursor = search
+        # for doc in self._dockets_cursor[page*10-10:page*10]:
+        for doc in search:
             doc_id = doc['id']
             number_of_comments, comments_containing = self._manager.get_comment_count(
                 search_term, doc_id)
@@ -59,7 +62,7 @@ class MongoQueryManager(QueryManager):
                 comment_date_range = "No comments"
             else:
                 comment_date_range = f"{start_date} - {end_date}"
-            dockets.append({
+            dockets_list.append({
                 'title': doc['attributes']['title'],
                 'id': doc_id,
                 'link': "https://www.regulations.gov/docket/" +  doc_id,
@@ -71,8 +74,12 @@ class MongoQueryManager(QueryManager):
                 'docket_agency': doc['attributes']['agencyId'],
                 'comment_date_range': comment_date_range,
             })
-        dockets.sort(key=operator.itemgetter('documents_containing', 'comments_containing'),
-                     reverse=True)
+        dockets_list.sort(key=lambda doc: (
+            doc['comments_containing'] + doc['documents_containing'],
+            doc['total_comments'] + doc['total_documents']), reverse=True)
+        self._dockets_cursor = dockets_list
+        for doc in self._dockets_cursor[page*10-10:page*10]:
+            dockets.append(doc)
         response = {'data': {'search_term': search_term, 'dockets': dockets}}
         response['meta'] = self.get_meta_data(search_term, page)
 
